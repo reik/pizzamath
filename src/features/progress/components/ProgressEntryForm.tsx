@@ -42,8 +42,6 @@ export function ProgressEntryForm({ worksheetId, worksheetTitle, userId }: Progr
           <input
             id="score"
             type="number"
-            min={0}
-            max={100}
             {...register('score')}
             className={cn('w-full rounded-md border px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500', errors.score ? 'border-red-500' : 'border-gray-300')}
           />

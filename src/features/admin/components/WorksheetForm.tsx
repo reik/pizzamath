@@ -34,23 +34,23 @@ export function WorksheetForm({ defaultValues, onSubmit, isPending }: WorksheetF
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-        <input {...register('title')} className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.title ? 'border-red-500' : 'border-gray-300')} />
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+        <input id="title" {...register('title')} className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.title ? 'border-red-500' : 'border-gray-300')} />
         {errors.title && <p className="text-xs text-red-600 mt-0.5">{errors.title.message}</p>}
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-          <select {...register('categoryId')} className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.categoryId ? 'border-red-500' : 'border-gray-300')}>
+          <label htmlFor="categoryId" className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+          <select id="categoryId" {...register('categoryId')} className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.categoryId ? 'border-red-500' : 'border-gray-300')}>
             <option value="">Select…</option>
             {categories?.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
           {errors.categoryId && <p className="text-xs text-red-600 mt-0.5">{errors.categoryId.message}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Subcategory</label>
-          <select {...register('subcategoryId')} className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.subcategoryId ? 'border-red-500' : 'border-gray-300')}>
+          <label htmlFor="subcategoryId" className="block text-sm font-medium text-gray-700 mb-1">Subcategory</label>
+          <select id="subcategoryId" {...register('subcategoryId')} className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.subcategoryId ? 'border-red-500' : 'border-gray-300')}>
             <option value="">Select…</option>
             {subcategories.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
           </select>
@@ -60,16 +60,16 @@ export function WorksheetForm({ defaultValues, onSubmit, isPending }: WorksheetF
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Level</label>
-          <select {...register('level')} className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.level ? 'border-red-500' : 'border-gray-300')}>
+          <label htmlFor="level" className="block text-sm font-medium text-gray-700 mb-1">Level</label>
+          <select id="level" {...register('level')} className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.level ? 'border-red-500' : 'border-gray-300')}>
             <option value="">Select…</option>
             {(['Beginner', 'Intermediate', 'Advanced'] as const).map((l) => <option key={l} value={l}>{l}</option>)}
           </select>
           {errors.level && <p className="text-xs text-red-600 mt-0.5">{errors.level.message}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Grade (optional)</label>
-          <select {...register('schoolGrade')} className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm">
+          <label htmlFor="schoolGrade" className="block text-sm font-medium text-gray-700 mb-1">Grade (optional)</label>
+          <select id="schoolGrade" {...register('schoolGrade')} className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm">
             <option value="">—</option>
             {GRADES.map((g) => <option key={g} value={g}>{g}</option>)}
           </select>
@@ -77,20 +77,20 @@ export function WorksheetForm({ defaultValues, onSubmit, isPending }: WorksheetF
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Author</label>
-        <input {...register('author')} defaultValue="PizzaMath" className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.author ? 'border-red-500' : 'border-gray-300')} />
+        <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">Author</label>
+        <input id="author" {...register('author')} defaultValue="PizzaMath" className={cn('w-full rounded-md border px-3 py-2 text-sm', errors.author ? 'border-red-500' : 'border-gray-300')} />
         {errors.author && <p className="text-xs text-red-600 mt-0.5">{errors.author.message}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Worksheet Content</label>
-        <textarea {...register('content')} rows={8} className={cn('w-full rounded-md border px-3 py-2 text-sm font-mono resize-y', errors.content ? 'border-red-500' : 'border-gray-300')} />
+        <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">Worksheet Content</label>
+        <textarea id="content" {...register('content')} rows={8} className={cn('w-full rounded-md border px-3 py-2 text-sm font-mono resize-y', errors.content ? 'border-red-500' : 'border-gray-300')} />
         {errors.content && <p className="text-xs text-red-600 mt-0.5">{errors.content.message}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Answer Sheet</label>
-        <textarea {...register('answerContent')} rows={4} className={cn('w-full rounded-md border px-3 py-2 text-sm font-mono resize-y', errors.answerContent ? 'border-red-500' : 'border-gray-300')} />
+        <label htmlFor="answerContent" className="block text-sm font-medium text-gray-700 mb-1">Answer Sheet</label>
+        <textarea id="answerContent" {...register('answerContent')} rows={4} className={cn('w-full rounded-md border px-3 py-2 text-sm font-mono resize-y', errors.answerContent ? 'border-red-500' : 'border-gray-300')} />
         {errors.answerContent && <p className="text-xs text-red-600 mt-0.5">{errors.answerContent.message}</p>}
       </div>
 
