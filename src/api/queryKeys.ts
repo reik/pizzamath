@@ -15,4 +15,8 @@ export const queryKeys = {
   progress: {
     all: (userId: string) => ['progress', userId] as const,
   },
+  userUploads: {
+    all: (userId: string) => ['userUploads', userId] as const,
+    detail: (id: string) => ['userUploads', id] as const,
+  },
 } as const
