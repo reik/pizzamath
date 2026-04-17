@@ -3,8 +3,26 @@ import { v4 as uuid } from 'uuid'
 import { writeFileSync, unlinkSync, existsSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
+import { z } from 'zod'
 import { db, uploadToDto, type UploadRow } from '../db.js'
 import { requireAuth, type AuthRequest } from '../middleware/auth.js'
+
+const createUploadSchema = z.object({
+  userId: z.string().min(1),
+  title: z.string().min(1).max(200),
+  categoryId: z.string().min(1),
+  subcategoryId: z.string().min(1),
+  level: z.enum(['Beginner', 'Intermediate', 'Advanced']),
+  schoolGrade: z.string().nullable(),
+  content: z.string().min(1),
+  answerContent: z.string().min(1),
+  originalImageDataUrl: z.string().regex(/^data:image\/(jpeg|png|webp|gif);base64,/),
+})
+
+const updateUploadSchema = z.object({
+  content: z.string().min(1).optional(),
+  answerContent: z.string().min(1).optional(),
+})
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const UPLOADS_DIR = join(__dirname, '../../../uploads')
@@ -24,13 +42,10 @@ userUploadsRouter.get('/:id', requireAuth, (req, res) => {
 })
 
 userUploadsRouter.post('/', requireAuth, (req: AuthRequest, res) => {
-  const { userId, title, categoryId, subcategoryId, level, schoolGrade, content, answerContent, originalImageDataUrl } = req.body as {
-    userId: string; title: string; categoryId: string; subcategoryId: string
-    level: string; schoolGrade: string | null; content: string; answerContent: string
-    originalImageDataUrl: string
-  }
+  const parsed = createUploadSchema.safeParse(req.body)
+  if (!parsed.success) { res.status(400).json({ message: 'Invalid request', errors: parsed.error.flatten().fieldErrors }); return }
+  const { userId, title, categoryId, subcategoryId, level, schoolGrade, content, answerContent, originalImageDataUrl } = parsed.data
 
-  // Decode and save the base64 image
   const match = originalImageDataUrl.match(/^data:image\/(\w+);base64,(.+)$/)
   if (!match) { res.status(400).json({ message: 'Invalid image data' }); return }
   const [, ext, base64Data] = match
@@ -51,6 +66,20 @@ userUploadsRouter.post('/', requireAuth, (req: AuthRequest, res) => {
 
   const row = db.prepare('SELECT * FROM user_uploads WHERE id = ?').get(id) as UploadRow
   res.status(201).json(uploadToDto(row, '/uploads'))
+})
+
+userUploadsRouter.patch('/:id', requireAuth, (req, res) => {
+  const row = db.prepare('SELECT * FROM user_uploads WHERE id = ?').get(req.params.id) as UploadRow | undefined
+  if (!row) { res.status(404).json({ message: 'Not found' }); return }
+
+  const parsedPatch = updateUploadSchema.safeParse(req.body)
+  if (!parsedPatch.success) { res.status(400).json({ message: 'Invalid request', errors: parsedPatch.error.flatten().fieldErrors }); return }
+  const { content, answerContent } = parsedPatch.data
+  if (content !== undefined) db.prepare('UPDATE user_uploads SET content = ? WHERE id = ?').run(content, req.params.id)
+  if (answerContent !== undefined) db.prepare('UPDATE user_uploads SET answer_content = ? WHERE id = ?').run(answerContent, req.params.id)
+
+  const updated = db.prepare('SELECT * FROM user_uploads WHERE id = ?').get(req.params.id) as UploadRow
+  res.json(uploadToDto(updated, '/uploads'))
 })
 
 userUploadsRouter.delete('/:id', requireAuth, (req, res) => {
