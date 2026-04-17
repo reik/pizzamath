@@ -12,6 +12,8 @@ import { AccountPage } from './pages/AccountPage'
 import { UsageHistoryPage } from './pages/UsageHistoryPage'
 import { AdminPage } from './pages/admin/AdminPage'
 import { GeneratePage } from './pages/admin/GeneratePage'
+import { MyUploadsPage } from './pages/MyUploadsPage'
+import { UploadedWorksheetPage } from './pages/UploadedWorksheetPage'
 
 export const router = createBrowserRouter([
   // Public routes
@@ -34,6 +36,8 @@ export const router = createBrowserRouter([
               { path: '/worksheets/:id', element: <WorksheetPage /> },
               { path: '/account', element: <AccountPage /> },
               { path: '/history', element: <UsageHistoryPage /> },
+              { path: '/my-uploads', element: <MyUploadsPage /> },
+              { path: '/my-uploads/:id', element: <UploadedWorksheetPage /> },
             ],
           },
 
