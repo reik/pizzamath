@@ -6,10 +6,11 @@ export interface AuthRequest extends Request {
   userRole?: string
 }
 
-const JWT_SECRET = process.env.JWT_SECRET ?? 'dev-secret'
+const JWT_SECRET = process.env.JWT_SECRET
+if (!JWT_SECRET) throw new Error('JWT_SECRET environment variable is required')
 
 export function signToken(userId: string, role: string): string {
-  return jwt.sign({ userId, role }, JWT_SECRET, { expiresIn: '7d' })
+  return jwt.sign({ userId, role }, JWT_SECRET!, { expiresIn: '7d' })
 }
 
 export function requireAuth(req: AuthRequest, res: Response, next: NextFunction): void {
@@ -19,7 +20,7 @@ export function requireAuth(req: AuthRequest, res: Response, next: NextFunction)
     return
   }
   try {
-    const payload = jwt.verify(auth.slice(7), JWT_SECRET) as { userId: string; role: string }
+    const payload = jwt.verify(auth.slice(7), JWT_SECRET!) as { userId: string; role: string }
     req.userId = payload.userId
     req.userRole = payload.role
     next()

@@ -1,13 +1,32 @@
 import { Router } from 'express'
 import bcrypt from 'bcryptjs'
 import { v4 as uuid } from 'uuid'
+import { z } from 'zod'
 import { db, userToDto, type UserRow } from '../db.js'
 import { signToken, requireAuth, type AuthRequest } from '../middleware/auth.js'
 
 export const authRouter = Router()
 
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+})
+
+const registerSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  plan: z.enum(['monthly', 'annual']),
+})
+
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1),
+  newPassword: z.string().min(8),
+})
+
 authRouter.post('/login', (req, res) => {
-  const { email, password } = req.body as { email: string; password: string }
+  const parsed = loginSchema.safeParse(req.body)
+  if (!parsed.success) { res.status(400).json({ message: 'Invalid request', errors: parsed.error.flatten().fieldErrors }); return }
+  const { email, password } = parsed.data
   const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as UserRow | undefined
   if (!user || !bcrypt.compareSync(password, user.password_hash)) {
     res.status(401).json({ message: 'Invalid credentials' })
@@ -21,7 +40,9 @@ authRouter.post('/login', (req, res) => {
 })
 
 authRouter.post('/register', (req, res) => {
-  const { email, password, plan } = req.body as { email: string; password: string; plan: 'monthly' | 'annual' }
+  const parsed = registerSchema.safeParse(req.body)
+  if (!parsed.success) { res.status(400).json({ message: 'Invalid request', errors: parsed.error.flatten().fieldErrors }); return }
+  const { email, password, plan } = parsed.data
   const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email)
   if (existing) {
     res.status(409).json({ message: 'Email already registered' })
@@ -53,7 +74,9 @@ authRouter.get('/me', requireAuth, (req: AuthRequest, res) => {
 })
 
 authRouter.post('/change-password', requireAuth, (req: AuthRequest, res) => {
-  const { currentPassword, newPassword } = req.body as { currentPassword: string; newPassword: string }
+  const parsed = changePasswordSchema.safeParse(req.body)
+  if (!parsed.success) { res.status(400).json({ message: 'Invalid request', errors: parsed.error.flatten().fieldErrors }); return }
+  const { currentPassword, newPassword } = parsed.data
   const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.userId) as UserRow | undefined
   if (!user || !bcrypt.compareSync(currentPassword, user.password_hash)) {
     res.status(400).json({ message: 'Current password is incorrect' })
