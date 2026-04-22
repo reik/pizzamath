@@ -22,7 +22,7 @@ export function WorksheetCard({ worksheet, categoryName, subcategoryName }: Work
   return (
     <Link
       to={`/worksheets/${catSlug}/${subSlug}/${worksheet.id}`}
-      className="block rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
+      className="block rounded-xl border-2 border-gray-300 bg-white p-5 shadow hover:shadow-lg transition-shadow"
     >
       <div className="flex items-start justify-between gap-2">
         <h3 className="text-base font-semibold text-gray-900 leading-snug">{worksheet.title}</h3>
@@ -32,6 +32,7 @@ export function WorksheetCard({ worksheet, categoryName, subcategoryName }: Work
       </div>
       <div className="mt-2 flex flex-wrap gap-2 text-xs text-gray-500">
         {categoryName && <span className="rounded bg-orange-50 px-2 py-0.5 text-orange-700">{categoryName}</span>}
+        {subcategoryName && <span className="rounded bg-blue-50 px-2 py-0.5 text-blue-700">{subcategoryName}</span>}
         {worksheet.schoolGrade && <span>Grade {worksheet.schoolGrade}</span>}
         <span>by {worksheet.author}</span>
       </div>

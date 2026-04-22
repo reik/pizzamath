@@ -17,7 +17,7 @@ export function UploadedWorksheetCard({ upload, categoryName }: UploadedWorkshee
   return (
     <Link
       to={`/my-uploads/${upload.id}`}
-      className="block rounded-xl border border-orange-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
+      className="block rounded-xl border-2 border-orange-300 bg-white p-5 shadow hover:shadow-lg transition-shadow"
     >
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-1.5 min-w-0">
