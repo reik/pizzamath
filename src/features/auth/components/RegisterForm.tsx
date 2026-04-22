@@ -13,7 +13,7 @@ export function RegisterForm() {
   })
 
   return (
-    <form onSubmit={handleSubmit((data) => registerMutation.mutate(data))} className="space-y-4">
+    <form onSubmit={handleSubmit((data) => registerMutation.mutate(data))} className="space-y-4" noValidate>
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
         <input
