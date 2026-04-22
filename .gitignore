@@ -15,3 +15,8 @@ coverage
 # Optional: Ignore build artifacts
 build
 **/db.ts
+
+# Cypress artifacts
+cypress/downloads
+cypress/screenshots
+cypress/videos
