@@ -33,7 +33,9 @@ export const router = createBrowserRouter([
             element: <SubscriptionGuard />,
             children: [
               { path: '/', element: <BrowsePage /> },
-              { path: '/worksheets/:id', element: <WorksheetPage /> },
+              { path: '/browse/:categorySlug', element: <BrowsePage /> },
+              { path: '/browse/:categorySlug/:subcategorySlug', element: <BrowsePage /> },
+              { path: '/worksheets/:categorySlug/:subcategorySlug/:id', element: <WorksheetPage /> },
               { path: '/account', element: <AccountPage /> },
               { path: '/history', element: <UsageHistoryPage /> },
               { path: '/my-uploads', element: <MyUploadsPage /> },

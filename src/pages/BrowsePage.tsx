@@ -1,21 +1,35 @@
+import { useParams, useSearchParams } from 'react-router-dom'
 import { useWorksheets, useCategories, WorksheetCard } from '@/features/worksheets'
 import { useUserUploads, UploadedWorksheetCard } from '@/features/uploads'
 import { useAuthStore } from '@/features/auth/store'
-import { useFilterStore } from '@/stores/filterStore'
+import { slugify } from '@/utils/slugify'
 import type { UserUpload } from '@/types/userUpload'
 
 export function BrowsePage() {
-  const { data: worksheets, isLoading, error } = useWorksheets()
+  const { categorySlug, subcategorySlug } = useParams()
+  const [searchParams] = useSearchParams()
+  const keyword = searchParams.get('q') ?? undefined
+
   const { data: categories } = useCategories()
+  const selectedCategory = categories?.find((c) => slugify(c.name) === categorySlug)
+  const selectedSubcategory = selectedCategory?.subcategories.find(
+    (s) => slugify(s.name) === subcategorySlug,
+  )
+  const categoryId = selectedCategory?.id
+  const subcategoryId = selectedSubcategory?.id
+
+  const { data: worksheets, isLoading, error } = useWorksheets({ categoryId, subcategoryId, keyword })
   const user = useAuthStore((s) => s.user)
-  const { selectedCategoryId, selectedSubcategoryId, keyword } = useFilterStore()
   const { data: allUploads } = useUserUploads(user?.id ?? '')
 
   const categoryMap = Object.fromEntries(categories?.map((c) => [c.id, c.name]) ?? [])
+  const subcategoryMap = Object.fromEntries(
+    categories?.flatMap((c) => c.subcategories.map((s) => [s.id, s.name])) ?? [],
+  )
 
   const filteredUploads = (allUploads ?? []).filter((u: UserUpload) => {
-    if (selectedCategoryId && u.categoryId !== selectedCategoryId) return false
-    if (selectedSubcategoryId && u.subcategoryId !== selectedSubcategoryId) return false
+    if (categoryId && u.categoryId !== categoryId) return false
+    if (subcategoryId && u.subcategoryId !== subcategoryId) return false
     if (keyword) {
       const kw = keyword.toLowerCase()
       if (!u.title.toLowerCase().includes(kw) && !u.content.toLowerCase().includes(kw)) return false
@@ -53,7 +67,12 @@ export function BrowsePage() {
           <UploadedWorksheetCard key={upload.id} upload={upload} categoryName={categoryMap[upload.categoryId]} />
         ))}
         {worksheets?.map((ws) => (
-          <WorksheetCard key={ws.id} worksheet={ws} categoryName={categoryMap[ws.categoryId]} />
+          <WorksheetCard
+            key={ws.id}
+            worksheet={ws}
+            categoryName={categoryMap[ws.categoryId]}
+            subcategoryName={subcategoryMap[ws.subcategoryId]}
+          />
         ))}
       </div>
     </main>
