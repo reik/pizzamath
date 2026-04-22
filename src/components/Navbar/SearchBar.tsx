@@ -1,24 +1,28 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { useFilterStore } from '@/stores/filterStore'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 export function SearchBar() {
-  const setKeyword = useFilterStore((s) => s.setKeyword)
-  const [value, setValue] = useState('')
+  const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { pathname } = useLocation()
+  const [value, setValue] = useState(searchParams.get('q') ?? '')
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setKeyword(value)
-      if (value && pathname !== '/') navigate('/')
+      const params = new URLSearchParams(searchParams)
+      if (value) {
+        params.set('q', value)
+      } else {
+        params.delete('q')
+      }
+      navigate({ pathname: '/', search: params.toString() })
     }, 300)
     return () => clearTimeout(timer)
-  }, [value, setKeyword, pathname, navigate])
+  }, [value]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <input
       type="search"
+      role="searchbox"
       placeholder="Search by keywords…"
       value={value}
       onChange={(e) => setValue(e.target.value)}

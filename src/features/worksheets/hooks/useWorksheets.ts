@@ -1,15 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { worksheetsApi, categoriesApi } from '@/api/worksheets'
 import { queryKeys } from '@/api/queryKeys'
-import { useFilterStore } from '@/stores/filterStore'
+import type { WorksheetFilters } from '@/types/worksheet'
 
-export function useWorksheets() {
-  const { selectedCategoryId, selectedSubcategoryId, keyword } = useFilterStore()
-  const filters = {
-    categoryId: selectedCategoryId ?? undefined,
-    subcategoryId: selectedSubcategoryId ?? undefined,
-    keyword: keyword || undefined,
-  }
+export function useWorksheets(filters: WorksheetFilters = {}) {
   return useQuery({
     queryKey: queryKeys.worksheets.filtered(filters),
     queryFn: () => worksheetsApi.getAll(filters),

@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
 import type { Worksheet } from '@/types/worksheet'
 import { cn } from '@/utils/cn'
+import { slugify } from '@/utils/slugify'
 
 interface WorksheetCardProps {
   worksheet: Worksheet
   categoryName?: string
+  subcategoryName?: string
 }
 
 const levelColors: Record<string, string> = {
@@ -13,10 +15,13 @@ const levelColors: Record<string, string> = {
   Advanced: 'bg-red-100 text-red-800',
 }
 
-export function WorksheetCard({ worksheet, categoryName }: WorksheetCardProps) {
+export function WorksheetCard({ worksheet, categoryName, subcategoryName }: WorksheetCardProps) {
+  const catSlug = slugify(categoryName ?? worksheet.categoryId)
+  const subSlug = slugify(subcategoryName ?? worksheet.subcategoryId)
+
   return (
     <Link
-      to={`/worksheets/${worksheet.id}`}
+      to={`/worksheets/${catSlug}/${subSlug}/${worksheet.id}`}
       className="block rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
     >
       <div className="flex items-start justify-between gap-2">

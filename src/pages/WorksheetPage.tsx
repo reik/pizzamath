@@ -5,7 +5,7 @@ import { ProgressEntryForm } from '@/features/progress/components/ProgressEntryF
 import { useAuthStore } from '@/features/auth/store'
 
 export function WorksheetPage() {
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ categorySlug: string; subcategorySlug: string; id: string }>()
   const { data: worksheet, isLoading, error } = useWorksheet(id!)
   const user = useAuthStore((s) => s.user)
 
