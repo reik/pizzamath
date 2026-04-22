@@ -12,7 +12,7 @@ export function LoginForm() {
   })
 
   return (
-    <form onSubmit={handleSubmit((data) => loginMutation.mutate(data))} className="space-y-4">
+    <form onSubmit={handleSubmit((data) => loginMutation.mutate(data))} className="space-y-4" noValidate>
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
           Email

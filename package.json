@@ -13,7 +13,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "e2e": "cypress run --e2e",
+    "e2e:open": "cypress open --e2e"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.88.0",
@@ -34,9 +36,11 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@cypress/schematic": "^5.0.0",
     "@eslint/js": "^9.39.4",
     "@mswjs/data": "^0.16.2",
     "@tailwindcss/vite": "^4.2.2",
+    "@testing-library/cypress": "^10.1.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
@@ -46,6 +50,8 @@
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/coverage-v8": "^4.1.4",
     "concurrently": "^9.2.1",
+    "cypress": "^15.14.0",
+    "dotenv": "^17.4.2",
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
