@@ -1,7 +1,7 @@
 # Technical Design Document — PizzaMath
 
 > Audience: Whole team (engineers + stakeholders)
-> Last updated: 2026-04-15
+> Last updated: 2026-04-17
 
 ---
 
@@ -9,7 +9,7 @@
 
 **One-line pitch:** PizzaMath is a subscription-based K–12 math worksheet platform powered by AI generation and aligned to California Common Core Standards.
 
-**The problem it solves:** Teachers and parents struggle to find grade-appropriate, standards-aligned math worksheets at the right difficulty level. Existing tools are generic; PizzaMath lets users request AI-generated variants (easier, harder, different format) on demand.
+**The problem it solves:** Teachers and parents struggle to find grade-appropriate, standards-aligned math worksheets at the right difficulty level. Existing tools are generic; PizzaMath lets users request AI-generated variants (easier, harder, different format) on demand, and upload photos of handwritten problems to get digitized, editable worksheets.
 
 **Who it's for:** K–12 students, parents, and teachers in California.
 
@@ -24,6 +24,9 @@
 | Subscription gate | All content requires an active $10/month or $100/year subscription |
 | Admin panel | Full CRUD for worksheets + user management |
 | File export | Download worksheets as PDF or DOC |
+| **User photo uploads** | Users photograph handwritten problems; Claude vision digitizes them into editable worksheets with auto-detected category, level, and grade |
+| **Generate Similar Problem** | On any uploaded worksheet, one click appends a Claude-generated problem in the same style |
+| **Math rendering** | Worksheet content renders LaTeX math (KaTeX) and interactive graphs (Mafs) |
 
 ### What This Does NOT Do
 
@@ -53,7 +56,21 @@
 | Validation | Zod | 4.3.6 | Schema validation + type inference |
 | Styling | Tailwind CSS | 4.2.2 | Utility-first CSS |
 | Class Utility | clsx + tailwind-merge | 2.1.1 / 3.5.0 | Conditional class composition via `cn()` |
-| AI Integration | Anthropic SDK | 0.88.0 | Claude API streaming |
+| AI Integration | Anthropic SDK | 0.88.0 | Claude API (vision + streaming) |
+| Math Rendering | KaTeX + remark-math + rehype-katex | — | LaTeX typesetting in worksheet content |
+| Graph Rendering | Mafs | — | Interactive coordinate plane graphs |
+
+### Backend
+
+| Layer | Technology | Version | Purpose |
+|---|---|---|---|
+| Server | Express | 4.x | HTTP REST API |
+| Language | TypeScript (compiled via tsx) | — | Type-safe server code |
+| Database | better-sqlite3 | — | SQLite — persistent local DB |
+| Auth | jsonwebtoken + bcryptjs | — | JWT signing, password hashing |
+| Validation | Zod | — | Input validation on all routes |
+| File Storage | Local disk (`/uploads/`) | — | User-uploaded worksheet images |
+| ID generation | uuid | — | UUIDs for all primary keys |
 
 ### Testing & Mocking
 
@@ -64,7 +81,7 @@
 | User Events | Testing Library User Event | 14.6.1 | Realistic user interaction simulation |
 | DOM Matchers | Testing Library jest-dom | 6.9.1 | Extended DOM assertions |
 | DOM Simulator | jsdom | 29.0.2 | Browser-like environment in Node |
-| API Mocking | MSW | 2.13.2 | Network-level mock handlers |
+| API Mocking | MSW | 2.13.2 | Network-level mock handlers (dev/test) |
 | Mock DB | @mswjs/data | 0.16.2 | In-memory relational data store |
 | Coverage | @vitest/coverage-v8 | 4.1.4 | Code coverage reporting |
 
@@ -75,14 +92,15 @@
 | ESLint | 9.39.4 | Linting (flat config v9) |
 | typescript-eslint | 8.58.0 | TypeScript-aware linting |
 | eslint-plugin-react-hooks | 7.0.1 | Hooks rules enforcement |
+| concurrently | — | Run frontend + backend in parallel (`npm run dev:all`) |
 
 ---
 
 ## 3. Architecture
 
-### Current Architecture (Mocked Backend)
+### Current Architecture (Real Backend)
 
-PizzaMath is currently a fully client-side SPA. There is no real backend server — all API calls are intercepted at the network layer by **MSW (Mock Service Worker)**, which handles requests in the browser using an in-memory `@mswjs/data` store.
+PizzaMath runs as a React SPA backed by a real Express + SQLite server. MSW is still available for frontend-only development (toggled via `VITE_USE_MOCK`), but the production path uses the Express backend.
 
 ```
 Browser
@@ -91,13 +109,18 @@ Browser
   │     ├── React Router v7 (client-side routing)
   │     ├── TanStack React Query (server state)
   │     ├── Zustand (auth + filter UI state)
-  │     └── Anthropic SDK (direct Claude API calls)
+  │     └── Anthropic SDK (Claude vision + streaming)
   │
-  └── MSW Service Worker (intercepts fetch)
-        └── In-memory @mswjs/data store
-              ├── Users, Categories, Subcategories
-              ├── Worksheets + ProgressEntries
-              └── Seed data (14 CC categories, 3 worksheets, 1 admin)
+  └── Vite Dev Proxy
+        ├── /api  → Express :3001
+        └── /uploads → Express :3001 (static file serving)
+
+Express Server (:3001)
+  ├── JWT auth middleware (requireAuth / requireAdmin)
+  ├── Zod validation on all routes
+  ├── Routes: /auth, /categories, /worksheets, /progress, /users, /user-uploads
+  ├── better-sqlite3 (SQLite DB at data/pizzamath.db)
+  └── Static file serving for /uploads (user-uploaded images)
 ```
 
 ### Request Flow
@@ -113,15 +136,30 @@ React Query / Zustand
     │  calls api/ layer
     ▼
 apiFetch() utility
-    │  fetch() with Bearer token header
+    │  fetch() with Authorization: Bearer <jwt>
     ▼
-MSW Service Worker (browser)
-    │  matches route handler
+Vite Proxy → Express :3001
+    │  JWT verified by requireAuth middleware
+    │  Body parsed + validated by Zod schema
     ▼
-@mswjs/data in-memory DB
-    │  returns mock response
+SQLite DB (better-sqlite3)
+    │  returns row(s)
+    ▼
+Route handler maps row → DTO → JSON response
+    │
     ▼
 React Query cache → Component re-render
+```
+
+### MSW Toggle
+
+Set `VITE_USE_MOCK=false` (default when using `npm run dev:backend`) to bypass MSW and route requests to the real backend. Set `VITE_USE_MOCK=true` (or omit) to use the mock service worker for frontend-only development.
+
+```bash
+npm run dev:mock       # frontend only, MSW active
+npm run dev:backend    # frontend only, VITE_USE_MOCK=false, proxy to :3001
+npm run server         # backend only (tsx watch)
+npm run dev:all        # frontend + backend concurrently
 ```
 
 ### Source Tree
@@ -132,7 +170,7 @@ pizzamath/
 ├── src/
 │   ├── api/           ← typed fetch wrappers + Zod schemas + queryKeys
 │   ├── components/    ← shared UI (Navbar, guards, layout)
-│   ├── features/      ← auth, worksheets, progress, admin
+│   ├── features/      ← auth, worksheets, progress, admin, uploads
 │   ├── mocks/         ← MSW handlers + @mswjs/data schema + seed
 │   ├── pages/         ← route-level components only
 │   ├── stores/        ← Zustand (filter state)
@@ -140,38 +178,84 @@ pizzamath/
 │   ├── types/         ← shared global TypeScript types
 │   ├── utils/         ← apiFetch, cn, logger
 │   ├── App.tsx
-│   ├── main.tsx       ← MSW init + QueryClientProvider
+│   ├── main.tsx       ← MSW init (skipped when VITE_USE_MOCK=false)
 │   └── router.tsx     ← React Router config
+├── server/
+│   ├── src/
+│   │   ├── db.ts          ← SQLite schema, seed, DTO helpers
+│   │   ├── index.ts       ← Express app entry
+│   │   ├── middleware/
+│   │   │   └── auth.ts    ← JWT sign/verify, requireAuth, requireAdmin
+│   │   └── routes/
+│   │       ├── auth.ts
+│   │       ├── categories.ts
+│   │       ├── worksheets.ts
+│   │       ├── progress.ts
+│   │       ├── users.ts
+│   │       └── userUploads.ts
+│   ├── scripts/
+│   │   └── seed-worksheets.cjs  ← one-time seed for 120 CC worksheets
+│   └── package.json
+├── data/
+│   └── pizzamath.db   ← SQLite database (gitignored)
+├── uploads/           ← user-uploaded images (gitignored)
 ├── CLAUDE.md
 ├── TECHNICAL_DESIGN.md
 ├── package.json
-├── tsconfig.json
-├── tsconfig.app.json
-├── tsconfig.node.json
 └── vite.config.ts
 ```
 
 ### Auth Architecture
 
-- Token = user ID string stored in `localStorage` via Zustand `persist` middleware (key: `pizzamath-auth`)
-- Every API request attaches `Authorization: Bearer <token>` via the shared `apiFetch` wrapper
-- Three guard components wrap routes: `AuthGuard` → `SubscriptionGuard` → `AdminGuard`
-- No JWT signing in current implementation (mock env); production would use RS256-signed tokens
+- **Tokens:** RS256-style JWT signed with `JWT_SECRET` env var (server throws at startup if missing)
+- **Storage:** JWT stored in `localStorage` via Zustand `persist` middleware (`pizzamath-auth`)
+- **Transport:** Every API request attaches `Authorization: Bearer <token>` via the shared `apiFetch` wrapper
+- **Guards:** Three guard components wrap routes: `AuthGuard` → `SubscriptionGuard` → `AdminGuard`
+- **Passwords:** bcrypt (cost factor 10) via `bcryptjs`
 
-### Production Migration Path
+### User Upload Flow
 
-To move from mocked to real backend:
-1. Replace MSW handlers with a real REST API (Node/Express, Go, etc.)
-2. Replace `@mswjs/data` with a real database (PostgreSQL + Prisma recommended)
-3. Move Claude API calls server-side (remove `dangerouslyAllowBrowser`)
-4. Add real JWT signing + refresh token flow
-5. Integrate Stripe for subscription billing
+```
+User drops image file
+    │
+    ▼
+UploadZone reads file as base64 data URL
+    │
+    ▼
+analyzeUploadedImage() → Anthropic vision API
+    │  Returns: title, categoryId, subcategoryId, level,
+    │           schoolGrade, content (LaTeX markdown), answerContent
+    ▼
+POST /api/user-uploads (base64 body)
+    │  Server: Zod validates, decodes base64, writes image to /uploads/<uuid>.<ext>
+    │  Stores row in user_uploads table
+    ▼
+UploadedWorksheetCard rendered in browse grid + My Uploads page
+```
+
+### Generate Similar Problem Flow
+
+```
+User clicks "Generate Similar Problem"
+    │
+    ▼
+generateSimilarProblem(content, answerContent) → Claude API
+    │  Returns: { problem, answer }
+    ▼
+Append to worksheet: newContent = content + "\n\n---\n\n" + problem
+    │
+    ▼
+PATCH /api/user-uploads/:id { content, answerContent }
+    │  Server updates DB row
+    ▼
+React Query invalidates detail cache → page re-renders with new problem
+```
 
 ---
 
 ## 4. Database Schema
 
-> **Note:** PizzaMath currently uses an in-memory `@mswjs/data` store (no persistent DB). The schema below reflects the current data model and is designed to map 1:1 to a future PostgreSQL implementation.
+PizzaMath uses **SQLite** (via `better-sqlite3`) stored at `data/pizzamath.db`. The schema is created on server startup via `db.ts`; `seedOnce()` populates categories, subcategories, a default admin, and 123 worksheets if the database is empty.
 
 ### ER Overview
 
@@ -180,8 +264,8 @@ User ──────────────── ProgressEntry
  │                         │
  │                         │ worksheetId
  │                    Worksheet ──── Subcategory ──── Category
- │                                         │
- │                          (categoryId denormalized on Worksheet)
+ │
+ └────────────────── UserUpload ──── Subcategory ──── Category
 ```
 
 ---
@@ -190,15 +274,15 @@ User ──────────────── ProgressEntry
 
 | Column | Type | Constraints |
 |---|---|---|
-| id | string (UUID) | PK |
-| email | string | UNIQUE, NOT NULL |
-| password | string | NOT NULL (hashed in production) |
-| role | enum('user','admin') | NOT NULL, DEFAULT 'user' |
-| accountStatus | enum('active','suspended') | NOT NULL, DEFAULT 'active' |
-| subscriptionStatus | enum('active','inactive','trial') | NOT NULL, DEFAULT 'inactive' |
-| subscriptionPlan | enum('monthly','annual') \| null | NULLABLE |
-| subscriptionExpiresAt | ISO datetime \| null | NULLABLE |
-| createdAt | ISO datetime | NOT NULL |
+| id | TEXT (UUID) | PK |
+| email | TEXT | UNIQUE, NOT NULL |
+| password_hash | TEXT | NOT NULL |
+| role | TEXT ('user'\|'admin') | NOT NULL, DEFAULT 'user' |
+| account_status | TEXT ('active'\|'suspended') | NOT NULL, DEFAULT 'active' |
+| subscription_status | TEXT ('active'\|'inactive'\|'trial') | NOT NULL, DEFAULT 'inactive' |
+| subscription_plan | TEXT ('monthly'\|'annual') \| NULL | NULLABLE |
+| subscription_expires_at | TEXT (ISO datetime) \| NULL | NULLABLE |
+| created_at | TEXT (ISO datetime) | NOT NULL |
 
 ---
 
@@ -206,9 +290,9 @@ User ──────────────── ProgressEntry
 
 | Column | Type | Constraints |
 |---|---|---|
-| id | string | PK (e.g., `cat-1`) |
-| name | string | NOT NULL |
-| grades | string | NOT NULL (e.g., `"K–5"`) |
+| id | TEXT | PK (e.g., `cat-1`) |
+| name | TEXT | NOT NULL |
+| grades | TEXT | NOT NULL (e.g., `"K–5"`) |
 
 **14 seeded categories** (CA Common Core):
 `Counting & Cardinality`, `Operations & Algebraic Thinking`, `Number & Operations in Base Ten`, `Number & Operations — Fractions`, `Measurement & Data`, `Geometry`, `Ratios & Proportional Relationships`, `The Number System`, `Expressions & Equations`, `Functions`, `Statistics & Probability`, `Number & Quantity`, `Algebra`, `Modeling`
@@ -219,9 +303,9 @@ User ──────────────── ProgressEntry
 
 | Column | Type | Constraints |
 |---|---|---|
-| id | string | PK (e.g., `sub-1-1`) |
-| name | string | NOT NULL |
-| categoryId | string | FK → categories.id, NOT NULL |
+| id | TEXT | PK (e.g., `sub-1-1`) |
+| name | TEXT | NOT NULL |
+| category_id | TEXT | FK → categories.id, NOT NULL |
 
 ---
 
@@ -229,16 +313,18 @@ User ──────────────── ProgressEntry
 
 | Column | Type | Constraints |
 |---|---|---|
-| id | string (UUID) | PK |
-| title | string | NOT NULL |
-| categoryId | string | FK → categories.id, NOT NULL |
-| subcategoryId | string | FK → subcategories.id, NOT NULL |
-| level | enum('Beginner','Intermediate','Advanced') | NOT NULL |
-| schoolGrade | enum('K','1'–'12') \| null | NULLABLE |
-| author | string | NOT NULL |
-| content | text (markdown) | NOT NULL |
-| answerContent | text (markdown) | NOT NULL |
-| createdAt | ISO datetime | NOT NULL |
+| id | TEXT (UUID) | PK |
+| title | TEXT | NOT NULL |
+| category_id | TEXT | FK → categories.id, NOT NULL |
+| subcategory_id | TEXT | FK → subcategories.id, NOT NULL |
+| level | TEXT ('Beginner'\|'Intermediate'\|'Advanced') | NOT NULL |
+| school_grade | TEXT ('K','1'–'12') \| NULL | NULLABLE |
+| author | TEXT | NOT NULL |
+| content | TEXT (markdown + LaTeX) | NOT NULL |
+| answer_content | TEXT (markdown) | NOT NULL |
+| created_at | TEXT (ISO datetime) | NOT NULL |
+
+**123 seeded worksheets** across all 14 categories (2 per subcategory from the full CA Common Core catalog).
 
 ---
 
@@ -246,76 +332,106 @@ User ──────────────── ProgressEntry
 
 | Column | Type | Constraints |
 |---|---|---|
-| id | string (UUID) | PK |
-| userId | string | FK → users.id, NOT NULL |
-| worksheetId | string | FK → worksheets.id, NOT NULL |
-| worksheetTitle | string | NOT NULL (denormalized) |
-| date | string (YYYY-MM-DD) | NOT NULL |
-| score | number (0–100) | NOT NULL |
-| comment | string | NOT NULL (empty string if none) |
+| id | TEXT (UUID) | PK |
+| user_id | TEXT | FK → users.id, NOT NULL |
+| worksheet_id | TEXT | NOT NULL |
+| worksheet_title | TEXT | NOT NULL (denormalized) |
+| date | TEXT (YYYY-MM-DD) | NOT NULL |
+| score | INTEGER (0–100) | NOT NULL |
+| comment | TEXT | NOT NULL (empty string if none) |
+
+---
+
+#### `user_uploads`
+
+| Column | Type | Constraints |
+|---|---|---|
+| id | TEXT (UUID) | PK |
+| user_id | TEXT | FK → users.id, NOT NULL |
+| title | TEXT | NOT NULL |
+| category_id | TEXT | FK → categories.id, NOT NULL |
+| subcategory_id | TEXT | FK → subcategories.id, NOT NULL |
+| level | TEXT ('Beginner'\|'Intermediate'\|'Advanced') | NOT NULL |
+| school_grade | TEXT \| NULL | NULLABLE |
+| content | TEXT (markdown + LaTeX) | NOT NULL (editable, appended on generate) |
+| answer_content | TEXT (markdown) | NOT NULL (editable, appended on generate) |
+| image_path | TEXT | NOT NULL (filename in `/uploads/`) |
+| created_at | TEXT (ISO datetime) | NOT NULL |
+
+> The original image is served at `/uploads/<image_path>` and embedded in the worksheet viewer as a collapsible "Show original image" section.
 
 ### Indexes Summary
 
 | Table | Index | Type |
 |---|---|---|
 | users | email | UNIQUE |
-| subcategories | categoryId | INDEX |
-| worksheets | categoryId, subcategoryId | COMPOSITE INDEX |
+| subcategories | category_id | INDEX |
+| worksheets | category_id, subcategory_id | COMPOSITE INDEX |
 | worksheets | level | INDEX |
-| progress_entries | userId | INDEX |
-| progress_entries | worksheetId | INDEX |
+| progress_entries | user_id | INDEX |
+| progress_entries | worksheet_id | INDEX |
+| user_uploads | user_id | INDEX |
 
 ---
 
 ## 5. API Specification
 
-**Base URL:** `/api`  
-**Auth:** `Authorization: Bearer <token>` (token = user ID in mock; JWT in production)  
-**Content-Type:** `application/json` (except file export which returns `application/octet-stream`)
+**Base URL:** `/api`
+**Auth:** `Authorization: Bearer <jwt>`
+**Content-Type:** `application/json`
+**Validation:** All mutation endpoints validate the request body with Zod; invalid requests return `400 { message, errors }`.
 
 ### Auth
 
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| POST | `/auth/login` | None | Email + password → `{token, user}` |
-| POST | `/auth/register` | None | Email + password + plan → `{token, user}` |
-| POST | `/auth/logout` | Yes | Clears session → `{ok: true}` |
+| POST | `/auth/login` | None | `{email, password}` → `{token, user}` |
+| POST | `/auth/register` | None | `{email, password (min 8), plan}` → `{token, user}` |
+| POST | `/auth/logout` | Yes | → `{ok: true}` |
 | GET | `/auth/me` | Yes | Returns current `User` |
-| POST | `/auth/change-password` | Yes | `{currentPassword, newPassword}` → `{ok: true}` |
+| POST | `/auth/change-password` | Yes | `{currentPassword, newPassword (min 8)}` → `{ok: true}` |
 
 ### Worksheets
 
 | Method | Path | Auth | Description |
 |---|---|---|---|
 | GET | `/worksheets` | Yes | List worksheets. Query: `?categoryId=&subcategoryId=&keyword=` |
-| GET | `/worksheets/:id` | Yes | Get single worksheet with content + answerContent |
-| POST | `/worksheets` | Admin | Create worksheet. Body: `WorksheetFormInput` |
+| GET | `/worksheets/:id` | Yes | Get single worksheet |
+| POST | `/worksheets` | Admin | Create worksheet |
 | DELETE | `/worksheets/:id` | Admin | Delete worksheet |
-| GET | `/worksheets/:id/export` | Yes | Export. Query: `?format=pdf\|doc`. Returns blob |
-
-> **Export note:** Current implementation returns a mock blob. Production will require server-side PDF generation (e.g., Puppeteer, WeasyPrint) or a client-side library (react-pdf).
+| GET | `/worksheets/:id/export` | Yes | Export. Query: `?format=pdf\|doc` |
 
 ### Categories
 
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| GET | `/categories` | Yes | Returns all categories, each with a nested `subcategories` array |
+| GET | `/categories` | Yes | All categories with nested `subcategories[]` |
 
 ### Progress
 
 | Method | Path | Auth | Description |
 |---|---|---|---|
-| GET | `/progress` | Yes | Query: `?userId=`. Returns user's `ProgressEntry[]` |
-| POST | `/progress` | Yes | Body: `{worksheetId, date, score, comment}` → new `ProgressEntry` |
+| GET | `/progress` | Yes | `?userId=` → `ProgressEntry[]` |
+| POST | `/progress` | Yes | `{worksheetId, date, score, comment}` → new entry |
 
 ### Users (Admin)
 
 | Method | Path | Auth | Description |
 |---|---|---|---|
 | GET | `/users` | Admin | List all users |
-| POST | `/users` | Admin | Create user. Body: `{email, password, role, plan}` |
-| PATCH | `/users/:id` | Admin | Update user (e.g., suspend). Body: `{accountStatus?}` |
+| POST | `/users` | Admin | Create user |
+| PATCH | `/users/:id` | Admin | Update user (suspend, etc.) |
 | DELETE | `/users/:id` | Admin | Delete user |
+
+### User Uploads
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| GET | `/user-uploads` | Yes | `?userId=` → `UserUpload[]` for that user |
+| GET | `/user-uploads/:id` | Yes | Single upload |
+| POST | `/user-uploads` | Yes | `{userId, title, categoryId, subcategoryId, level, schoolGrade, content, answerContent, originalImageDataUrl (base64)}` → saves image to disk, stores row |
+| PATCH | `/user-uploads/:id` | Yes | `{content?, answerContent?}` — used by "Generate Similar Problem" |
+| DELETE | `/user-uploads/:id` | Yes | Deletes DB row + image file from disk |
 
 ---
 
@@ -330,6 +446,8 @@ User ──────────────── ProgressEntry
 | `/subscribe` | SubscribePage | No | No | No |
 | `/` | BrowsePage | Yes | Yes | — |
 | `/worksheets/:id` | WorksheetPage | Yes | Yes | — |
+| `/my-uploads` | MyUploadsPage | Yes | Yes | — |
+| `/my-uploads/:id` | UploadedWorksheetPage | Yes | Yes | — |
 | `/account` | AccountPage | Yes | Yes | — |
 | `/history` | UsageHistoryPage | Yes | Yes | — |
 | `/admin` | AdminPage | Yes | Bypassed | Yes |
@@ -342,8 +460,10 @@ User ──────────────── ProgressEntry
 | LoginPage | Email/password login form |
 | RegisterPage | Registration + subscription plan selection |
 | SubscribePage | Prompt inactive subscribers to subscribe |
-| BrowsePage | Worksheet listing with category/subcategory/keyword filtering |
+| BrowsePage | Worksheet listing merging admin worksheets and user uploads; filterable by category/subcategory/keyword |
 | WorksheetPage | Full worksheet view, answer sheet toggle, export, progress logging |
+| MyUploadsPage | Grid of user's uploaded worksheets; "+ Upload Image" toggles UploadZone; hover-reveal delete |
+| UploadedWorksheetPage | Upload viewer: worksheet/answer toggle, original image reveal, Generate Similar Problem button |
 | AccountPage | Change password, view subscription status |
 | UsageHistoryPage | User's progress history table |
 | AdminPage | Admin dashboard: worksheet CRUD + user management |
@@ -358,7 +478,7 @@ User ──────────────── ProgressEntry
 | CategoryDropdown | Controlled CA Common Core category selector |
 | SubcategoryDropdown | Conditional subcategory selector (depends on selected category) |
 | SearchBar | Keyword + optional category filter |
-| AccountMenu | Dropdown: account link, history link, logout |
+| AccountMenu | Dropdown: account link, My Uploads link, history link, logout |
 | AuthGuard | Redirects unauthenticated users to `/login` |
 | SubscriptionGuard | Redirects inactive subscribers to `/subscribe` (admins bypass) |
 | AdminGuard | Redirects non-admins to `/` |
@@ -392,6 +512,17 @@ User ──────────────── ProgressEntry
 - `useAdminWorksheets` — worksheet CRUD mutations
 - `useUserManagement` — user CRUD mutations
 
+**uploads/**
+- `UploadZone` — drag-and-drop image upload; calls Claude vision → POST to API
+- `UploadedWorksheetCard` — orange-bordered card with person icon and "My Upload" badge
+- `MathRenderer` — renders markdown with KaTeX (LaTeX math) and Mafs (graph blocks)
+- `GraphPlot` — Mafs coordinate plane renderer from Claude-generated graph JSON spec
+- `useUserUploads` — list query
+- `useUserUpload` — detail query
+- `useCreateUpload` — upload mutation
+- `useUpdateUpload` — append similar problem via PATCH
+- `useDeleteUpload` — delete mutation
+
 ### Where to Put a New Component
 
 > - **Reused across features?** → `src/components/`
@@ -403,10 +534,11 @@ User ──────────────── ProgressEntry
 
 | State | Tool | Store / Location |
 |---|---|---|
-| Authenticated user + token | Zustand (persisted) | `features/auth/store.ts` |
+| Authenticated user + JWT | Zustand (persisted) | `features/auth/store.ts` |
 | Active category/subcategory/keyword filters | Zustand (ephemeral) | `stores/filterStore.ts` |
-| API server data (worksheets, categories, progress, users) | React Query | via hooks in `features/*/hooks/` |
+| API server data (worksheets, categories, progress, users, uploads) | React Query | via hooks in `features/*/hooks/` |
 | Generation chat history | Local `useState` | `useGenerationSession.ts` |
+| Upload analysis state (analyzing/saving/error) | Local `useState` | `UploadZone.tsx` |
 | Form state | React Hook Form | inside form components |
 
 ---
@@ -519,27 +651,31 @@ Math education tools serve students with a range of learning needs. Accessibilit
 |---|---|
 | Bundle splitting | Vite automatic code-splitting by route (React Router lazy loading) |
 | Caching | React Query `staleTime: 5min` — category list and worksheet list cached aggressively |
-| Image optimization | Worksheets are text/markdown — no heavy image assets currently |
+| Image optimization | User-uploaded images served as static files from Express `/uploads/` |
 | Tailwind CSS | Vite plugin purges unused classes at build time |
 | Claude streaming | Token-by-token streaming for generation chat — no blocking wait for full response |
+| Math rendering | KaTeX renders LaTeX server-side-style in browser; Mafs graphs are lightweight React components |
 
-### Backend Performance (Production Target)
+### Backend Performance
 
 | Area | Approach |
 |---|---|
-| Worksheet queries | Index on `(categoryId, subcategoryId)` + `level` for filter performance |
-| Progress queries | Index on `userId` — each user only sees their own data |
+| Worksheet queries | Prepared statements via `better-sqlite3`; index on `(category_id, subcategory_id)` + `level` |
+| Progress queries | Index on `user_id` — each user only sees their own data |
+| User upload queries | Index on `user_id`; image files served via Express static middleware |
 | Auth | Stateless JWT — no server-side session storage needed |
 | Claude API caching | Ephemeral prompt caching on system message (~5min TTL, ~90% token savings on repeated calls) |
 
 ### Scalability Constraints
 
-| Constraint | Threshold | Migration Path |
+| Constraint | Current State | Migration Path |
 |---|---|---|
-| In-memory mock DB | Dev/test only — no production use | Replace with PostgreSQL + Prisma |
-| Claude API calls from browser | `dangerouslyAllowBrowser: true` (demo only — exposes API key) | Move to backend proxy endpoint |
+| SQLite | Single-file DB suitable for development and low traffic | Migrate to PostgreSQL + Prisma for multi-instance production |
+| Local image storage | Images stored on disk at `uploads/` | Move to S3/GCS with signed URLs |
+| Claude API calls from browser | `dangerouslyAllowBrowser: true` exposes API key client-side | Move to backend proxy endpoint |
 | Subscription billing | Mocked | Integrate Stripe Checkout + webhooks |
-| File export (PDF/DOC) | Mock blob response | Server-side Puppeteer or react-pdf for real files |
+| File export (PDF/DOC) | Mock blob response | Server-side Puppeteer or react-pdf |
+| Rate limiting | Not yet implemented | Add `express-rate-limit` on auth endpoints |
 
 ### Caching Strategy
 
@@ -548,6 +684,8 @@ Math education tools serve students with a range of learning needs. Accessibilit
 | Category list | React Query | 5 min (rarely changes) |
 | Worksheet list | React Query | 5 min |
 | Single worksheet | React Query | 5 min |
+| User uploads list | React Query | Until mutation invalidates |
+| Single user upload | React Query | Until mutation invalidates |
 | Current user (`/auth/me`) | React Query | Until logout |
 | Progress entries | React Query | 2 min (updated frequently) |
 | Claude system prompt | Anthropic ephemeral cache | ~5 min per session |
@@ -573,6 +711,8 @@ Math education tools serve students with a range of learning needs. Accessibilit
 | Navbar | Stacked: logo + hamburger menu | Logo + category dropdowns + condensed search | Full: logo + dropdowns + search + account |
 | Browse grid | 1 column | 2 columns | 3–4 columns |
 | Worksheet viewer | Full width, single column | Full width | Centered, max-width container with sidebar for actions |
+| My Uploads grid | 1 column | 2 columns | 3–4 columns |
+| Upload zone | Full width inline | Full width inline | Full width inline |
 | Admin panel | Tabs stack vertically | Side-by-side tabs + content | Two-column layout |
 | Generation chat | Full width, scrollable | Full width | Centered chat + form panel side by side |
 | Forms (login/register) | Full width | Centered card, max-width 480px | Same as tablet |
