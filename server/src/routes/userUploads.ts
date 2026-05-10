@@ -5,7 +5,7 @@ import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { z } from 'zod'
 import { db, uploadToDto, type UploadRow } from '../db.js'
-import { requireAuth, type AuthRequest } from '../middleware/auth.js'
+import { requireAuth, requireAdmin, type AuthRequest } from '../middleware/auth.js'
 
 const createUploadSchema = z.object({
   userId: z.string().min(1),
@@ -28,6 +28,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const UPLOADS_DIR = join(__dirname, '../../../uploads')
 
 export const userUploadsRouter = Router()
+
+userUploadsRouter.get('/all', requireAdmin, (_req, res) => {
+  const rows = db.prepare('SELECT * FROM user_uploads ORDER BY created_at DESC').all() as UploadRow[]
+  res.json(rows.map((r) => uploadToDto(r, '/uploads')))
+})
 
 userUploadsRouter.get('/', requireAuth, (req, res) => {
   const { userId } = req.query as { userId: string }

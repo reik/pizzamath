@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '@/features/auth/store'
-import { useUserUploads, useDeleteUpload, UploadZone, UploadedWorksheetCard } from '@/features/uploads'
+import { useAllUploadsForAdmin, useUserUploads, useDeleteUpload, UploadZone, UploadedWorksheetCard } from '@/features/uploads'
 import { useCategories } from '@/features/worksheets'
 
 export function MyUploadsPage() {
   const user = useAuthStore((s) => s.user)
   const navigate = useNavigate()
-  const { data: uploads, isLoading } = useUserUploads(user?.id ?? '')
+  const isAdmin = user?.role === 'admin'
+  const { data: adminUploads, isLoading: adminLoading } = useAllUploadsForAdmin()
+  const { data: userUploads, isLoading: userLoading } = useUserUploads(isAdmin ? '' : (user?.id ?? ''))
+  const uploads = isAdmin ? adminUploads : userUploads
+  const isLoading = isAdmin ? adminLoading : userLoading
   const deleteUpload = useDeleteUpload(user?.id ?? '')
   const { data: categories } = useCategories()
   const [showUploader, setShowUploader] = useState(false)

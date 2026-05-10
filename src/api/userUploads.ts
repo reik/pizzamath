@@ -16,6 +16,9 @@ export const createUploadSchema = z.object({
 export type CreateUploadInput = z.infer<typeof createUploadSchema>
 
 export const userUploadsApi = {
+  getAllForAdmin: () =>
+    apiFetch<UserUpload[]>('/api/user-uploads/all'),
+
   getAll: (userId: string) =>
     apiFetch<UserUpload[]>(`/api/user-uploads?userId=${userId}`),
 

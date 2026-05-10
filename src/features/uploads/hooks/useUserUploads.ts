@@ -2,6 +2,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { userUploadsApi, type CreateUploadInput } from '@/api/userUploads'
 import { queryKeys } from '@/api/queryKeys'
 
+export function useAllUploadsForAdmin() {
+  return useQuery({
+    queryKey: queryKeys.userUploads.allForAdmin(),
+    queryFn: () => userUploadsApi.getAllForAdmin(),
+  })
+}
+
 export function useUserUploads(userId: string) {
   return useQuery({
     queryKey: queryKeys.userUploads.all(userId),
