@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { v4 as uuid } from 'uuid'
+import PDFDocument from 'pdfkit'
 import { db, worksheetToDto, type WorksheetRow } from '../db.js'
 import { requireAuth, requireAdmin } from '../middleware/auth.js'
 
@@ -54,9 +55,49 @@ worksheetsRouter.delete('/:id', requireAdmin, (req, res) => {
 worksheetsRouter.get('/:id/export', requireAuth, (req, res) => {
   const row = db.prepare('SELECT * FROM worksheets WHERE id = ?').get(req.params.id) as WorksheetRow | undefined
   if (!row) { res.status(404).json({ message: 'Not found' }); return }
-  const format = (req.query.format as string) ?? 'pdf'
-  const content = `${row.title}\n\n${row.content}`
-  res.setHeader('Content-Disposition', `attachment; filename="${row.title}.${format}"`)
-  res.setHeader('Content-Type', format === 'pdf' ? 'application/pdf' : 'application/msword')
-  res.send(Buffer.from(content))
+
+  const safeTitle = row.title.replace(/[^\w\s-]/g, '').trim()
+  res.setHeader('Content-Disposition', `attachment; filename="${safeTitle}.pdf"`)
+  res.setHeader('Content-Type', 'application/pdf')
+
+  const doc = new PDFDocument({ margin: 50, size: 'LETTER' })
+  doc.pipe(res)
+
+  const stripMd = (text: string) =>
+    text
+      .replace(/^#{1,6}\s+/gm, '')
+      .replace(/\*\*(.+?)\*\*/g, '$1')
+      .replace(/\*(.+?)\*/g, '$1')
+      .trim()
+
+  const writeSectionLines = (text: string) => {
+    const lines = stripMd(text).split('\n')
+    for (const line of lines) {
+      if (line.trim() === '') { doc.moveDown(0.4); continue }
+      doc.fontSize(11).fillColor('#1a1a1a').text(line, { lineGap: 3 })
+    }
+  }
+
+  // Title
+  doc.fontSize(20).fillColor('#ea580c').text(row.title, { align: 'center' })
+  doc.moveDown(0.5)
+
+  // Metadata row
+  const meta = [row.level, row.school_grade ? `Grade ${row.school_grade}` : null, row.author]
+    .filter(Boolean).join('  ·  ')
+  doc.fontSize(10).fillColor('#6b7280').text(meta, { align: 'center' })
+  doc.moveDown(1)
+
+  // Worksheet content
+  doc.fontSize(13).fillColor('#111827').text('Worksheet', { underline: true })
+  doc.moveDown(0.4)
+  writeSectionLines(row.content)
+
+  // Answer sheet on new page
+  doc.addPage()
+  doc.fontSize(13).fillColor('#111827').text('Answer Sheet', { underline: true })
+  doc.moveDown(0.4)
+  writeSectionLines(row.answer_content)
+
+  doc.end()
 })

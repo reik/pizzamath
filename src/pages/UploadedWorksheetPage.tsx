@@ -6,6 +6,7 @@ import { MathRenderer } from '@/features/uploads/components/MathRenderer'
 import { useAuthStore } from '@/features/auth/store'
 import { ProgressEntryForm } from '@/features/progress/components/ProgressEntryForm'
 import { generateSimilarProblem } from '@/api/claude'
+import { userUploadsApi } from '@/api/userUploads'
 
 export function UploadedWorksheetPage() {
   const { id } = useParams<{ id: string }>()
@@ -19,6 +20,16 @@ export function UploadedWorksheetPage() {
 
   if (isLoading) return <div className="p-6 animate-pulse h-40 bg-gray-100 rounded-xl m-6" />
   if (error || !upload) return <p className="p-6 text-red-600">Upload not found.</p>
+
+  async function handleDownloadPdf() {
+    const blob = await userUploadsApi.export(upload.id)
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${upload.title}.pdf`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
 
   async function handleGenerateSimilar() {
     if (!upload) return
@@ -53,6 +64,15 @@ export function UploadedWorksheetPage() {
             </span>
           </div>
 
+          <button
+            onClick={handleDownloadPdf}
+            className="shrink-0 flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
+          >
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            Download PDF
+          </button>
           <button
             onClick={handleGenerateSimilar}
             disabled={generating}

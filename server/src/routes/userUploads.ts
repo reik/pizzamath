@@ -4,6 +4,7 @@ import { writeFileSync, unlinkSync, existsSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { z } from 'zod'
+import PDFDocument from 'pdfkit'
 import { db, uploadToDto, type UploadRow } from '../db.js'
 import { requireAuth, requireAdmin, type AuthRequest } from '../middleware/auth.js'
 
@@ -38,6 +39,46 @@ userUploadsRouter.get('/', requireAuth, (req, res) => {
   const { userId } = req.query as { userId: string }
   const rows = db.prepare('SELECT * FROM user_uploads WHERE user_id = ? ORDER BY created_at DESC').all(userId) as UploadRow[]
   res.json(rows.map((r) => uploadToDto(r, '/uploads')))
+})
+
+userUploadsRouter.get('/:id/export', requireAuth, (req, res) => {
+  const row = db.prepare('SELECT * FROM user_uploads WHERE id = ?').get(req.params.id) as UploadRow | undefined
+  if (!row) { res.status(404).json({ message: 'Not found' }); return }
+
+  const safeTitle = row.title.replace(/[^\w\s-]/g, '').trim()
+  res.setHeader('Content-Disposition', `attachment; filename="${safeTitle}.pdf"`)
+  res.setHeader('Content-Type', 'application/pdf')
+
+  const doc = new PDFDocument({ margin: 50, size: 'LETTER' })
+  doc.pipe(res)
+
+  const stripMd = (text: string) =>
+    text.replace(/^#{1,6}\s+/gm, '').replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1').trim()
+
+  const writeSectionLines = (text: string) => {
+    for (const line of stripMd(text).split('\n')) {
+      if (line.trim() === '') { doc.moveDown(0.4); continue }
+      doc.fontSize(11).fillColor('#1a1a1a').text(line, { lineGap: 3 })
+    }
+  }
+
+  doc.fontSize(20).fillColor('#ea580c').text(row.title, { align: 'center' })
+  doc.moveDown(0.5)
+  const meta = [row.level, row.school_grade ? `Grade ${row.school_grade}` : null]
+    .filter(Boolean).join('  ·  ')
+  doc.fontSize(10).fillColor('#6b7280').text(meta, { align: 'center' })
+  doc.moveDown(1)
+
+  doc.fontSize(13).fillColor('#111827').text('Worksheet', { underline: true })
+  doc.moveDown(0.4)
+  writeSectionLines(row.content)
+
+  doc.addPage()
+  doc.fontSize(13).fillColor('#111827').text('Answer Sheet', { underline: true })
+  doc.moveDown(0.4)
+  writeSectionLines(row.answer_content)
+
+  doc.end()
 })
 
 userUploadsRouter.get('/:id', requireAuth, (req, res) => {

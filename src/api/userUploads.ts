@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { apiFetch } from '@/utils/apiFetch'
+import { getToken } from '@/features/auth/store'
 import type { UserUpload } from '@/types/userUpload'
 
 export const createUploadSchema = z.object({
@@ -39,4 +40,11 @@ export const userUploadsApi = {
 
   delete: (id: string) =>
     apiFetch<{ ok: boolean }>(`/api/user-uploads/${id}`, { method: 'DELETE' }),
+
+  export: (id: string) => {
+    const token = getToken()
+    const headers: Record<string, string> = {}
+    if (token) headers['Authorization'] = `Bearer ${token}`
+    return fetch(`/api/user-uploads/${id}/export`, { headers }).then((r) => r.blob())
+  },
 }
