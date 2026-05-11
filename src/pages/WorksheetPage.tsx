@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useWorksheet, WorksheetViewer } from '@/features/worksheets'
 import { ExportButton } from '@/features/worksheets/components/ExportButton'
 import { ProgressEntryForm } from '@/features/progress/components/ProgressEntryForm'
@@ -6,6 +6,7 @@ import { useAuthStore } from '@/features/auth/store'
 
 export function WorksheetPage() {
   const { id } = useParams<{ categorySlug: string; subcategorySlug: string; id: string }>()
+  const navigate = useNavigate()
   const { data: worksheet, isLoading, error } = useWorksheet(id!)
   const user = useAuthStore((s) => s.user)
 
@@ -14,7 +15,7 @@ export function WorksheetPage() {
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-6">
-      <Link to="/" className="text-sm text-orange-600 hover:underline">← Back</Link>
+      <button onClick={() => navigate(-1)} className="text-sm text-orange-600 hover:underline">← Back</button>
 
       <div className="mt-4 mb-6">
         <h1 className="text-2xl font-bold text-gray-900">{worksheet.title}</h1>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Worksheet } from '@/types/worksheet'
 import { cn } from '@/utils/cn'
+import { GeometryRenderer } from './GeometryRenderer'
 
 interface WorksheetViewerProps {
   worksheet: Worksheet
@@ -32,8 +33,14 @@ export function WorksheetViewer({ worksheet }: WorksheetViewerProps) {
         </button>
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm whitespace-pre-wrap font-mono text-sm leading-relaxed">
-        {showAnswers ? worksheet.answerSheet.content : worksheet.content}
+      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        {(worksheet.categoryId === 'cat-6' || worksheet.categoryId === 'cat-12') && !showAnswers ? (
+          <GeometryRenderer content={worksheet.content} />
+        ) : (
+          <div className="whitespace-pre-wrap font-mono text-sm leading-relaxed">
+            {showAnswers ? worksheet.answerSheet.content : worksheet.content}
+          </div>
+        )}
       </div>
     </div>
   )
