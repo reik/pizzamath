@@ -1,0 +1,22 @@
+node_modules
+*.DS_Store
+dist
+coverage
+**/.env
+*.log
+*.history
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# Optional: Ignore build artifacts
+build
+**/db.ts
+
+# Cypress artifacts
+cypress/downloads
+cypress/screenshots
+cypress/videos
