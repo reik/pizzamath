@@ -1,6 +1,8 @@
 import { z } from 'zod'
 import { apiFetch } from '@/utils/apiFetch'
 import { getToken } from '@/features/auth/store'
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ''
 import type { UserUpload } from '@/types/userUpload'
 
 export const createUploadSchema = z.object({
@@ -45,6 +47,6 @@ export const userUploadsApi = {
     const token = getToken()
     const headers: Record<string, string> = {}
     if (token) headers['Authorization'] = `Bearer ${token}`
-    return fetch(`/api/user-uploads/${id}/export`, { headers }).then((r) => r.blob())
+    return fetch(`${API_BASE}/api/user-uploads/${id}/export`, { headers }).then((r) => r.blob())
   },
 }

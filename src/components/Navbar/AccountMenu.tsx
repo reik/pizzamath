@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '@/features/auth'
 
 export function AccountMenu() {
-  const { logoutMutation } = useAuth()
+  useAuth()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 

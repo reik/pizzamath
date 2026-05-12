@@ -1,0 +1,59 @@
+- generic [ref=e18]:
+  - banner [ref=e19]:
+    - generic [ref=e20]:
+      - link "🍕 PizzaMath" [ref=e21] [cursor=pointer]:
+        - /url: /
+      - button "Account ▾" [ref=e23]
+      - link "Admin" [ref=e24] [cursor=pointer]:
+        - /url: /admin
+      - button "Logout" [ref=e25]
+    - generic [ref=e26]:
+      - combobox "Category" [ref=e27]:
+        - option "All Categories" [selected]
+        - option "Counting & Cardinality"
+        - option "Functions"
+        - option "Statistics & Probability"
+        - option "Number & Quantity"
+        - option "Algebra"
+        - option "Modeling"
+        - option "Operations & Algebraic Thinking"
+        - option "Number & Operations in Base Ten"
+        - option "Number & Operations — Fractions"
+        - option "Measurement & Data"
+        - option "Geometry"
+        - option "Ratios & Proportional Relationships"
+        - option "The Number System"
+        - option "Expressions & Equations"
+      - searchbox "Search worksheets" [ref=e28]
+  - main [ref=e29]:
+    - heading "Worksheets (3)" [level=2] [ref=e30]:
+      - text: Worksheets
+      - generic [ref=e31]: (3)
+    - generic [ref=e32]:
+      - link "Counting Objects 1–10 Beginner Counting & Cardinality Grade K by PizzaMath" [ref=e33] [cursor=pointer]:
+        - /url: /worksheets/ws-1
+        - generic [ref=e34]:
+          - heading "Counting Objects 1–10" [level=3] [ref=e35]
+          - generic [ref=e36]: Beginner
+        - generic [ref=e37]:
+          - generic [ref=e38]: Counting & Cardinality
+          - generic [ref=e39]: Grade K
+          - generic [ref=e40]: by PizzaMath
+      - link "Addition within 20 Beginner Operations & Algebraic Thinking Grade 1 by PizzaMath" [ref=e41] [cursor=pointer]:
+        - /url: /worksheets/ws-2
+        - generic [ref=e42]:
+          - heading "Addition within 20" [level=3] [ref=e43]
+          - generic [ref=e44]: Beginner
+        - generic [ref=e45]:
+          - generic [ref=e46]: Operations & Algebraic Thinking
+          - generic [ref=e47]: Grade 1
+          - generic [ref=e48]: by PizzaMath
+      - link "Introduction to Fractions Intermediate Number & Operations — Fractions Grade 3 by PizzaMath" [ref=e49] [cursor=pointer]:
+        - /url: /worksheets/ws-3
+        - generic [ref=e50]:
+          - heading "Introduction to Fractions" [level=3] [ref=e51]
+          - generic [ref=e52]: Intermediate
+        - generic [ref=e53]:
+          - generic [ref=e54]: Number & Operations — Fractions
+          - generic [ref=e55]: Grade 3
+          - generic [ref=e56]: by PizzaMath

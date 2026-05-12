@@ -1,0 +1,210 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "🍕 PizzaMath" [ref=e6] [cursor=pointer]:
+        - /url: /
+      - button "Account ▾" [ref=e8]
+      - link "Admin" [ref=e9] [cursor=pointer]:
+        - /url: /admin
+      - button "Logout" [ref=e10]
+    - generic [ref=e11]:
+      - combobox "Category" [ref=e12]:
+        - option "All Categories" [selected]
+        - option "Counting & Cardinality"
+        - option "Functions"
+        - option "Statistics & Probability"
+        - option "Number & Quantity"
+        - option "Algebra"
+        - option "Modeling"
+        - option "Operations & Algebraic Thinking"
+        - option "Number & Operations in Base Ten"
+        - option "Number & Operations — Fractions"
+        - option "Measurement & Data"
+        - option "Geometry"
+        - option "Ratios & Proportional Relationships"
+        - option "The Number System"
+        - option "Expressions & Equations"
+      - searchbox "Search worksheets" [ref=e13]
+  - main [ref=e1038]:
+    - link "← My Uploads" [ref=e1039] [cursor=pointer]:
+      - /url: /my-uploads
+    - generic [ref=e1040]:
+      - generic [ref=e1041]:
+        - generic [ref=e1042]:
+          - img [ref=e1043]
+          - heading "Isosceles Right Triangle — Perimeter with Hypotenuse Given" [level=1] [ref=e1045]
+          - generic [ref=e1046]: My Upload
+        - button "Generate Similar Problem" [ref=e1047]:
+          - img [ref=e1048]
+          - text: Generate Similar Problem
+      - generic [ref=e1050]:
+        - generic [ref=e1051]: Intermediate
+        - generic [ref=e1052]: Grade 8
+    - button "Show original image" [ref=e1054]
+    - generic [ref=e1055]:
+      - generic [ref=e1056]:
+        - button "Worksheet" [ref=e1057]
+        - button "Answer Sheet" [ref=e1058]
+      - generic [ref=e1061]:
+        - 'heading "Isosceles Right Triangles: Finding the Perimeter" [level=2] [ref=e1062]'
+        - paragraph [ref=e1063]:
+          - strong [ref=e1064]: Question 25.
+        - paragraph [ref=e1065]:
+          - text: An isosceles right triangle has a hypotenuse of length
+          - generic [ref=e1066]:
+            - math [ref=e1068]:
+              - generic [ref=e1071]: "58"
+            - generic [ref=e1073]: "58"
+          - text: inches. What is the perimeter, in inches, of this triangle?
+        - paragraph [ref=e1074]:
+          - strong [ref=e1075]: A)
+          - generic [ref=e1076]:
+            - math [ref=e1078]:
+              - generic [ref=e1080]:
+                - generic [ref=e1081]: "29"
+                - generic [ref=e1083]: "2"
+            - generic [ref=e1085]:
+              - text: "29"
+              - generic [ref=e1089]:
+                - generic [ref=e1090]: "2"
+                - img [ref=e1092]
+        - paragraph [ref=e1097]:
+          - strong [ref=e1098]: B)
+          - generic [ref=e1099]:
+            - math [ref=e1101]:
+              - generic [ref=e1103]:
+                - generic [ref=e1104]: "58"
+                - generic [ref=e1106]: "2"
+            - generic [ref=e1108]:
+              - text: "58"
+              - generic [ref=e1112]:
+                - generic [ref=e1113]: "2"
+                - img [ref=e1115]
+        - paragraph [ref=e1120]:
+          - strong [ref=e1121]: C)
+          - generic [ref=e1122]:
+            - math [ref=e1124]:
+              - generic [ref=e1126]:
+                - generic [ref=e1127]: "58"
+                - generic [ref=e1128]: +
+                - generic [ref=e1129]: "58"
+                - generic [ref=e1131]: "2"
+            - generic [ref=e1132]:
+              - generic [ref=e1133]: 58 +
+              - generic [ref=e1134]:
+                - text: "58"
+                - generic [ref=e1138]:
+                  - generic [ref=e1139]: "2"
+                  - img [ref=e1141]
+        - paragraph [ref=e1146]:
+          - strong [ref=e1147]: D)
+          - generic [ref=e1148]:
+            - math [ref=e1150]:
+              - generic [ref=e1152]:
+                - generic [ref=e1153]: "58"
+                - generic [ref=e1154]: +
+                - generic [ref=e1155]: "116"
+                - generic [ref=e1157]: "2"
+            - generic [ref=e1158]:
+              - generic [ref=e1159]: 58 +
+              - generic [ref=e1160]:
+                - text: "116"
+                - generic [ref=e1164]:
+                  - generic [ref=e1165]: "2"
+                  - img [ref=e1167]
+        - separator [ref=e1172]
+        - paragraph [ref=e1173]:
+          - strong [ref=e1174]: "Show your work below:"
+        - paragraph [ref=e1175]
+        - paragraph [ref=e1176]
+        - paragraph [ref=e1177]
+        - paragraph [ref=e1178]
+        - paragraph [ref=e1179]
+        - separator [ref=e1180]
+        - paragraph [ref=e1181]:
+          - strong [ref=e1182]: Question 26.
+        - paragraph [ref=e1183]:
+          - text: An isosceles right triangle has a hypotenuse of length
+          - generic [ref=e1184]:
+            - math [ref=e1186]:
+              - generic [ref=e1189]: "34"
+            - generic [ref=e1191]: "34"
+          - text: inches. What is the perimeter, in inches, of this triangle?
+        - paragraph [ref=e1192]:
+          - strong [ref=e1193]: A)
+          - generic [ref=e1194]:
+            - math [ref=e1196]:
+              - generic [ref=e1198]:
+                - generic [ref=e1199]: "17"
+                - generic [ref=e1201]: "2"
+            - generic [ref=e1203]:
+              - text: "17"
+              - generic [ref=e1207]:
+                - generic [ref=e1208]: "2"
+                - img [ref=e1210]
+        - paragraph [ref=e1215]:
+          - strong [ref=e1216]: B)
+          - generic [ref=e1217]:
+            - math [ref=e1219]:
+              - generic [ref=e1221]:
+                - generic [ref=e1222]: "34"
+                - generic [ref=e1224]: "2"
+            - generic [ref=e1226]:
+              - text: "34"
+              - generic [ref=e1230]:
+                - generic [ref=e1231]: "2"
+                - img [ref=e1233]
+        - paragraph [ref=e1238]:
+          - strong [ref=e1239]: C)
+          - generic [ref=e1240]:
+            - math [ref=e1242]:
+              - generic [ref=e1244]:
+                - generic [ref=e1245]: "34"
+                - generic [ref=e1246]: +
+                - generic [ref=e1247]: "17"
+                - generic [ref=e1249]: "2"
+            - generic [ref=e1250]:
+              - generic [ref=e1251]: 34 +
+              - generic [ref=e1252]:
+                - text: "17"
+                - generic [ref=e1256]:
+                  - generic [ref=e1257]: "2"
+                  - img [ref=e1259]
+        - paragraph [ref=e1264]:
+          - strong [ref=e1265]: D)
+          - generic [ref=e1266]:
+            - math [ref=e1268]:
+              - generic [ref=e1270]:
+                - generic [ref=e1271]: "34"
+                - generic [ref=e1272]: +
+                - generic [ref=e1273]: "34"
+                - generic [ref=e1275]: "2"
+            - generic [ref=e1276]:
+              - generic [ref=e1277]: 34 +
+              - generic [ref=e1278]:
+                - text: "34"
+                - generic [ref=e1282]:
+                  - generic [ref=e1283]: "2"
+                  - img [ref=e1285]
+        - separator [ref=e1290]
+        - paragraph [ref=e1291]:
+          - strong [ref=e1292]: "Show your work below:"
+        - paragraph [ref=e1293]
+        - paragraph [ref=e1294]
+        - paragraph [ref=e1295]
+        - paragraph [ref=e1296]
+        - paragraph [ref=e1297]
+    - generic [ref=e1298]:
+      - heading "Log Attempt" [level=2] [ref=e1299]
+      - generic [ref=e1300]:
+        - generic [ref=e1301]:
+          - generic [ref=e1302]:
+            - generic [ref=e1303]: Date
+            - textbox "Date" [ref=e1304]: 2026-04-22
+          - generic [ref=e1305]:
+            - generic [ref=e1306]: Score (0–100)
+            - spinbutton "Score (0–100)" [ref=e1307]: "0"
+        - generic [ref=e1308]:
+          - generic [ref=e1309]: Comment
+          - textbox "Comment" [ref=e1310]
+        - button "Save Attempt" [ref=e1311]

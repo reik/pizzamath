@@ -18,10 +18,8 @@ export function UploadedWorksheetPage() {
   const [generating, setGenerating] = useState(false)
   const [generateError, setGenerateError] = useState('')
 
-  if (isLoading) return <div className="p-6 animate-pulse h-40 bg-gray-100 rounded-xl m-6" />
-  if (error || !upload) return <p className="p-6 text-red-600">Upload not found.</p>
-
   async function handleDownloadPdf() {
+    if (!upload) return
     const blob = await userUploadsApi.export(upload.id)
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -46,6 +44,9 @@ export function UploadedWorksheetPage() {
       setGenerating(false)
     }
   }
+
+  if (isLoading) return <div className="p-6 animate-pulse h-40 bg-gray-100 rounded-xl m-6" />
+  if (error || !upload) return <p className="p-6 text-red-600">Upload not found.</p>
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-6">

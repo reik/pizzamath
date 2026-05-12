@@ -1,0 +1,1147 @@
+- generic [ref=e18]:
+  - banner [ref=e19]:
+    - generic [ref=e20]:
+      - link "🍕 PizzaMath" [ref=e21] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e22]:
+        - button "Account ▾" [active] [ref=e23]
+        - generic [ref=e1017]:
+          - link "Account Settings" [ref=e1018] [cursor=pointer]:
+            - /url: /account
+          - link "Usage History" [ref=e1019] [cursor=pointer]:
+            - /url: /history
+          - link "My Uploads" [ref=e1020] [cursor=pointer]:
+            - /url: /my-uploads
+      - link "Admin" [ref=e24] [cursor=pointer]:
+        - /url: /admin
+      - button "Logout" [ref=e25]
+    - generic [ref=e26]:
+      - combobox "Category" [ref=e27]:
+        - option "All Categories" [selected]
+        - option "Counting & Cardinality"
+        - option "Operations & Algebraic Thinking"
+        - option "Number & Operations in Base Ten"
+        - option "Number & Operations — Fractions"
+        - option "Measurement & Data"
+        - option "Geometry"
+        - option "Ratios & Proportional Relationships"
+        - option "The Number System"
+        - option "Expressions & Equations"
+        - option "Functions"
+        - option "Statistics & Probability"
+        - option "Number & Quantity"
+        - option "Algebra"
+        - option "Modeling"
+      - searchbox "Search worksheets" [ref=e28]
+  - main [ref=e29]:
+    - heading "Worksheets (123)" [level=2] [ref=e30]:
+      - text: Worksheets
+      - generic [ref=e31]: (123)
+    - generic [ref=e32]:
+      - link "Counting Objects 1–10 Beginner Counting & Cardinality Grade K by PizzaMath" [ref=e33] [cursor=pointer]:
+        - /url: /worksheets/ws-1
+        - generic [ref=e34]:
+          - heading "Counting Objects 1–10" [level=3] [ref=e35]
+          - generic [ref=e36]: Beginner
+        - generic [ref=e37]:
+          - generic [ref=e38]: Counting & Cardinality
+          - generic [ref=e39]: Grade K
+          - generic [ref=e40]: by PizzaMath
+      - link "Addition within 20 Beginner Operations & Algebraic Thinking Grade 1 by PizzaMath" [ref=e41] [cursor=pointer]:
+        - /url: /worksheets/ws-2
+        - generic [ref=e42]:
+          - heading "Addition within 20" [level=3] [ref=e43]
+          - generic [ref=e44]: Beginner
+        - generic [ref=e45]:
+          - generic [ref=e46]: Operations & Algebraic Thinking
+          - generic [ref=e47]: Grade 1
+          - generic [ref=e48]: by PizzaMath
+      - link "Introduction to Fractions Intermediate Number & Operations — Fractions Grade 3 by PizzaMath" [ref=e49] [cursor=pointer]:
+        - /url: /worksheets/ws-3
+        - generic [ref=e50]:
+          - heading "Introduction to Fractions" [level=3] [ref=e51]
+          - generic [ref=e52]: Intermediate
+        - generic [ref=e53]:
+          - generic [ref=e54]: Number & Operations — Fractions
+          - generic [ref=e55]: Grade 3
+          - generic [ref=e56]: by PizzaMath
+      - link "Count to 10 Beginner Counting & Cardinality Grade K by PizzaMath" [ref=e57] [cursor=pointer]:
+        - /url: /worksheets/ws-s1-1a
+        - generic [ref=e58]:
+          - heading "Count to 10" [level=3] [ref=e59]
+          - generic [ref=e60]: Beginner
+        - generic [ref=e61]:
+          - generic [ref=e62]: Counting & Cardinality
+          - generic [ref=e63]: Grade K
+          - generic [ref=e64]: by PizzaMath
+      - link "Count to 20 Intermediate Counting & Cardinality Grade K by PizzaMath" [ref=e65] [cursor=pointer]:
+        - /url: /worksheets/ws-s1-1b
+        - generic [ref=e66]:
+          - heading "Count to 20" [level=3] [ref=e67]
+          - generic [ref=e68]: Intermediate
+        - generic [ref=e69]:
+          - generic [ref=e70]: Counting & Cardinality
+          - generic [ref=e71]: Grade K
+          - generic [ref=e72]: by PizzaMath
+      - link "How Many? (1–5) Beginner Counting & Cardinality Grade K by PizzaMath" [ref=e73] [cursor=pointer]:
+        - /url: /worksheets/ws-s1-2a
+        - generic [ref=e74]:
+          - heading "How Many? (1–5)" [level=3] [ref=e75]
+          - generic [ref=e76]: Beginner
+        - generic [ref=e77]:
+          - generic [ref=e78]: Counting & Cardinality
+          - generic [ref=e79]: Grade K
+          - generic [ref=e80]: by PizzaMath
+      - link "Count and Match (1–10) Intermediate Counting & Cardinality Grade K by PizzaMath" [ref=e81] [cursor=pointer]:
+        - /url: /worksheets/ws-s1-2b
+        - generic [ref=e82]:
+          - heading "Count and Match (1–10)" [level=3] [ref=e83]
+          - generic [ref=e84]: Intermediate
+        - generic [ref=e85]:
+          - generic [ref=e86]: Counting & Cardinality
+          - generic [ref=e87]: Grade K
+          - generic [ref=e88]: by PizzaMath
+      - link "More or Less? Beginner Counting & Cardinality Grade K by PizzaMath" [ref=e89] [cursor=pointer]:
+        - /url: /worksheets/ws-s1-3a
+        - generic [ref=e90]:
+          - heading "More or Less?" [level=3] [ref=e91]
+          - generic [ref=e92]: Beginner
+        - generic [ref=e93]:
+          - generic [ref=e94]: Counting & Cardinality
+          - generic [ref=e95]: Grade K
+          - generic [ref=e96]: by PizzaMath
+      - link "Greater Than, Less Than Intermediate Counting & Cardinality Grade K by PizzaMath" [ref=e97] [cursor=pointer]:
+        - /url: /worksheets/ws-s1-3b
+        - generic [ref=e98]:
+          - heading "Greater Than, Less Than" [level=3] [ref=e99]
+          - generic [ref=e100]: Intermediate
+        - generic [ref=e101]:
+          - generic [ref=e102]: Counting & Cardinality
+          - generic [ref=e103]: Grade K
+          - generic [ref=e104]: by PizzaMath
+      - link "Adding Small Numbers Beginner Operations & Algebraic Thinking Grade 1 by PizzaMath" [ref=e105] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-1a
+        - generic [ref=e106]:
+          - heading "Adding Small Numbers" [level=3] [ref=e107]
+          - generic [ref=e108]: Beginner
+        - generic [ref=e109]:
+          - generic [ref=e110]: Operations & Algebraic Thinking
+          - generic [ref=e111]: Grade 1
+          - generic [ref=e112]: by PizzaMath
+      - link "Subtraction within 10 Beginner Operations & Algebraic Thinking Grade 1 by PizzaMath" [ref=e113] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-1b
+        - generic [ref=e114]:
+          - heading "Subtraction within 10" [level=3] [ref=e115]
+          - generic [ref=e116]: Beginner
+        - generic [ref=e117]:
+          - generic [ref=e118]: Operations & Algebraic Thinking
+          - generic [ref=e119]: Grade 1
+          - generic [ref=e120]: by PizzaMath
+      - 'link "Word Problems: Add & Subtract Beginner Operations & Algebraic Thinking Grade 2 by PizzaMath" [ref=e121] [cursor=pointer]':
+        - /url: /worksheets/ws-s2-2a
+        - generic [ref=e122]:
+          - 'heading "Word Problems: Add & Subtract" [level=3] [ref=e123]'
+          - generic [ref=e124]: Beginner
+        - generic [ref=e125]:
+          - generic [ref=e126]: Operations & Algebraic Thinking
+          - generic [ref=e127]: Grade 2
+          - generic [ref=e128]: by PizzaMath
+      - link "Missing Numbers in Equations Intermediate Operations & Algebraic Thinking Grade 2 by PizzaMath" [ref=e129] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-2b
+        - generic [ref=e130]:
+          - heading "Missing Numbers in Equations" [level=3] [ref=e131]
+          - generic [ref=e132]: Intermediate
+        - generic [ref=e133]:
+          - generic [ref=e134]: Operations & Algebraic Thinking
+          - generic [ref=e135]: Grade 2
+          - generic [ref=e136]: by PizzaMath
+      - link "Multiplication Facts (×2, ×5) Beginner Operations & Algebraic Thinking Grade 3 by PizzaMath" [ref=e137] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-3a
+        - generic [ref=e138]:
+          - heading "Multiplication Facts (×2, ×5)" [level=3] [ref=e139]
+          - generic [ref=e140]: Beginner
+        - generic [ref=e141]:
+          - generic [ref=e142]: Operations & Algebraic Thinking
+          - generic [ref=e143]: Grade 3
+          - generic [ref=e144]: by PizzaMath
+      - link "Division within 100 Intermediate Operations & Algebraic Thinking Grade 3 by PizzaMath" [ref=e145] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-3b
+        - generic [ref=e146]:
+          - heading "Division within 100" [level=3] [ref=e147]
+          - generic [ref=e148]: Intermediate
+        - generic [ref=e149]:
+          - generic [ref=e150]: Operations & Algebraic Thinking
+          - generic [ref=e151]: Grade 3
+          - generic [ref=e152]: by PizzaMath
+      - link "Multi-Step Word Problems Intermediate Operations & Algebraic Thinking Grade 4 by PizzaMath" [ref=e153] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-4a
+        - generic [ref=e154]:
+          - heading "Multi-Step Word Problems" [level=3] [ref=e155]
+          - generic [ref=e156]: Intermediate
+        - generic [ref=e157]:
+          - generic [ref=e158]: Operations & Algebraic Thinking
+          - generic [ref=e159]: Grade 4
+          - generic [ref=e160]: by PizzaMath
+      - link "Order of Operations Advanced Operations & Algebraic Thinking Grade 5 by PizzaMath" [ref=e161] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-4b
+        - generic [ref=e162]:
+          - heading "Order of Operations" [level=3] [ref=e163]
+          - generic [ref=e164]: Advanced
+        - generic [ref=e165]:
+          - generic [ref=e166]: Operations & Algebraic Thinking
+          - generic [ref=e167]: Grade 5
+          - generic [ref=e168]: by PizzaMath
+      - link "Number Patterns Beginner Operations & Algebraic Thinking Grade 3 by PizzaMath" [ref=e169] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-5a
+        - generic [ref=e170]:
+          - heading "Number Patterns" [level=3] [ref=e171]
+          - generic [ref=e172]: Beginner
+        - generic [ref=e173]:
+          - generic [ref=e174]: Operations & Algebraic Thinking
+          - generic [ref=e175]: Grade 3
+          - generic [ref=e176]: by PizzaMath
+      - link "Shape and Number Patterns Intermediate Operations & Algebraic Thinking Grade 4 by PizzaMath" [ref=e177] [cursor=pointer]:
+        - /url: /worksheets/ws-s2-5b
+        - generic [ref=e178]:
+          - heading "Shape and Number Patterns" [level=3] [ref=e179]
+          - generic [ref=e180]: Intermediate
+        - generic [ref=e181]:
+          - generic [ref=e182]: Operations & Algebraic Thinking
+          - generic [ref=e183]: Grade 4
+          - generic [ref=e184]: by PizzaMath
+      - link "Teen Numbers Beginner Number & Operations in Base Ten Grade K by PizzaMath" [ref=e185] [cursor=pointer]:
+        - /url: /worksheets/ws-s3-1a
+        - generic [ref=e186]:
+          - heading "Teen Numbers" [level=3] [ref=e187]
+          - generic [ref=e188]: Beginner
+        - generic [ref=e189]:
+          - generic [ref=e190]: Number & Operations in Base Ten
+          - generic [ref=e191]: Grade K
+          - generic [ref=e192]: by PizzaMath
+      - link "Teen Numbers on Number Line Intermediate Number & Operations in Base Ten Grade 1 by PizzaMath" [ref=e193] [cursor=pointer]:
+        - /url: /worksheets/ws-s3-1b
+        - generic [ref=e194]:
+          - heading "Teen Numbers on Number Line" [level=3] [ref=e195]
+          - generic [ref=e196]: Intermediate
+        - generic [ref=e197]:
+          - generic [ref=e198]: Number & Operations in Base Ten
+          - generic [ref=e199]: Grade 1
+          - generic [ref=e200]: by PizzaMath
+      - link "Tens and Ones Beginner Number & Operations in Base Ten Grade 1 by PizzaMath" [ref=e201] [cursor=pointer]:
+        - /url: /worksheets/ws-s3-2a
+        - generic [ref=e202]:
+          - heading "Tens and Ones" [level=3] [ref=e203]
+          - generic [ref=e204]: Beginner
+        - generic [ref=e205]:
+          - generic [ref=e206]: Number & Operations in Base Ten
+          - generic [ref=e207]: Grade 1
+          - generic [ref=e208]: by PizzaMath
+      - link "Hundreds, Tens, and Ones Intermediate Number & Operations in Base Ten Grade 2 by PizzaMath" [ref=e209] [cursor=pointer]:
+        - /url: /worksheets/ws-s3-2b
+        - generic [ref=e210]:
+          - heading "Hundreds, Tens, and Ones" [level=3] [ref=e211]
+          - generic [ref=e212]: Intermediate
+        - generic [ref=e213]:
+          - generic [ref=e214]: Number & Operations in Base Ten
+          - generic [ref=e215]: Grade 2
+          - generic [ref=e216]: by PizzaMath
+      - link "Rounding to the Nearest Ten Intermediate Number & Operations in Base Ten Grade 3 by PizzaMath" [ref=e217] [cursor=pointer]:
+        - /url: /worksheets/ws-s3-3a
+        - generic [ref=e218]:
+          - heading "Rounding to the Nearest Ten" [level=3] [ref=e219]
+          - generic [ref=e220]: Intermediate
+        - generic [ref=e221]:
+          - generic [ref=e222]: Number & Operations in Base Ten
+          - generic [ref=e223]: Grade 3
+          - generic [ref=e224]: by PizzaMath
+      - link "Adding and Subtracting with Place Value Intermediate Number & Operations in Base Ten Grade 3 by PizzaMath" [ref=e225] [cursor=pointer]:
+        - /url: /worksheets/ws-s3-3b
+        - generic [ref=e226]:
+          - heading "Adding and Subtracting with Place Value" [level=3] [ref=e227]
+          - generic [ref=e228]: Intermediate
+        - generic [ref=e229]:
+          - generic [ref=e230]: Number & Operations in Base Ten
+          - generic [ref=e231]: Grade 3
+          - generic [ref=e232]: by PizzaMath
+      - link "Multiply by Powers of 10 Intermediate Number & Operations in Base Ten Grade 5 by PizzaMath" [ref=e233] [cursor=pointer]:
+        - /url: /worksheets/ws-s3-4a
+        - generic [ref=e234]:
+          - heading "Multiply by Powers of 10" [level=3] [ref=e235]
+          - generic [ref=e236]: Intermediate
+        - generic [ref=e237]:
+          - generic [ref=e238]: Number & Operations in Base Ten
+          - generic [ref=e239]: Grade 5
+          - generic [ref=e240]: by PizzaMath
+      - link "Decimals and Place Value Advanced Number & Operations in Base Ten Grade 5 by PizzaMath" [ref=e241] [cursor=pointer]:
+        - /url: /worksheets/ws-s3-4b
+        - generic [ref=e242]:
+          - heading "Decimals and Place Value" [level=3] [ref=e243]
+          - generic [ref=e244]: Advanced
+        - generic [ref=e245]:
+          - generic [ref=e246]: Number & Operations in Base Ten
+          - generic [ref=e247]: Grade 5
+          - generic [ref=e248]: by PizzaMath
+      - link "Naming Fractions Beginner Number & Operations — Fractions Grade 3 by PizzaMath" [ref=e249] [cursor=pointer]:
+        - /url: /worksheets/ws-s4-1a
+        - generic [ref=e250]:
+          - heading "Naming Fractions" [level=3] [ref=e251]
+          - generic [ref=e252]: Beginner
+        - generic [ref=e253]:
+          - generic [ref=e254]: Number & Operations — Fractions
+          - generic [ref=e255]: Grade 3
+          - generic [ref=e256]: by PizzaMath
+      - link "Fractions on a Number Line Intermediate Number & Operations — Fractions Grade 3 by PizzaMath" [ref=e257] [cursor=pointer]:
+        - /url: /worksheets/ws-s4-1b
+        - generic [ref=e258]:
+          - heading "Fractions on a Number Line" [level=3] [ref=e259]
+          - generic [ref=e260]: Intermediate
+        - generic [ref=e261]:
+          - generic [ref=e262]: Number & Operations — Fractions
+          - generic [ref=e263]: Grade 3
+          - generic [ref=e264]: by PizzaMath
+      - link "Equivalent Fractions Intermediate Number & Operations — Fractions Grade 4 by PizzaMath" [ref=e265] [cursor=pointer]:
+        - /url: /worksheets/ws-s4-2a
+        - generic [ref=e266]:
+          - heading "Equivalent Fractions" [level=3] [ref=e267]
+          - generic [ref=e268]: Intermediate
+        - generic [ref=e269]:
+          - generic [ref=e270]: Number & Operations — Fractions
+          - generic [ref=e271]: Grade 4
+          - generic [ref=e272]: by PizzaMath
+      - link "Simplifying Fractions Intermediate Number & Operations — Fractions Grade 4 by PizzaMath" [ref=e273] [cursor=pointer]:
+        - /url: /worksheets/ws-s4-2b
+        - generic [ref=e274]:
+          - heading "Simplifying Fractions" [level=3] [ref=e275]
+          - generic [ref=e276]: Intermediate
+        - generic [ref=e277]:
+          - generic [ref=e278]: Number & Operations — Fractions
+          - generic [ref=e279]: Grade 4
+          - generic [ref=e280]: by PizzaMath
+      - link "Adding Fractions (Same Denominator) Intermediate Number & Operations — Fractions Grade 4 by PizzaMath" [ref=e281] [cursor=pointer]:
+        - /url: /worksheets/ws-s4-3a
+        - generic [ref=e282]:
+          - heading "Adding Fractions (Same Denominator)" [level=3] [ref=e283]
+          - generic [ref=e284]: Intermediate
+        - generic [ref=e285]:
+          - generic [ref=e286]: Number & Operations — Fractions
+          - generic [ref=e287]: Grade 4
+          - generic [ref=e288]: by PizzaMath
+      - link "Mixed Numbers Advanced Number & Operations — Fractions Grade 4 by PizzaMath" [ref=e289] [cursor=pointer]:
+        - /url: /worksheets/ws-s4-3b
+        - generic [ref=e290]:
+          - heading "Mixed Numbers" [level=3] [ref=e291]
+          - generic [ref=e292]: Advanced
+        - generic [ref=e293]:
+          - generic [ref=e294]: Number & Operations — Fractions
+          - generic [ref=e295]: Grade 4
+          - generic [ref=e296]: by PizzaMath
+      - link "Multiplying Fractions Advanced Number & Operations — Fractions Grade 5 by PizzaMath" [ref=e297] [cursor=pointer]:
+        - /url: /worksheets/ws-s4-4a
+        - generic [ref=e298]:
+          - heading "Multiplying Fractions" [level=3] [ref=e299]
+          - generic [ref=e300]: Advanced
+        - generic [ref=e301]:
+          - generic [ref=e302]: Number & Operations — Fractions
+          - generic [ref=e303]: Grade 5
+          - generic [ref=e304]: by PizzaMath
+      - link "Dividing Fractions by Whole Numbers Advanced Number & Operations — Fractions Grade 5 by PizzaMath" [ref=e305] [cursor=pointer]:
+        - /url: /worksheets/ws-s4-4b
+        - generic [ref=e306]:
+          - heading "Dividing Fractions by Whole Numbers" [level=3] [ref=e307]
+          - generic [ref=e308]: Advanced
+        - generic [ref=e309]:
+          - generic [ref=e310]: Number & Operations — Fractions
+          - generic [ref=e311]: Grade 5
+          - generic [ref=e312]: by PizzaMath
+      - link "Comparing Lengths Beginner Measurement & Data Grade K by PizzaMath" [ref=e313] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-1a
+        - generic [ref=e314]:
+          - heading "Comparing Lengths" [level=3] [ref=e315]
+          - generic [ref=e316]: Beginner
+        - generic [ref=e317]:
+          - generic [ref=e318]: Measurement & Data
+          - generic [ref=e319]: Grade K
+          - generic [ref=e320]: by PizzaMath
+      - link "Measuring with a Ruler Intermediate Measurement & Data Grade 2 by PizzaMath" [ref=e321] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-1b
+        - generic [ref=e322]:
+          - heading "Measuring with a Ruler" [level=3] [ref=e323]
+          - generic [ref=e324]: Intermediate
+        - generic [ref=e325]:
+          - generic [ref=e326]: Measurement & Data
+          - generic [ref=e327]: Grade 2
+          - generic [ref=e328]: by PizzaMath
+      - link "Sorting and Classifying Beginner Measurement & Data Grade K by PizzaMath" [ref=e329] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-2a
+        - generic [ref=e330]:
+          - heading "Sorting and Classifying" [level=3] [ref=e331]
+          - generic [ref=e332]: Beginner
+        - generic [ref=e333]:
+          - generic [ref=e334]: Measurement & Data
+          - generic [ref=e335]: Grade K
+          - generic [ref=e336]: by PizzaMath
+      - link "Graphing Objects Intermediate Measurement & Data Grade 1 by PizzaMath" [ref=e337] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-2b
+        - generic [ref=e338]:
+          - heading "Graphing Objects" [level=3] [ref=e339]
+          - generic [ref=e340]: Intermediate
+        - generic [ref=e341]:
+          - generic [ref=e342]: Measurement & Data
+          - generic [ref=e343]: Grade 1
+          - generic [ref=e344]: by PizzaMath
+      - link "Indirect Measurement Intermediate Measurement & Data Grade 2 by PizzaMath" [ref=e345] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-3a
+        - generic [ref=e346]:
+          - heading "Indirect Measurement" [level=3] [ref=e347]
+          - generic [ref=e348]: Intermediate
+        - generic [ref=e349]:
+          - generic [ref=e350]: Measurement & Data
+          - generic [ref=e351]: Grade 2
+          - generic [ref=e352]: by PizzaMath
+      - link "Perimeter Intermediate Measurement & Data Grade 3 by PizzaMath" [ref=e353] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-3b
+        - generic [ref=e354]:
+          - heading "Perimeter" [level=3] [ref=e355]
+          - generic [ref=e356]: Intermediate
+        - generic [ref=e357]:
+          - generic [ref=e358]: Measurement & Data
+          - generic [ref=e359]: Grade 3
+          - generic [ref=e360]: by PizzaMath
+      - link "Bar Graphs Intermediate Measurement & Data Grade 3 by PizzaMath" [ref=e361] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-4a
+        - generic [ref=e362]:
+          - heading "Bar Graphs" [level=3] [ref=e363]
+          - generic [ref=e364]: Intermediate
+        - generic [ref=e365]:
+          - generic [ref=e366]: Measurement & Data
+          - generic [ref=e367]: Grade 3
+          - generic [ref=e368]: by PizzaMath
+      - link "Line Plots Advanced Measurement & Data Grade 4 by PizzaMath" [ref=e369] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-4b
+        - generic [ref=e370]:
+          - heading "Line Plots" [level=3] [ref=e371]
+          - generic [ref=e372]: Advanced
+        - generic [ref=e373]:
+          - generic [ref=e374]: Measurement & Data
+          - generic [ref=e375]: Grade 4
+          - generic [ref=e376]: by PizzaMath
+      - link "Area of Rectangles Intermediate Measurement & Data Grade 3 by PizzaMath" [ref=e377] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-5a
+        - generic [ref=e378]:
+          - heading "Area of Rectangles" [level=3] [ref=e379]
+          - generic [ref=e380]: Intermediate
+        - generic [ref=e381]:
+          - generic [ref=e382]: Measurement & Data
+          - generic [ref=e383]: Grade 3
+          - generic [ref=e384]: by PizzaMath
+      - link "Volume of Rectangular Prisms Advanced Measurement & Data Grade 5 by PizzaMath" [ref=e385] [cursor=pointer]:
+        - /url: /worksheets/ws-s5-5b
+        - generic [ref=e386]:
+          - heading "Volume of Rectangular Prisms" [level=3] [ref=e387]
+          - generic [ref=e388]: Advanced
+        - generic [ref=e389]:
+          - generic [ref=e390]: Measurement & Data
+          - generic [ref=e391]: Grade 5
+          - generic [ref=e392]: by PizzaMath
+      - link "Naming 2D Shapes Beginner Geometry Grade 1 by PizzaMath" [ref=e393] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-1a
+        - generic [ref=e394]:
+          - heading "Naming 2D Shapes" [level=3] [ref=e395]
+          - generic [ref=e396]: Beginner
+        - generic [ref=e397]:
+          - generic [ref=e398]: Geometry
+          - generic [ref=e399]: Grade 1
+          - generic [ref=e400]: by PizzaMath
+      - link "3D Shapes Intermediate Geometry Grade 2 by PizzaMath" [ref=e401] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-1b
+        - generic [ref=e402]:
+          - heading "3D Shapes" [level=3] [ref=e403]
+          - generic [ref=e404]: Intermediate
+        - generic [ref=e405]:
+          - generic [ref=e406]: Geometry
+          - generic [ref=e407]: Grade 2
+          - generic [ref=e408]: by PizzaMath
+      - link "Classifying Triangles Intermediate Geometry Grade 5 by PizzaMath" [ref=e409] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-2a
+        - generic [ref=e410]:
+          - heading "Classifying Triangles" [level=3] [ref=e411]
+          - generic [ref=e412]: Intermediate
+        - generic [ref=e413]:
+          - generic [ref=e414]: Geometry
+          - generic [ref=e415]: Grade 5
+          - generic [ref=e416]: by PizzaMath
+      - link "Quadrilaterals Intermediate Geometry Grade 5 by PizzaMath" [ref=e417] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-2b
+        - generic [ref=e418]:
+          - heading "Quadrilaterals" [level=3] [ref=e419]
+          - generic [ref=e420]: Intermediate
+        - generic [ref=e421]:
+          - generic [ref=e422]: Geometry
+          - generic [ref=e423]: Grade 5
+          - generic [ref=e424]: by PizzaMath
+      - link "Lines and Angles Intermediate Geometry Grade 4 by PizzaMath" [ref=e425] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-3a
+        - generic [ref=e426]:
+          - heading "Lines and Angles" [level=3] [ref=e427]
+          - generic [ref=e428]: Intermediate
+        - generic [ref=e429]:
+          - generic [ref=e430]: Geometry
+          - generic [ref=e431]: Grade 4
+          - generic [ref=e432]: by PizzaMath
+      - link "Measuring Angles Advanced Geometry Grade 4 by PizzaMath" [ref=e433] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-3b
+        - generic [ref=e434]:
+          - heading "Measuring Angles" [level=3] [ref=e435]
+          - generic [ref=e436]: Advanced
+        - generic [ref=e437]:
+          - generic [ref=e438]: Geometry
+          - generic [ref=e439]: Grade 4
+          - generic [ref=e440]: by PizzaMath
+      - link "Congruent Figures Intermediate Geometry Grade 8 by PizzaMath" [ref=e441] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-4a
+        - generic [ref=e442]:
+          - heading "Congruent Figures" [level=3] [ref=e443]
+          - generic [ref=e444]: Intermediate
+        - generic [ref=e445]:
+          - generic [ref=e446]: Geometry
+          - generic [ref=e447]: Grade 8
+          - generic [ref=e448]: by PizzaMath
+      - link "Rigid Transformations Advanced Geometry Grade 8 by PizzaMath" [ref=e449] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-4b
+        - generic [ref=e450]:
+          - heading "Rigid Transformations" [level=3] [ref=e451]
+          - generic [ref=e452]: Advanced
+        - generic [ref=e453]:
+          - generic [ref=e454]: Geometry
+          - generic [ref=e455]: Grade 8
+          - generic [ref=e456]: by PizzaMath
+      - link "Similar Figures Intermediate Geometry Grade 8 by PizzaMath" [ref=e457] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-5a
+        - generic [ref=e458]:
+          - heading "Similar Figures" [level=3] [ref=e459]
+          - generic [ref=e460]: Intermediate
+        - generic [ref=e461]:
+          - generic [ref=e462]: Geometry
+          - generic [ref=e463]: Grade 8
+          - generic [ref=e464]: by PizzaMath
+      - link "Scale Drawings Advanced Geometry Grade 7 by PizzaMath" [ref=e465] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-5b
+        - generic [ref=e466]:
+          - heading "Scale Drawings" [level=3] [ref=e467]
+          - generic [ref=e468]: Advanced
+        - generic [ref=e469]:
+          - generic [ref=e470]: Geometry
+          - generic [ref=e471]: Grade 7
+          - generic [ref=e472]: by PizzaMath
+      - link "Intro to Trig Ratios Intermediate Geometry Grade 10 by PizzaMath" [ref=e473] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-6a
+        - generic [ref=e474]:
+          - heading "Intro to Trig Ratios" [level=3] [ref=e475]
+          - generic [ref=e476]: Intermediate
+        - generic [ref=e477]:
+          - generic [ref=e478]: Geometry
+          - generic [ref=e479]: Grade 10
+          - generic [ref=e480]: by PizzaMath
+      - link "Solving Right Triangles Advanced Geometry Grade 10 by PizzaMath" [ref=e481] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-6b
+        - generic [ref=e482]:
+          - heading "Solving Right Triangles" [level=3] [ref=e483]
+          - generic [ref=e484]: Advanced
+        - generic [ref=e485]:
+          - generic [ref=e486]: Geometry
+          - generic [ref=e487]: Grade 10
+          - generic [ref=e488]: by PizzaMath
+      - link "Geometry in Real Life Intermediate Geometry Grade 9 by PizzaMath" [ref=e489] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-7a
+        - generic [ref=e490]:
+          - heading "Geometry in Real Life" [level=3] [ref=e491]
+          - generic [ref=e492]: Intermediate
+        - generic [ref=e493]:
+          - generic [ref=e494]: Geometry
+          - generic [ref=e495]: Grade 9
+          - generic [ref=e496]: by PizzaMath
+      - link "Composite Shapes Advanced Geometry Grade 9 by PizzaMath" [ref=e497] [cursor=pointer]:
+        - /url: /worksheets/ws-s6-7b
+        - generic [ref=e498]:
+          - heading "Composite Shapes" [level=3] [ref=e499]
+          - generic [ref=e500]: Advanced
+        - generic [ref=e501]:
+          - generic [ref=e502]: Geometry
+          - generic [ref=e503]: Grade 9
+          - generic [ref=e504]: by PizzaMath
+      - link "Introduction to Ratios Beginner Ratios & Proportional Relationships Grade 6 by PizzaMath" [ref=e505] [cursor=pointer]:
+        - /url: /worksheets/ws-s7-1a
+        - generic [ref=e506]:
+          - heading "Introduction to Ratios" [level=3] [ref=e507]
+          - generic [ref=e508]: Beginner
+        - generic [ref=e509]:
+          - generic [ref=e510]: Ratios & Proportional Relationships
+          - generic [ref=e511]: Grade 6
+          - generic [ref=e512]: by PizzaMath
+      - link "Unit Rates Intermediate Ratios & Proportional Relationships Grade 6 by PizzaMath" [ref=e513] [cursor=pointer]:
+        - /url: /worksheets/ws-s7-1b
+        - generic [ref=e514]:
+          - heading "Unit Rates" [level=3] [ref=e515]
+          - generic [ref=e516]: Intermediate
+        - generic [ref=e517]:
+          - generic [ref=e518]: Ratios & Proportional Relationships
+          - generic [ref=e519]: Grade 6
+          - generic [ref=e520]: by PizzaMath
+      - link "Proportions Intermediate Ratios & Proportional Relationships Grade 7 by PizzaMath" [ref=e521] [cursor=pointer]:
+        - /url: /worksheets/ws-s7-2a
+        - generic [ref=e522]:
+          - heading "Proportions" [level=3] [ref=e523]
+          - generic [ref=e524]: Intermediate
+        - generic [ref=e525]:
+          - generic [ref=e526]: Ratios & Proportional Relationships
+          - generic [ref=e527]: Grade 7
+          - generic [ref=e528]: by PizzaMath
+      - link "Percent Problems Advanced Ratios & Proportional Relationships Grade 7 by PizzaMath" [ref=e529] [cursor=pointer]:
+        - /url: /worksheets/ws-s7-2b
+        - generic [ref=e530]:
+          - heading "Percent Problems" [level=3] [ref=e531]
+          - generic [ref=e532]: Advanced
+        - generic [ref=e533]:
+          - generic [ref=e534]: Ratios & Proportional Relationships
+          - generic [ref=e535]: Grade 7
+          - generic [ref=e536]: by PizzaMath
+      - link "Dividing Fractions Intermediate The Number System Grade 6 by PizzaMath" [ref=e537] [cursor=pointer]:
+        - /url: /worksheets/ws-s8-1a
+        - generic [ref=e538]:
+          - heading "Dividing Fractions" [level=3] [ref=e539]
+          - generic [ref=e540]: Intermediate
+        - generic [ref=e541]:
+          - generic [ref=e542]: The Number System
+          - generic [ref=e543]: Grade 6
+          - generic [ref=e544]: by PizzaMath
+      - link "Fraction Division Word Problems Advanced The Number System Grade 6 by PizzaMath" [ref=e545] [cursor=pointer]:
+        - /url: /worksheets/ws-s8-1b
+        - generic [ref=e546]:
+          - heading "Fraction Division Word Problems" [level=3] [ref=e547]
+          - generic [ref=e548]: Advanced
+        - generic [ref=e549]:
+          - generic [ref=e550]: The Number System
+          - generic [ref=e551]: Grade 6
+          - generic [ref=e552]: by PizzaMath
+      - link "Multi-Digit Multiplication Intermediate The Number System Grade 6 by PizzaMath" [ref=e553] [cursor=pointer]:
+        - /url: /worksheets/ws-s8-2a
+        - generic [ref=e554]:
+          - heading "Multi-Digit Multiplication" [level=3] [ref=e555]
+          - generic [ref=e556]: Intermediate
+        - generic [ref=e557]:
+          - generic [ref=e558]: The Number System
+          - generic [ref=e559]: Grade 6
+          - generic [ref=e560]: by PizzaMath
+      - link "Long Division Intermediate The Number System Grade 6 by PizzaMath" [ref=e561] [cursor=pointer]:
+        - /url: /worksheets/ws-s8-2b
+        - generic [ref=e562]:
+          - heading "Long Division" [level=3] [ref=e563]
+          - generic [ref=e564]: Intermediate
+        - generic [ref=e565]:
+          - generic [ref=e566]: The Number System
+          - generic [ref=e567]: Grade 6
+          - generic [ref=e568]: by PizzaMath
+      - link "Properties of Operations Intermediate The Number System Grade 7 by PizzaMath" [ref=e569] [cursor=pointer]:
+        - /url: /worksheets/ws-s8-3a
+        - generic [ref=e570]:
+          - heading "Properties of Operations" [level=3] [ref=e571]
+          - generic [ref=e572]: Intermediate
+        - generic [ref=e573]:
+          - generic [ref=e574]: The Number System
+          - generic [ref=e575]: Grade 7
+          - generic [ref=e576]: by PizzaMath
+      - 'link "Integers: Add, Subtract, Multiply, Divide Intermediate The Number System Grade 7 by PizzaMath" [ref=e577] [cursor=pointer]':
+        - /url: /worksheets/ws-s8-3b
+        - generic [ref=e578]:
+          - 'heading "Integers: Add, Subtract, Multiply, Divide" [level=3] [ref=e579]'
+          - generic [ref=e580]: Intermediate
+        - generic [ref=e581]:
+          - generic [ref=e582]: The Number System
+          - generic [ref=e583]: Grade 7
+          - generic [ref=e584]: by PizzaMath
+      - link "Rational and Irrational Numbers Advanced The Number System Grade 8 by PizzaMath" [ref=e585] [cursor=pointer]:
+        - /url: /worksheets/ws-s8-4a
+        - generic [ref=e586]:
+          - heading "Rational and Irrational Numbers" [level=3] [ref=e587]
+          - generic [ref=e588]: Advanced
+        - generic [ref=e589]:
+          - generic [ref=e590]: The Number System
+          - generic [ref=e591]: Grade 8
+          - generic [ref=e592]: by PizzaMath
+      - link "Estimating Square Roots Advanced The Number System Grade 8 by PizzaMath" [ref=e593] [cursor=pointer]:
+        - /url: /worksheets/ws-s8-4b
+        - generic [ref=e594]:
+          - heading "Estimating Square Roots" [level=3] [ref=e595]
+          - generic [ref=e596]: Advanced
+        - generic [ref=e597]:
+          - generic [ref=e598]: The Number System
+          - generic [ref=e599]: Grade 8
+          - generic [ref=e600]: by PizzaMath
+      - link "Writing and Simplifying Expressions Beginner Expressions & Equations Grade 6 by PizzaMath" [ref=e601] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-1a
+        - generic [ref=e602]:
+          - heading "Writing and Simplifying Expressions" [level=3] [ref=e603]
+          - generic [ref=e604]: Beginner
+        - generic [ref=e605]:
+          - generic [ref=e606]: Expressions & Equations
+          - generic [ref=e607]: Grade 6
+          - generic [ref=e608]: by PizzaMath
+      - link "Distributive Property with Variables Intermediate Expressions & Equations Grade 7 by PizzaMath" [ref=e609] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-1b
+        - generic [ref=e610]:
+          - heading "Distributive Property with Variables" [level=3] [ref=e611]
+          - generic [ref=e612]: Intermediate
+        - generic [ref=e613]:
+          - generic [ref=e614]: Expressions & Equations
+          - generic [ref=e615]: Grade 7
+          - generic [ref=e616]: by PizzaMath
+      - link "Solving One-Step Equations Beginner Expressions & Equations Grade 6 by PizzaMath" [ref=e617] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-2a
+        - generic [ref=e618]:
+          - heading "Solving One-Step Equations" [level=3] [ref=e619]
+          - generic [ref=e620]: Beginner
+        - generic [ref=e621]:
+          - generic [ref=e622]: Expressions & Equations
+          - generic [ref=e623]: Grade 6
+          - generic [ref=e624]: by PizzaMath
+      - link "Solving Two-Step Equations Intermediate Expressions & Equations Grade 7 by PizzaMath" [ref=e625] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-2b
+        - generic [ref=e626]:
+          - heading "Solving Two-Step Equations" [level=3] [ref=e627]
+          - generic [ref=e628]: Intermediate
+        - generic [ref=e629]:
+          - generic [ref=e630]: Expressions & Equations
+          - generic [ref=e631]: Grade 7
+          - generic [ref=e632]: by PizzaMath
+      - link "Writing Equations from Situations Intermediate Expressions & Equations Grade 6 by PizzaMath" [ref=e633] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-3a
+        - generic [ref=e634]:
+          - heading "Writing Equations from Situations" [level=3] [ref=e635]
+          - generic [ref=e636]: Intermediate
+        - generic [ref=e637]:
+          - generic [ref=e638]: Expressions & Equations
+          - generic [ref=e639]: Grade 6
+          - generic [ref=e640]: by PizzaMath
+      - link "Graphing Relationships Advanced Expressions & Equations Grade 7 by PizzaMath" [ref=e641] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-3b
+        - generic [ref=e642]:
+          - heading "Graphing Relationships" [level=3] [ref=e643]
+          - generic [ref=e644]: Advanced
+        - generic [ref=e645]:
+          - generic [ref=e646]: Expressions & Equations
+          - generic [ref=e647]: Grade 7
+          - generic [ref=e648]: by PizzaMath
+      - link "Integer Exponents Intermediate Expressions & Equations Grade 8 by PizzaMath" [ref=e649] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-4a
+        - generic [ref=e650]:
+          - heading "Integer Exponents" [level=3] [ref=e651]
+          - generic [ref=e652]: Intermediate
+        - generic [ref=e653]:
+          - generic [ref=e654]: Expressions & Equations
+          - generic [ref=e655]: Grade 8
+          - generic [ref=e656]: by PizzaMath
+      - link "Scientific Notation Advanced Expressions & Equations Grade 8 by PizzaMath" [ref=e657] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-4b
+        - generic [ref=e658]:
+          - heading "Scientific Notation" [level=3] [ref=e659]
+          - generic [ref=e660]: Advanced
+        - generic [ref=e661]:
+          - generic [ref=e662]: Expressions & Equations
+          - generic [ref=e663]: Grade 8
+          - generic [ref=e664]: by PizzaMath
+      - link "Slope and Linear Equations Intermediate Expressions & Equations Grade 8 by PizzaMath" [ref=e665] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-5a
+        - generic [ref=e666]:
+          - heading "Slope and Linear Equations" [level=3] [ref=e667]
+          - generic [ref=e668]: Intermediate
+        - generic [ref=e669]:
+          - generic [ref=e670]: Expressions & Equations
+          - generic [ref=e671]: Grade 8
+          - generic [ref=e672]: by PizzaMath
+      - link "y = mx + b Advanced Expressions & Equations Grade 8 by PizzaMath" [ref=e673] [cursor=pointer]:
+        - /url: /worksheets/ws-s9-5b
+        - generic [ref=e674]:
+          - heading "y = mx + b" [level=3] [ref=e675]
+          - generic [ref=e676]: Advanced
+        - generic [ref=e677]:
+          - generic [ref=e678]: Expressions & Equations
+          - generic [ref=e679]: Grade 8
+          - generic [ref=e680]: by PizzaMath
+      - link "What Is a Function? Beginner Functions Grade 8 by PizzaMath" [ref=e681] [cursor=pointer]:
+        - /url: /worksheets/ws-s10-1a
+        - generic [ref=e682]:
+          - heading "What Is a Function?" [level=3] [ref=e683]
+          - generic [ref=e684]: Beginner
+        - generic [ref=e685]:
+          - generic [ref=e686]: Functions
+          - generic [ref=e687]: Grade 8
+          - generic [ref=e688]: by PizzaMath
+      - link "Function Notation and Tables Intermediate Functions Grade 9 by PizzaMath" [ref=e689] [cursor=pointer]:
+        - /url: /worksheets/ws-s10-1b
+        - generic [ref=e690]:
+          - heading "Function Notation and Tables" [level=3] [ref=e691]
+          - generic [ref=e692]: Intermediate
+        - generic [ref=e693]:
+          - generic [ref=e694]: Functions
+          - generic [ref=e695]: Grade 9
+          - generic [ref=e696]: by PizzaMath
+      - link "Linear Function Models Intermediate Functions Grade 9 by PizzaMath" [ref=e697] [cursor=pointer]:
+        - /url: /worksheets/ws-s10-2a
+        - generic [ref=e698]:
+          - heading "Linear Function Models" [level=3] [ref=e699]
+          - generic [ref=e700]: Intermediate
+        - generic [ref=e701]:
+          - generic [ref=e702]: Functions
+          - generic [ref=e703]: Grade 9
+          - generic [ref=e704]: by PizzaMath
+      - link "Quadratic Function Models Advanced Functions Grade 10 by PizzaMath" [ref=e705] [cursor=pointer]:
+        - /url: /worksheets/ws-s10-2b
+        - generic [ref=e706]:
+          - heading "Quadratic Function Models" [level=3] [ref=e707]
+          - generic [ref=e708]: Advanced
+        - generic [ref=e709]:
+          - generic [ref=e710]: Functions
+          - generic [ref=e711]: Grade 10
+          - generic [ref=e712]: by PizzaMath
+      - link "Reading Graphs of Functions Intermediate Functions Grade 9 by PizzaMath" [ref=e713] [cursor=pointer]:
+        - /url: /worksheets/ws-s10-3a
+        - generic [ref=e714]:
+          - heading "Reading Graphs of Functions" [level=3] [ref=e715]
+          - generic [ref=e716]: Intermediate
+        - generic [ref=e717]:
+          - generic [ref=e718]: Functions
+          - generic [ref=e719]: Grade 9
+          - generic [ref=e720]: by PizzaMath
+      - link "Domain and Range Advanced Functions Grade 10 by PizzaMath" [ref=e721] [cursor=pointer]:
+        - /url: /worksheets/ws-s10-3b
+        - generic [ref=e722]:
+          - heading "Domain and Range" [level=3] [ref=e723]
+          - generic [ref=e724]: Advanced
+        - generic [ref=e725]:
+          - generic [ref=e726]: Functions
+          - generic [ref=e727]: Grade 10
+          - generic [ref=e728]: by PizzaMath
+      - link "Transformations of Functions Advanced Functions Grade 11 by PizzaMath" [ref=e729] [cursor=pointer]:
+        - /url: /worksheets/ws-s10-4a
+        - generic [ref=e730]:
+          - heading "Transformations of Functions" [level=3] [ref=e731]
+          - generic [ref=e732]: Advanced
+        - generic [ref=e733]:
+          - generic [ref=e734]: Functions
+          - generic [ref=e735]: Grade 11
+          - generic [ref=e736]: by PizzaMath
+      - link "Composition of Functions Advanced Functions Grade 12 by PizzaMath" [ref=e737] [cursor=pointer]:
+        - /url: /worksheets/ws-s10-4b
+        - generic [ref=e738]:
+          - heading "Composition of Functions" [level=3] [ref=e739]
+          - generic [ref=e740]: Advanced
+        - generic [ref=e741]:
+          - generic [ref=e742]: Functions
+          - generic [ref=e743]: Grade 12
+          - generic [ref=e744]: by PizzaMath
+      - link "Mean, Median, Mode, Range Beginner Statistics & Probability Grade 6 by PizzaMath" [ref=e745] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-1a
+        - generic [ref=e746]:
+          - heading "Mean, Median, Mode, Range" [level=3] [ref=e747]
+          - generic [ref=e748]: Beginner
+        - generic [ref=e749]:
+          - generic [ref=e750]: Statistics & Probability
+          - generic [ref=e751]: Grade 6
+          - generic [ref=e752]: by PizzaMath
+      - link "Mean Absolute Deviation Advanced Statistics & Probability Grade 6 by PizzaMath" [ref=e753] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-1b
+        - generic [ref=e754]:
+          - heading "Mean Absolute Deviation" [level=3] [ref=e755]
+          - generic [ref=e756]: Advanced
+        - generic [ref=e757]:
+          - generic [ref=e758]: Statistics & Probability
+          - generic [ref=e759]: Grade 6
+          - generic [ref=e760]: by PizzaMath
+      - link "Box Plots Intermediate Statistics & Probability Grade 7 by PizzaMath" [ref=e761] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-2a
+        - generic [ref=e762]:
+          - heading "Box Plots" [level=3] [ref=e763]
+          - generic [ref=e764]: Intermediate
+        - generic [ref=e765]:
+          - generic [ref=e766]: Statistics & Probability
+          - generic [ref=e767]: Grade 7
+          - generic [ref=e768]: by PizzaMath
+      - link "Histograms Intermediate Statistics & Probability Grade 7 by PizzaMath" [ref=e769] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-2b
+        - generic [ref=e770]:
+          - heading "Histograms" [level=3] [ref=e771]
+          - generic [ref=e772]: Intermediate
+        - generic [ref=e773]:
+          - generic [ref=e774]: Statistics & Probability
+          - generic [ref=e775]: Grade 7
+          - generic [ref=e776]: by PizzaMath
+      - link "Scatter Plots Intermediate Statistics & Probability Grade 8 by PizzaMath" [ref=e777] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-3a
+        - generic [ref=e778]:
+          - heading "Scatter Plots" [level=3] [ref=e779]
+          - generic [ref=e780]: Intermediate
+        - generic [ref=e781]:
+          - generic [ref=e782]: Statistics & Probability
+          - generic [ref=e783]: Grade 8
+          - generic [ref=e784]: by PizzaMath
+      - link "Two-Way Tables Advanced Statistics & Probability Grade 8 by PizzaMath" [ref=e785] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-3b
+        - generic [ref=e786]:
+          - heading "Two-Way Tables" [level=3] [ref=e787]
+          - generic [ref=e788]: Advanced
+        - generic [ref=e789]:
+          - generic [ref=e790]: Statistics & Probability
+          - generic [ref=e791]: Grade 8
+          - generic [ref=e792]: by PizzaMath
+      - link "Line of Best Fit Advanced Statistics & Probability Grade 9 by PizzaMath" [ref=e793] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-4a
+        - generic [ref=e794]:
+          - heading "Line of Best Fit" [level=3] [ref=e795]
+          - generic [ref=e796]: Advanced
+        - generic [ref=e797]:
+          - generic [ref=e798]: Statistics & Probability
+          - generic [ref=e799]: Grade 9
+          - generic [ref=e800]: by PizzaMath
+      - link "Correlation vs Causation Advanced Statistics & Probability Grade 9 by PizzaMath" [ref=e801] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-4b
+        - generic [ref=e802]:
+          - heading "Correlation vs Causation" [level=3] [ref=e803]
+          - generic [ref=e804]: Advanced
+        - generic [ref=e805]:
+          - generic [ref=e806]: Statistics & Probability
+          - generic [ref=e807]: Grade 9
+          - generic [ref=e808]: by PizzaMath
+      - link "Basic Probability Beginner Statistics & Probability Grade 7 by PizzaMath" [ref=e809] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-5a
+        - generic [ref=e810]:
+          - heading "Basic Probability" [level=3] [ref=e811]
+          - generic [ref=e812]: Beginner
+        - generic [ref=e813]:
+          - generic [ref=e814]: Statistics & Probability
+          - generic [ref=e815]: Grade 7
+          - generic [ref=e816]: by PizzaMath
+      - link "Compound Probability Advanced Statistics & Probability Grade 10 by PizzaMath" [ref=e817] [cursor=pointer]:
+        - /url: /worksheets/ws-s11-5b
+        - generic [ref=e818]:
+          - heading "Compound Probability" [level=3] [ref=e819]
+          - generic [ref=e820]: Advanced
+        - generic [ref=e821]:
+          - generic [ref=e822]: Statistics & Probability
+          - generic [ref=e823]: Grade 10
+          - generic [ref=e824]: by PizzaMath
+      - link "Laws of Exponents Intermediate Number & Quantity Grade 9 by PizzaMath" [ref=e825] [cursor=pointer]:
+        - /url: /worksheets/ws-s12-1a
+        - generic [ref=e826]:
+          - heading "Laws of Exponents" [level=3] [ref=e827]
+          - generic [ref=e828]: Intermediate
+        - generic [ref=e829]:
+          - generic [ref=e830]: Number & Quantity
+          - generic [ref=e831]: Grade 9
+          - generic [ref=e832]: by PizzaMath
+      - link "Rational Exponents Advanced Number & Quantity Grade 10 by PizzaMath" [ref=e833] [cursor=pointer]:
+        - /url: /worksheets/ws-s12-1b
+        - generic [ref=e834]:
+          - heading "Rational Exponents" [level=3] [ref=e835]
+          - generic [ref=e836]: Advanced
+        - generic [ref=e837]:
+          - generic [ref=e838]: Number & Quantity
+          - generic [ref=e839]: Grade 10
+          - generic [ref=e840]: by PizzaMath
+      - link "Unit Conversions Intermediate Number & Quantity Grade 9 by PizzaMath" [ref=e841] [cursor=pointer]:
+        - /url: /worksheets/ws-s12-2a
+        - generic [ref=e842]:
+          - heading "Unit Conversions" [level=3] [ref=e843]
+          - generic [ref=e844]: Intermediate
+        - generic [ref=e845]:
+          - generic [ref=e846]: Number & Quantity
+          - generic [ref=e847]: Grade 9
+          - generic [ref=e848]: by PizzaMath
+      - link "Dimensional Analysis Advanced Number & Quantity Grade 10 by PizzaMath" [ref=e849] [cursor=pointer]:
+        - /url: /worksheets/ws-s12-2b
+        - generic [ref=e850]:
+          - heading "Dimensional Analysis" [level=3] [ref=e851]
+          - generic [ref=e852]: Advanced
+        - generic [ref=e853]:
+          - generic [ref=e854]: Number & Quantity
+          - generic [ref=e855]: Grade 10
+          - generic [ref=e856]: by PizzaMath
+      - 'link "Complex Numbers: Add and Multiply Advanced Number & Quantity Grade 11 by PizzaMath" [ref=e857] [cursor=pointer]':
+        - /url: /worksheets/ws-s12-3a
+        - generic [ref=e858]:
+          - 'heading "Complex Numbers: Add and Multiply" [level=3] [ref=e859]'
+          - generic [ref=e860]: Advanced
+        - generic [ref=e861]:
+          - generic [ref=e862]: Number & Quantity
+          - generic [ref=e863]: Grade 11
+          - generic [ref=e864]: by PizzaMath
+      - 'link "Complex Numbers: Division and Modulus Advanced Number & Quantity Grade 12 by PizzaMath" [ref=e865] [cursor=pointer]':
+        - /url: /worksheets/ws-s12-3b
+        - generic [ref=e866]:
+          - 'heading "Complex Numbers: Division and Modulus" [level=3] [ref=e867]'
+          - generic [ref=e868]: Advanced
+        - generic [ref=e869]:
+          - generic [ref=e870]: Number & Quantity
+          - generic [ref=e871]: Grade 12
+          - generic [ref=e872]: by PizzaMath
+      - link "Introduction to Vectors Advanced Number & Quantity Grade 11 by PizzaMath" [ref=e873] [cursor=pointer]:
+        - /url: /worksheets/ws-s12-4a
+        - generic [ref=e874]:
+          - heading "Introduction to Vectors" [level=3] [ref=e875]
+          - generic [ref=e876]: Advanced
+        - generic [ref=e877]:
+          - generic [ref=e878]: Number & Quantity
+          - generic [ref=e879]: Grade 11
+          - generic [ref=e880]: by PizzaMath
+      - link "Vectors in Real Contexts Advanced Number & Quantity Grade 12 by PizzaMath" [ref=e881] [cursor=pointer]:
+        - /url: /worksheets/ws-s12-4b
+        - generic [ref=e882]:
+          - heading "Vectors in Real Contexts" [level=3] [ref=e883]
+          - generic [ref=e884]: Advanced
+        - generic [ref=e885]:
+          - generic [ref=e886]: Number & Quantity
+          - generic [ref=e887]: Grade 12
+          - generic [ref=e888]: by PizzaMath
+      - link "Identifying Parts of Expressions Beginner Algebra Grade 9 by PizzaMath" [ref=e889] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-1a
+        - generic [ref=e890]:
+          - heading "Identifying Parts of Expressions" [level=3] [ref=e891]
+          - generic [ref=e892]: Beginner
+        - generic [ref=e893]:
+          - generic [ref=e894]: Algebra
+          - generic [ref=e895]: Grade 9
+          - generic [ref=e896]: by PizzaMath
+      - link "Interpreting Expressions in Context Intermediate Algebra Grade 9 by PizzaMath" [ref=e897] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-1b
+        - generic [ref=e898]:
+          - heading "Interpreting Expressions in Context" [level=3] [ref=e899]
+          - generic [ref=e900]: Intermediate
+        - generic [ref=e901]:
+          - generic [ref=e902]: Algebra
+          - generic [ref=e903]: Grade 9
+          - generic [ref=e904]: by PizzaMath
+      - link "Factoring Expressions Intermediate Algebra Grade 10 by PizzaMath" [ref=e905] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-2a
+        - generic [ref=e906]:
+          - heading "Factoring Expressions" [level=3] [ref=e907]
+          - generic [ref=e908]: Intermediate
+        - generic [ref=e909]:
+          - generic [ref=e910]: Algebra
+          - generic [ref=e911]: Grade 10
+          - generic [ref=e912]: by PizzaMath
+      - link "Completing the Square Advanced Algebra Grade 10 by PizzaMath" [ref=e913] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-2b
+        - generic [ref=e914]:
+          - heading "Completing the Square" [level=3] [ref=e915]
+          - generic [ref=e916]: Advanced
+        - generic [ref=e917]:
+          - generic [ref=e918]: Algebra
+          - generic [ref=e919]: Grade 10
+          - generic [ref=e920]: by PizzaMath
+      - link "Adding and Subtracting Polynomials Intermediate Algebra Grade 9 by PizzaMath" [ref=e921] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-3a
+        - generic [ref=e922]:
+          - heading "Adding and Subtracting Polynomials" [level=3] [ref=e923]
+          - generic [ref=e924]: Intermediate
+        - generic [ref=e925]:
+          - generic [ref=e926]: Algebra
+          - generic [ref=e927]: Grade 9
+          - generic [ref=e928]: by PizzaMath
+      - link "Multiplying Polynomials Advanced Algebra Grade 10 by PizzaMath" [ref=e929] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-3b
+        - generic [ref=e930]:
+          - heading "Multiplying Polynomials" [level=3] [ref=e931]
+          - generic [ref=e932]: Advanced
+        - generic [ref=e933]:
+          - generic [ref=e934]: Algebra
+          - generic [ref=e935]: Grade 10
+          - generic [ref=e936]: by PizzaMath
+      - link "Writing Equations for Situations Intermediate Algebra Grade 9 by PizzaMath" [ref=e937] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-4a
+        - generic [ref=e938]:
+          - heading "Writing Equations for Situations" [level=3] [ref=e939]
+          - generic [ref=e940]: Intermediate
+        - generic [ref=e941]:
+          - generic [ref=e942]: Algebra
+          - generic [ref=e943]: Grade 9
+          - generic [ref=e944]: by PizzaMath
+      - link "Systems of Equations Advanced Algebra Grade 9 by PizzaMath" [ref=e945] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-4b
+        - generic [ref=e946]:
+          - heading "Systems of Equations" [level=3] [ref=e947]
+          - generic [ref=e948]: Advanced
+        - generic [ref=e949]:
+          - generic [ref=e950]: Algebra
+          - generic [ref=e951]: Grade 9
+          - generic [ref=e952]: by PizzaMath
+      - link "Quadratic Formula Advanced Algebra Grade 10 by PizzaMath" [ref=e953] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-5a
+        - generic [ref=e954]:
+          - heading "Quadratic Formula" [level=3] [ref=e955]
+          - generic [ref=e956]: Advanced
+        - generic [ref=e957]:
+          - generic [ref=e958]: Algebra
+          - generic [ref=e959]: Grade 10
+          - generic [ref=e960]: by PizzaMath
+      - link "Inequalities Intermediate Algebra Grade 9 by PizzaMath" [ref=e961] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-5b
+        - generic [ref=e962]:
+          - heading "Inequalities" [level=3] [ref=e963]
+          - generic [ref=e964]: Intermediate
+        - generic [ref=e965]:
+          - generic [ref=e966]: Algebra
+          - generic [ref=e967]: Grade 9
+          - generic [ref=e968]: by PizzaMath
+      - link "Graphing Quadratics Intermediate Algebra Grade 10 by PizzaMath" [ref=e969] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-6a
+        - generic [ref=e970]:
+          - heading "Graphing Quadratics" [level=3] [ref=e971]
+          - generic [ref=e972]: Intermediate
+        - generic [ref=e973]:
+          - generic [ref=e974]: Algebra
+          - generic [ref=e975]: Grade 10
+          - generic [ref=e976]: by PizzaMath
+      - link "Graphing Exponential Functions Advanced Algebra Grade 11 by PizzaMath" [ref=e977] [cursor=pointer]:
+        - /url: /worksheets/ws-s13-6b
+        - generic [ref=e978]:
+          - heading "Graphing Exponential Functions" [level=3] [ref=e979]
+          - generic [ref=e980]: Advanced
+        - generic [ref=e981]:
+          - generic [ref=e982]: Algebra
+          - generic [ref=e983]: Grade 11
+          - generic [ref=e984]: by PizzaMath
+      - link "Mathematical Modeling Advanced Modeling Grade 11 by PizzaMath" [ref=e985] [cursor=pointer]:
+        - /url: /worksheets/ws-s14-1a
+        - generic [ref=e986]:
+          - heading "Mathematical Modeling" [level=3] [ref=e987]
+          - generic [ref=e988]: Advanced
+        - generic [ref=e989]:
+          - generic [ref=e990]: Modeling
+          - generic [ref=e991]: Grade 11
+          - generic [ref=e992]: by PizzaMath
+      - link "Optimization Problems Advanced Modeling Grade 12 by PizzaMath" [ref=e993] [cursor=pointer]:
+        - /url: /worksheets/ws-s14-1b
+        - generic [ref=e994]:
+          - heading "Optimization Problems" [level=3] [ref=e995]
+          - generic [ref=e996]: Advanced
+        - generic [ref=e997]:
+          - generic [ref=e998]: Modeling
+          - generic [ref=e999]: Grade 12
+          - generic [ref=e1000]: by PizzaMath
+      - link "Interpreting Solutions Advanced Modeling Grade 11 by PizzaMath" [ref=e1001] [cursor=pointer]:
+        - /url: /worksheets/ws-s14-2a
+        - generic [ref=e1002]:
+          - heading "Interpreting Solutions" [level=3] [ref=e1003]
+          - generic [ref=e1004]: Advanced
+        - generic [ref=e1005]:
+          - generic [ref=e1006]: Modeling
+          - generic [ref=e1007]: Grade 11
+          - generic [ref=e1008]: by PizzaMath
+      - link "Checking Reasonableness of Solutions Advanced Modeling Grade 12 by PizzaMath" [ref=e1009] [cursor=pointer]:
+        - /url: /worksheets/ws-s14-2b
+        - generic [ref=e1010]:
+          - heading "Checking Reasonableness of Solutions" [level=3] [ref=e1011]
+          - generic [ref=e1012]: Advanced
+        - generic [ref=e1013]:
+          - generic [ref=e1014]: Modeling
+          - generic [ref=e1015]: Grade 12
+          - generic [ref=e1016]: by PizzaMath

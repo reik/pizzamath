@@ -73,7 +73,7 @@ export function ProgressEntryForm({
           <input
             id="score"
             type="number"
-            {...register("score")}
+            {...register("score", { valueAsNumber: true })}
             className={cn(
               "w-full rounded-md border px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500",
               errors.score ? "border-red-500" : "border-gray-300",

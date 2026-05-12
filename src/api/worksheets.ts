@@ -3,6 +3,8 @@ import type { Category, Worksheet, WorksheetFilters } from '@/types/worksheet'
 import { apiFetch } from '@/utils/apiFetch'
 import { getToken } from '@/features/auth/store'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ''
+
 export const worksheetFormSchema = z.object({
   title: z.string().min(1, 'Title required'),
   categoryId: z.string().min(1, 'Category required'),
@@ -33,7 +35,7 @@ export const worksheetsApi = {
     const token = getToken()
     const headers: Record<string, string> = {}
     if (token) headers['Authorization'] = `Bearer ${token}`
-    return fetch(`/api/worksheets/${id}/export?format=${format}`, { headers }).then((r) => r.blob())
+    return fetch(`${API_BASE}/api/worksheets/${id}/export?format=${format}`, { headers }).then((r) => r.blob())
   },
 }
 

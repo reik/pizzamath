@@ -4,7 +4,7 @@ import { apiFetch } from '@/utils/apiFetch'
 
 export const progressSchema = z.object({
   date: z.string().min(1, 'Date required'),
-  score: z.coerce.number().min(0, 'Min 0').max(100, 'Max 100'),
+  score: z.number().min(0, 'Min 0').max(100, 'Max 100'),
   comment: z.string(),
 })
 

@@ -3,7 +3,33 @@
     "allow": [
       "Bash(npm install:*)",
       "Bash(npx msw:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "mcp__plugin_playwright_playwright__browser_fill_form",
+      "mcp__plugin_playwright_playwright__browser_click",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_press_key",
+      "mcp__plugin_playwright_playwright__browser_file_upload",
+      "Bash(pkill -f \"vite --port\")",
+      "Bash(npx vite *)",
+      "Bash(curl -s http://localhost:3001/api/categories)",
+      "Bash(pkill -f \"vite\")",
+      "Bash(VITE_USE_MOCK=false npx vite --port 5173)",
+      "Bash(curl *)",
+      "Bash(VITE_USE_MOCK=false npx vite)",
+      "Bash(kill 20821 *)",
+      "mcp__plugin_playwright_playwright__browser_network_requests",
+      "Bash(node *)",
+      "Bash(pkill -f \"tsx watch\")",
+      "Bash(npx tsc *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(find *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('scripts',{}\\), indent=2\\)\\)\")",
+      "Bash(npx cypress *)",
+      "Bash(sqlite3 *)",
+      "mcp__plugin_playwright_playwright__browser_console_messages"
     ]
   }
 }
