@@ -27,18 +27,19 @@ const updateUploadSchema = z.object({
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const UPLOADS_DIR = join(__dirname, '../../../uploads')
+const IMAGE_BASE = (process.env.PUBLIC_URL ?? '').replace(/\/$/, '') + '/uploads'
 
 export const userUploadsRouter = Router()
 
 userUploadsRouter.get('/all', requireAdmin, (_req, res) => {
   const rows = db.prepare('SELECT * FROM user_uploads ORDER BY created_at DESC').all() as UploadRow[]
-  res.json(rows.map((r) => uploadToDto(r, '/uploads')))
+  res.json(rows.map((r) => uploadToDto(r, IMAGE_BASE)))
 })
 
 userUploadsRouter.get('/', requireAuth, (req, res) => {
   const { userId } = req.query as { userId: string }
   const rows = db.prepare('SELECT * FROM user_uploads WHERE user_id = ? ORDER BY created_at DESC').all(userId) as UploadRow[]
-  res.json(rows.map((r) => uploadToDto(r, '/uploads')))
+  res.json(rows.map((r) => uploadToDto(r, IMAGE_BASE)))
 })
 
 userUploadsRouter.get('/:id/export', requireAuth, (req, res) => {

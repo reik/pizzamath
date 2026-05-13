@@ -5,7 +5,21 @@ import path from "path";
 
 export default defineConfig({
   base: "/pizzamath/",
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    {
+      name: 'base-redirect',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          if (req.url === '/pizzamath') {
+            req.url = '/pizzamath/'
+          }
+          next()
+        })
+      },
+    },
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
