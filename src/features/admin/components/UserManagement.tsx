@@ -45,6 +45,7 @@ export function UserManagement() {
               <th className="pb-2 pr-4 font-medium">Role</th>
               <th className="pb-2 pr-4 font-medium">Status</th>
               <th className="pb-2 pr-4 font-medium">Plan</th>
+              <th className="pb-2 pr-4 font-medium">Expiry</th>
               <th className="pb-2 pr-4 font-medium">Joined</th>
               <th className="pb-2 font-medium">Actions</th>
             </tr>
@@ -73,6 +74,13 @@ export function UserManagement() {
                     </span>
                   </td>
                   <td className="py-2 pr-4 text-gray-600 capitalize">{user.subscription.plan ?? '—'}</td>
+                  <td className="py-2 pr-4 text-gray-600">
+                    {user.subscription.expiresAt
+                      ? new Date(user.subscription.expiresAt).getFullYear() >= 2099
+                        ? 'Never'
+                        : new Date(user.subscription.expiresAt).toLocaleDateString()
+                      : '—'}
+                  </td>
                   <td className="py-2 pr-4 text-gray-600">
                     {new Date(user.createdAt).toLocaleDateString()}
                   </td>

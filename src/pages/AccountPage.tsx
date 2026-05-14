@@ -30,7 +30,9 @@ export function AccountPage() {
           </p>
           {user.subscription.expiresAt && (
             <p className="text-xs text-gray-500">
-              Expires {new Date(user.subscription.expiresAt).toLocaleDateString()}
+              {new Date(user.subscription.expiresAt).getFullYear() >= 2099
+                ? 'Never expires'
+                : `Expires ${new Date(user.subscription.expiresAt).toLocaleDateString()}`}
             </p>
           )}
         </div>

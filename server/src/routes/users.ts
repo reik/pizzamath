@@ -12,15 +12,21 @@ usersRouter.get('/', requireAdmin, (_req, res) => {
 })
 
 usersRouter.post('/', requireAdmin, (req, res) => {
-  const { email, password, role } = req.body as { email: string; password: string; role: string }
+  const { email, password, role, plan } = req.body as { email: string; password: string; role: string; plan?: string }
   const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email)
   if (existing) { res.status(409).json({ message: 'Email already registered' }); return }
 
   const id = uuid()
+  const now = new Date()
+  const expiresAt = plan === 'annual'
+    ? new Date(now.getFullYear() + 1, now.getMonth(), now.getDate()).toISOString()
+    : plan === 'monthly'
+    ? new Date(now.getFullYear(), now.getMonth() + 1, now.getDate()).toISOString()
+    : null
   db.prepare(`
     INSERT INTO users (id,email,password_hash,role,account_status,subscription_status,subscription_plan,subscription_expires_at,created_at)
     VALUES (?,?,?,?,?,?,?,?,?)
-  `).run(id, email, bcrypt.hashSync(password, 10), role ?? 'user', 'active', 'inactive', null, null, new Date().toISOString())
+  `).run(id, email, bcrypt.hashSync(password, 10), role ?? 'user', 'active', plan ? 'active' : 'inactive', plan ?? null, expiresAt, now.toISOString())
 
   const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id) as UserRow
   res.status(201).json(userToDto(user))
