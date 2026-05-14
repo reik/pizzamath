@@ -29,7 +29,9 @@
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('scripts',{}\\), indent=2\\)\\)\")",
       "Bash(npx cypress *)",
       "Bash(sqlite3 *)",
-      "mcp__plugin_playwright_playwright__browser_console_messages"
+      "mcp__plugin_playwright_playwright__browser_console_messages",
+      "Bash(git -C /Users/reikurata/dev/pizzamath check-ignore -v uploads)",
+      "Bash(git *)"
     ]
   }
 }
