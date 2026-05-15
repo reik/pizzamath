@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { useWorksheet, WorksheetViewer, useCategories } from '@/features/worksheets'
 import { ExportButton } from '@/features/worksheets/components/ExportButton'
@@ -17,11 +18,15 @@ export function WorksheetPage() {
     ?.flatMap((c) => c.subcategories)
     .find((s) => s.id === worksheet?.subcategoryId)?.name
 
+  useEffect(() => {
+    if (worksheet) document.title = `${worksheet.title} — PizzaMath`
+  }, [worksheet])
+
   if (isLoading) return <div className="p-6 animate-pulse h-40 bg-gray-100 rounded-xl m-6" />
   if (error || !worksheet) return <p className="p-6 text-red-600">Worksheet not found.</p>
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-6">
+    <main id="main-content" className="mx-auto max-w-4xl px-4 py-6">
       <button onClick={() => navigate(-1)} className="text-sm text-orange-600 hover:underline">← Back</button>
 
       <div className="mt-4 mb-6">

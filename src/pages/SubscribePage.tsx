@@ -1,6 +1,8 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export function SubscribePage() {
+  useEffect(() => { document.title = 'Subscribe — PizzaMath' }, [])
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-md text-center">

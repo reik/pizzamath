@@ -1,12 +1,14 @@
+import { useEffect } from 'react'
 import { useAuthStore } from '@/features/auth/store'
 import { ChangePasswordForm } from '@/features/auth/components/ChangePasswordForm'
 
 export function AccountPage() {
+  useEffect(() => { document.title = 'Account — PizzaMath' }, [])
   const user = useAuthStore((s) => s.user)
   if (!user) return null
 
   return (
-    <main className="mx-auto max-w-2xl px-4 py-6 space-y-6">
+    <main id="main-content" className="mx-auto max-w-2xl px-4 py-6 space-y-6">
       <h1 className="text-2xl font-bold text-gray-900">Account</h1>
 
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm space-y-4">

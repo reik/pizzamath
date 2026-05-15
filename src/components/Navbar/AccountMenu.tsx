@@ -16,15 +16,17 @@ export function AccountMenu() {
   }, [])
 
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative" ref={ref} onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false) }}>
       <button
         onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        aria-haspopup="menu"
         className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500"
       >
         Account ▾
       </button>
       {open && (
-        <div className="absolute right-0 mt-1 w-44 rounded-md border border-gray-200 bg-white shadow-lg z-50">
+        <div role="menu" className="absolute right-0 mt-1 w-44 rounded-md border border-gray-200 bg-white shadow-lg z-50">
           <Link
             to="/account"
             onClick={() => setOpen(false)}
