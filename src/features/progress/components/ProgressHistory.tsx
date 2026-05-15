@@ -13,12 +13,13 @@ export function ProgressHistory({ entries }: ProgressHistoryProps) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
+        <caption className="sr-only">Worksheet attempt history</caption>
         <thead>
           <tr className="border-b border-gray-200 text-left text-gray-600">
-            <th className="pb-2 pr-4 font-medium">Worksheet</th>
-            <th className="pb-2 pr-4 font-medium">Date</th>
-            <th className="pb-2 pr-4 font-medium">Score</th>
-            <th className="pb-2 font-medium">Comment</th>
+            <th scope="col" className="pb-2 pr-4 font-medium">Worksheet</th>
+            <th scope="col" className="pb-2 pr-4 font-medium">Date</th>
+            <th scope="col" className="pb-2 pr-4 font-medium">Score</th>
+            <th scope="col" className="pb-2 font-medium">Comment</th>
           </tr>
         </thead>
         <tbody>

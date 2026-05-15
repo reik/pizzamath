@@ -23,13 +23,14 @@ export function AdminDashboard() {
 
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
+          <caption className="sr-only">All worksheets</caption>
           <thead>
             <tr className="border-b border-gray-200 text-left text-gray-600">
-              <th className="pb-2 pr-4 font-medium">Title</th>
-              <th className="pb-2 pr-4 font-medium">Level</th>
-              <th className="pb-2 pr-4 font-medium">Grade</th>
-              <th className="pb-2 pr-4 font-medium">Author</th>
-              <th className="pb-2 font-medium" />
+              <th scope="col" className="pb-2 pr-4 font-medium">Title</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Level</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Grade</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Author</th>
+              <th scope="col" className="pb-2 font-medium" />
             </tr>
           </thead>
           <tbody>

@@ -30,7 +30,12 @@ export function GenerationChat({ onGenerate }: GenerationChatProps) {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto space-y-3 p-4 min-h-[300px] max-h-[500px] border border-gray-200 rounded-xl bg-gray-50">
+      <div
+        className="flex-1 overflow-y-auto space-y-3 p-4 min-h-[300px] max-h-[500px] border border-gray-200 rounded-xl bg-gray-50"
+        aria-live="polite"
+        aria-label="Chat messages"
+        role="log"
+      >
         {!hasConversation && (
           <p className="text-sm text-gray-400 text-center mt-8">
             Describe the worksheet you want to create. Ask Claude for help refining it, then click Generate.

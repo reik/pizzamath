@@ -82,6 +82,11 @@ export function UploadZone({ onUploaded }: UploadZoneProps) {
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
         onClick={() => !isProcessing && inputRef.current?.click()}
+        onKeyDown={(e) => { if ((e.key === 'Enter' || e.key === ' ') && !isProcessing) { e.preventDefault(); inputRef.current?.click() } }}
+        role="button"
+        tabIndex={0}
+        aria-label="Upload worksheet image"
+        aria-disabled={isProcessing}
         className={[
           'flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-8 transition-colors cursor-pointer',
           isProcessing
@@ -118,7 +123,7 @@ export function UploadZone({ onUploaded }: UploadZoneProps) {
 
         {status === 'idle' && (
           <>
-            <svg className="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
                 d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
             </svg>
