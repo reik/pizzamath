@@ -52,3 +52,29 @@ Log of all WCAG 2.1 AA audits and fixes. Appended after each session.
 `npx tsc --noEmit` — ✅ no errors
 
 ---
+
+## 2026-05-17 — Magic-link auth feature (incidental a11y verification)
+
+**Branch:** `feature-a11y`
+**Criterion:** WCAG 2.1 AA
+**Files scanned:** 2 changed UI files (LoginForm.tsx, MagicLinkVerifyPage.tsx)
+**Issues found:** Critical: 0 | Major: 0 | Minor: 0
+**Issues fixed:** 0 (preventative; new code authored to existing a11y standard)
+
+### Notes
+- `LoginForm.tsx` rewritten for magic-link primary / password fallback. All inputs have
+  `htmlFor`/`id` pairs, error messages use `aria-describedby`, all buttons carry
+  `focus:outline-none focus:ring-2 focus:ring-orange-500`, mode-toggle buttons use
+  `type="button"` so they don't submit forms.
+- `MagicLinkVerifyPage.tsx` new — `<main id="main-content">`, status messages use
+  `role="status" aria-live="polite"`, error block uses `role="alert"`, focus ring on the
+  back-to-sign-in link, sets `document.title`.
+
+### TypeScript check
+`npx tsc --noEmit` (frontend + server) — ✅ no errors
+
+### Test check
+`vitest run src/features/auth/components/LoginForm.test.tsx` — ✅ 5/5 passed (tests updated
+to reflect new default magic-link mode + password-toggle behavior)
+
+---

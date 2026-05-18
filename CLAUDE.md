@@ -52,7 +52,15 @@ Seed the DB with these top-level categories and their subcategories:
 
 ## Authentication & Roles
 
-- Email/password registration + login (private site — all routes require auth)
+- Magic-link sign-in (primary) + email/password (fallback). Private site — all routes require auth.
+- Magic-link flow: `POST /api/auth/magic-link/request` issues a single-use token (15-min TTL),
+  emails the user a link to `${APP_BASE_URL}/auth/verify?token=...`, which the SPA exchanges for a
+  session via `POST /api/auth/magic-link/verify`. Tokens are stored as sha256 hashes in
+  `magic_link_tokens`.
+- Registration auto-sends a welcome confirmation magic-link in addition to logging the user in
+  immediately.
+- Transactional email is sent via Resend. Set `RESEND_API_KEY`, `EMAIL_FROM`, and `APP_BASE_URL`
+  in `server/.env`. When `RESEND_API_KEY` is unset, emails fall back to stdout for local dev.
 - Subscription: $10/month or $100/year
 - Roles: `user` | `admin`
 - Seed admin on first deploy: ask the default admin email address and password to preset
