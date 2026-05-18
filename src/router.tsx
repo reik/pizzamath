@@ -5,6 +5,7 @@ import { AdminGuard } from './components/AdminGuard'
 import { AppLayout } from './components/AppLayout'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
+import { MagicLinkVerifyPage } from './pages/MagicLinkVerifyPage'
 import { SubscribePage } from './pages/SubscribePage'
 import { BrowsePage } from './pages/BrowsePage'
 import { WorksheetPage } from './pages/WorksheetPage'
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
   // Public routes
   { path: '/login', element: <LoginPage /> },
   { path: '/register', element: <RegisterPage /> },
+  { path: '/auth/verify', element: <MagicLinkVerifyPage /> },
   { path: '/subscribe', element: <SubscribePage /> },
 
   // Authenticated routes

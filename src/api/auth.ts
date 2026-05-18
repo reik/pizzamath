@@ -13,8 +13,13 @@ export const registerSchema = z.object({
   plan: z.enum(['monthly', 'annual']),
 })
 
+export const magicLinkRequestSchema = z.object({
+  email: z.string().email('Valid email required'),
+})
+
 export type LoginInput = z.infer<typeof loginSchema>
 export type RegisterInput = z.infer<typeof registerSchema>
+export type MagicLinkRequestInput = z.infer<typeof magicLinkRequestSchema>
 
 export interface AuthResponse {
   token: string
@@ -33,4 +38,10 @@ export const authApi = {
 
   me: () =>
     apiFetch<User>('/api/auth/me'),
+
+  requestMagicLink: (data: MagicLinkRequestInput) =>
+    apiFetch<{ ok: boolean }>('/api/auth/magic-link/request', { method: 'POST', body: JSON.stringify(data) }),
+
+  verifyMagicLink: (token: string) =>
+    apiFetch<AuthResponse>('/api/auth/magic-link/verify', { method: 'POST', body: JSON.stringify({ token }) }),
 }

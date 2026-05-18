@@ -2,8 +2,46 @@ import { Router } from 'express'
 import bcrypt from 'bcryptjs'
 import { v4 as uuid } from 'uuid'
 import { z } from 'zod'
+import { randomBytes, createHash } from 'crypto'
 import { db, userToDto, type UserRow } from '../db.js'
 import { signToken, requireAuth, type AuthRequest } from '../middleware/auth.js'
+import { sendMagicLink, sendWelcomeLink } from '../email.js'
+
+const MAGIC_LINK_TTL_MS = 15 * 60 * 1000
+const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://localhost:5173'
+
+function hashToken(raw: string): string {
+  return createHash('sha256').update(raw).digest('hex')
+}
+
+function buildMagicLink(rawToken: string): string {
+  return `${APP_BASE_URL.replace(/\/$/, '')}/auth/verify?token=${encodeURIComponent(rawToken)}`
+}
+
+interface MagicTokenRow {
+  id: string
+  user_id: string
+  token_hash: string
+  expires_at: string
+  consumed_at: string | null
+  created_at: string
+}
+
+function issueMagicToken(userId: string): string {
+  const raw = randomBytes(32).toString('base64url')
+  const now = new Date()
+  db.prepare(`
+    INSERT INTO magic_link_tokens (id, user_id, token_hash, expires_at, consumed_at, created_at)
+    VALUES (?, ?, ?, ?, NULL, ?)
+  `).run(
+    uuid(),
+    userId,
+    hashToken(raw),
+    new Date(now.getTime() + MAGIC_LINK_TTL_MS).toISOString(),
+    now.toISOString(),
+  )
+  return raw
+}
 
 export const authRouter = Router()
 
@@ -60,7 +98,57 @@ authRouter.post('/register', (req, res) => {
   `).run(id, email, hash, 'user', 'active', 'active', plan, expiresAt, new Date().toISOString())
 
   const user = db.prepare('SELECT * FROM users WHERE id = ?').get(id) as UserRow
+
+  const rawToken = issueMagicToken(user.id)
+  sendWelcomeLink(user.email, buildMagicLink(rawToken)).catch((err) => {
+    console.error('[auth/register] welcome email failed:', err)
+  })
+
   res.status(201).json({ token: signToken(user.id, user.role), user: userToDto(user) })
+})
+
+const magicRequestSchema = z.object({ email: z.string().email() })
+
+authRouter.post('/magic-link/request', async (req, res) => {
+  const parsed = magicRequestSchema.safeParse(req.body)
+  if (!parsed.success) { res.status(400).json({ message: 'Invalid request', errors: parsed.error.flatten().fieldErrors }); return }
+  const { email } = parsed.data
+
+  const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as UserRow | undefined
+
+  if (user && user.account_status !== 'suspended') {
+    const rawToken = issueMagicToken(user.id)
+    try {
+      await sendMagicLink(user.email, buildMagicLink(rawToken))
+    } catch (err) {
+      console.error('[auth/magic-link/request] email send failed:', err)
+      res.status(502).json({ message: 'Could not send email. Please try again or use password.' })
+      return
+    }
+  }
+
+  res.json({ ok: true })
+})
+
+const magicVerifySchema = z.object({ token: z.string().min(20) })
+
+authRouter.post('/magic-link/verify', (req, res) => {
+  const parsed = magicVerifySchema.safeParse(req.body)
+  if (!parsed.success) { res.status(400).json({ message: 'Invalid or missing token' }); return }
+  const { token } = parsed.data
+
+  const row = db.prepare('SELECT * FROM magic_link_tokens WHERE token_hash = ?').get(hashToken(token)) as MagicTokenRow | undefined
+  if (!row) { res.status(400).json({ message: 'Invalid or expired link' }); return }
+  if (row.consumed_at) { res.status(400).json({ message: 'This link has already been used' }); return }
+  if (new Date(row.expires_at).getTime() < Date.now()) { res.status(400).json({ message: 'This link has expired' }); return }
+
+  const user = db.prepare('SELECT * FROM users WHERE id = ?').get(row.user_id) as UserRow | undefined
+  if (!user) { res.status(400).json({ message: 'Account not found' }); return }
+  if (user.account_status === 'suspended') { res.status(403).json({ message: 'Account suspended. Contact support.' }); return }
+
+  db.prepare('UPDATE magic_link_tokens SET consumed_at = ? WHERE id = ?').run(new Date().toISOString(), row.id)
+
+  res.json({ token: signToken(user.id, user.role), user: userToDto(user) })
 })
 
 authRouter.post('/logout', (_req, res) => {

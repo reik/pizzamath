@@ -1,67 +1,49 @@
-import { screen, waitFor } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { LoginForm } from './LoginForm'
 import { renderWithProviders } from '@/test/renderWithProviders'
 
 describe('LoginForm', () => {
-  it('should_render_email_password_inputs_and_submit_button', () => {
-    // Arrange
+  it('should_render_magic_link_email_input_by_default', () => {
     renderWithProviders(<LoginForm />)
 
-    // Assert
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /email me a sign-in link/i })).toBeInTheDocument()
+    expect(screen.queryByLabelText(/password/i)).not.toBeInTheDocument()
   })
 
-  it('should_show_validation_errors_when_submitted_empty', async () => {
-    // Arrange
+  it('should_show_validation_error_when_magic_link_submitted_empty', async () => {
     const user = userEvent.setup()
     renderWithProviders(<LoginForm />)
 
-    // Act
-    await user.click(screen.getByRole('button', { name: /sign in/i }))
+    await user.click(screen.getByRole('button', { name: /email me a sign-in link/i }))
 
-    // Assert
     expect(await screen.findByText(/valid email required/i)).toBeInTheDocument()
-    expect(screen.getByText(/password required/i)).toBeInTheDocument()
   })
 
-  it('should_show_error_when_credentials_are_invalid', async () => {
-    // Arrange
+  it('should_reveal_password_fields_when_toggled_to_password_mode', async () => {
     const user = userEvent.setup()
     renderWithProviders(<LoginForm />)
 
-    // Act
-    await user.type(screen.getByLabelText(/email/i), 'wrong@example.com')
-    await user.type(screen.getByLabelText(/password/i), 'wrongpassword')
-    await user.click(screen.getByRole('button', { name: /sign in/i }))
+    await user.click(screen.getByRole('button', { name: /use password instead/i }))
 
-    // Assert
-    expect(await screen.findByText(/invalid credentials/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/password/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /^sign in$/i })).toBeInTheDocument()
   })
 
-  it('should_disable_submit_button_while_pending', async () => {
-    // Arrange
+  it('should_show_password_validation_errors_when_submitted_empty', async () => {
     const user = userEvent.setup()
     renderWithProviders(<LoginForm />)
 
-    // Act
-    await user.type(screen.getByLabelText(/email/i), 'abc@abc.co')
-    await user.type(screen.getByLabelText(/password/i), '123123')
-    await user.click(screen.getByRole('button', { name: /sign in/i }))
+    await user.click(screen.getByRole('button', { name: /use password instead/i }))
+    await user.click(screen.getByRole('button', { name: /^sign in$/i }))
 
-    // Assert — button briefly becomes disabled + shows pending text
-    await waitFor(() => {
-      expect(screen.getByRole('button')).not.toBeDisabled()
-    })
+    expect(await screen.findByText(/password required/i)).toBeInTheDocument()
   })
 
   it('should_link_to_register_page', () => {
-    // Arrange
     renderWithProviders(<LoginForm />)
 
-    // Assert
     expect(screen.getByRole('link', { name: /sign up/i })).toHaveAttribute('href', '/register')
   })
 })
