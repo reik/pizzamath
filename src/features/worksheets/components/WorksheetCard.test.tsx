@@ -72,7 +72,7 @@ describe('WorksheetCard', () => {
     renderWithProviders(<WorksheetCard worksheet={worksheet} />)
 
     // Assert
-    expect(screen.getByRole('link')).toHaveAttribute('href', '/worksheets/ws-test-1')
+    expect(screen.getByRole('link')).toHaveAttribute('href', '/worksheets/cat1/sub12/ws-test-1')
   })
 
   it('should_not_render_grade_when_null', () => {

@@ -1,11 +1,6 @@
 import { waitFor } from '@testing-library/react'
 import { useWorksheets, useWorksheet, useCategories } from './useWorksheets'
 import { renderHookWithProviders } from '@/test/renderWithProviders'
-import { useFilterStore } from '@/stores/filterStore'
-
-afterEach(() => {
-  useFilterStore.setState({ selectedCategoryId: null, selectedSubcategoryId: null, keyword: '' })
-})
 
 describe('useWorksheets', () => {
   it('should_return_all_seeded_worksheets_when_no_filter_applied', async () => {
@@ -18,24 +13,18 @@ describe('useWorksheets', () => {
   })
 
   it('should_filter_worksheets_by_category_id', async () => {
-    // Arrange — set filter to cat-1 (Counting & Cardinality)
-    useFilterStore.setState({ selectedCategoryId: 'cat-1', selectedSubcategoryId: null, keyword: '' })
+    // Arrange + Act — only ws-1 belongs to cat-1
+    const { result } = renderHookWithProviders(() => useWorksheets({ categoryId: 'cat-1' }))
 
-    // Act
-    const { result } = renderHookWithProviders(() => useWorksheets())
-
-    // Assert — only ws-1 belongs to cat-1
+    // Assert
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
     expect(result.current.data).toHaveLength(1)
     expect(result.current.data?.[0].id).toBe('ws-1')
   })
 
   it('should_filter_worksheets_by_keyword', async () => {
-    // Arrange — keyword that matches only ws-3
-    useFilterStore.setState({ selectedCategoryId: null, selectedSubcategoryId: null, keyword: 'Fractions' })
-
-    // Act
-    const { result } = renderHookWithProviders(() => useWorksheets())
+    // Arrange + Act — keyword that matches only ws-3
+    const { result } = renderHookWithProviders(() => useWorksheets({ keyword: 'Fractions' }))
 
     // Assert
     await waitFor(() => expect(result.current.isSuccess).toBe(true))
@@ -44,11 +33,8 @@ describe('useWorksheets', () => {
   })
 
   it('should_return_empty_array_when_no_worksheets_match_filter', async () => {
-    // Arrange
-    useFilterStore.setState({ selectedCategoryId: null, selectedSubcategoryId: null, keyword: 'xyznonexistent' })
-
-    // Act
-    const { result } = renderHookWithProviders(() => useWorksheets())
+    // Arrange + Act
+    const { result } = renderHookWithProviders(() => useWorksheets({ keyword: 'xyznonexistent' }))
 
     // Assert
     await waitFor(() => expect(result.current.isSuccess).toBe(true))

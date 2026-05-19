@@ -16,7 +16,6 @@ coverage
 *.sw?
 # Optional: Ignore build artifacts
 build
-src/mocks/db.ts
 
 # Cypress artifacts
 cypress/downloads
