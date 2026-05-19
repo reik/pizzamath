@@ -8,7 +8,7 @@ import { signToken, requireAuth, type AuthRequest } from '../middleware/auth.js'
 import { sendMagicLink, sendWelcomeLink } from '../email.js'
 
 const MAGIC_LINK_TTL_MS = 15 * 60 * 1000
-const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://localhost:5173'
+const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://localhost:5175'
 
 function hashToken(raw: string): string {
   return createHash('sha256').update(raw).digest('hex')

@@ -184,7 +184,7 @@ npm run e2e:open              # or npm run e2e
 ```
 
 ### CI/CD
-- Frontend: `http://localhost:5173`
+- Frontend: `http://localhost:5175`
 - Backend: `http://localhost:3001`
 - Environment: `VITE_USE_MOCK=false` (use real backend, not MSW mocks)
 

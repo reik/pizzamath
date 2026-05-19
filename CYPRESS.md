@@ -3,7 +3,7 @@
 ## Setup
 
 - **Framework:** Cypress 15 + `@testing-library/cypress`
-- **Base URL:** `http://localhost:5173` — run `npm run dev` first
+- **Base URL:** `http://localhost:5175` — run `npm run dev` first
 - **Run:** `npm run e2e` (headless) · `npm run e2e:open` (interactive)
 - **Spec files:** `cypress/e2e/auth.cy.ts` · `browse.cy.ts` · `uploads.cy.ts` · `uploaded-worksheet.cy.ts`
 

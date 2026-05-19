@@ -27,7 +27,7 @@ The Cypress E2E tests cover critical user workflows across authentication, works
 
 The Cypress configuration is in `cypress.config.ts`:
 
-- **Base URL:** `http://localhost:5173` (Vite dev server)
+- **Base URL:** `http://localhost:5175` (Vite dev server)
 - **Backend API:** Proxied via Vite to `http://localhost:3001`
 - **Viewport:** 1280x720
 - **Timeouts:** 8s (requests and commands)
@@ -181,7 +181,7 @@ Use `waitFor` or `wait` for network operations:
 cy.intercept('POST', '/api/auth/login').as('login')
 cy.findByRole('button', { name: /sign in/i }).click()
 cy.wait('@login')
-cy.url().should('eq', 'http://localhost:5173/')
+cy.url().should('eq', 'http://localhost:5175/')
 ```
 
 ### 4. **Independent Tests**
@@ -227,7 +227,7 @@ DEBUG=cypress:* npm run e2e
 
 To run tests in CI, ensure:
 1. Backend is running on `http://localhost:3001`
-2. Frontend dev server is running on `http://localhost:5173`
+2. Frontend dev server is running on `http://localhost:5175`
 3. Environment variable `VITE_USE_MOCK=false` is set
 
 Example GitHub Actions workflow:
@@ -236,7 +236,7 @@ Example GitHub Actions workflow:
   run: npm run dev:all &
 
 - name: Wait for servers
-  run: npx wait-on http://localhost:5173 http://localhost:3001
+  run: npx wait-on http://localhost:5175 http://localhost:3001
 
 - name: Run E2E tests
   run: npm run e2e

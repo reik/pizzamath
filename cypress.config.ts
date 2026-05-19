@@ -5,7 +5,7 @@ dotenv.config()
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:5173',
+    baseUrl: 'http://localhost:5175',
     viewportWidth: 1280,
     viewportHeight: 720,
     defaultCommandTimeout: 8000,
