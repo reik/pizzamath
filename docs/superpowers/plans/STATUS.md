@@ -1,15 +1,16 @@
 # Mistake-Aware Practice — Implementation Status
 
-**Last updated:** 2026-05-19
-**Worktree:** `/Users/reikurata/dev/pizzamath/.claude/worktrees/mistake-aware-practice`
-**Branch:** `worktree-mistake-aware-practice` (off `master`)
+**Last updated:** 2026-05-20
+**Branch:** `feat/mistake-aware-practice` (off `master`)
 **Plan:** [`./2026-05-18-mistake-aware-practice.md`](./2026-05-18-mistake-aware-practice.md) — 17 tasks, full code blocks per task
+
+> **Rebase TODO before PR:** branch was cut before magic-link auth + 5173→5175 port migration landed on master. Reconcile CORS origin and Vite config at PR time.
 
 ---
 
 ## Resume briefing (copy-paste into a fresh session)
 
-> We're mid-feature in the worktree at `.claude/worktrees/mistake-aware-practice` (branch `worktree-mistake-aware-practice`, off master). The full plan with verbatim code blocks for every task lives at `docs/superpowers/plans/2026-05-18-mistake-aware-practice.md`. Tasks 1–3 are shipped. Read `docs/superpowers/plans/STATUS.md` for current SHAs and the next task. Dispatch the implementer subagent for the next pending task.
+> We're mid-feature on branch `feat/mistake-aware-practice` (off master). The full plan with verbatim code blocks for every task lives at `docs/superpowers/plans/2026-05-18-mistake-aware-practice.md`. Tasks 1–3 are shipped. Read `docs/superpowers/plans/STATUS.md` for current SHAs and the next task. Dispatch the implementer subagent for the next pending task.
 
 ---
 
