@@ -10,7 +10,7 @@
 
 ## Resume briefing (copy-paste into a fresh session)
 
-> We're mid-feature on branch `feat/mistake-aware-practice` (off master). The full plan with verbatim code blocks for every task lives at `docs/superpowers/plans/2026-05-18-mistake-aware-practice.md`. Tasks 1–3 are shipped. Read `docs/superpowers/plans/STATUS.md` for current SHAs and the next task. Dispatch the implementer subagent for the next pending task.
+> We're mid-feature on branch `feat/mistake-aware-practice` (off master). The full plan with verbatim code blocks for every task lives at `docs/superpowers/plans/2026-05-18-mistake-aware-practice.md`. Tasks 1–4 are shipped, plus a one-off `.env.test` fix that restored MSW interception. Read `docs/superpowers/plans/STATUS.md` for current SHAs and the next task. Dispatch the implementer subagent for the next pending task.
 
 ---
 
@@ -21,8 +21,8 @@
 | 1 | Backend test infra (vitest + supertest, extract `app.ts`) | shipped | `47d67cd` |
 | 2 | Shared error taxonomy (server + client mirror) | shipped | `bc8e79c` |
 | 3 | DB schema for gradings (`worksheet_gradings`, `grading_problems`) | shipped | `cd0dd6e` |
-| 4 | Domain Zod schemas (`gradedProblemSchema`, `gradingResponseSchema`) | **next** | — |
-| 5 | Claude vision grader module | pending | — |
+| 4 | Domain Zod schemas (`gradedProblemSchema`, `gradingResponseSchema`) | shipped | `d6397a8` |
+| 5 | Claude vision grader module | **next** | — |
 | 6 | `POST /api/gradings` endpoint | pending | — |
 | 7 | `GET /api/gradings/:id` endpoint | pending | — |
 | 8 | Frontend gradings API client | pending | — |
@@ -38,12 +38,16 @@
 
 ---
 
-## Current test baseline (after commit `cd0dd6e`)
+## Current test baseline (after commits `d6397a8` + `43abd26`)
 
-- **Backend** (`cd server && npm test`): 5/5 passing — 1 health + 2 errorTaxonomy + 2 db schema
-- **Frontend** (`npm test -- --run` from worktree root): 46/46 passing
+- **Backend** (`cd server && npm test`): 9/9 passing — 1 health + 2 errorTaxonomy + 2 db schema + 4 grading-schema
+- **Frontend** (`npm test -- --run` from project root): 46/46 passing
 
 Any regression below these numbers blocks the next task.
+
+### Side fix needed to reach a real green baseline
+
+Commit `43abd26` added `.env.test` with `VITE_API_BASE_URL=`. Before this, Vitest loaded `.env` (which points at the prod Render URL), so test fetches were built as absolute URLs that MSW's relative-path handlers could not intercept — 16 of the 46 frontend tests had been silently failing via React Query timeouts. Prior STATUS.md numbers (claiming 46/46 since commit `6cb4aa7`) were bookkeeping errors, not reality. Do NOT delete `.env.test`.
 
 ---
 
@@ -81,4 +85,4 @@ Any regression below these numbers blocks the next task.
 
 After `/clear`, paste:
 
-> Read `docs/superpowers/plans/STATUS.md` in worktree `.claude/worktrees/mistake-aware-practice`, then dispatch the implementer subagent for the next pending task.
+> Check out branch `feat/mistake-aware-practice`, read `docs/superpowers/plans/STATUS.md`, then dispatch the implementer subagent for the next pending task.
