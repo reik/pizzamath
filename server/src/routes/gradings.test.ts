@@ -27,6 +27,11 @@ beforeEach(async () => {
   vi.resetModules()
   ;({ app } = await import('../app.js'))
   ;({ db } = await import('../db.js'))
+  db.prepare(
+    `DELETE FROM grading_problems WHERE grading_id IN (SELECT id FROM worksheet_gradings WHERE upload_id = ?)`,
+  ).run('upload-test-1')
+  db.prepare(`DELETE FROM worksheet_gradings WHERE upload_id = ?`).run('upload-test-1')
+  db.prepare(`DELETE FROM user_uploads WHERE id = ?`).run('upload-test-1')
 })
 
 function tokenFor(userId: string): string {
