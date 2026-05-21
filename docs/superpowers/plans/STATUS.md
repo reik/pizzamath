@@ -24,8 +24,8 @@
 | 4 | Domain Zod schemas (`gradedProblemSchema`, `gradingResponseSchema`) | shipped | `d6397a8` |
 | 5 | Claude vision grader module | shipped | `3ad6e4d` |
 | 6 | `POST /api/gradings` endpoint | shipped | `882aa4b` (+ idempotency fix `abf3d23`) |
-| 7 | `GET /api/gradings/:id` endpoint | **next** | — |
-| 8 | Frontend gradings API client | pending | — |
+| 7 | `GET /api/gradings/:id` endpoint | shipped | `d2735f6` |
+| 8 | Frontend gradings API client | **next** | — |
 | 9 | `GradingResult` per-problem card | pending | — |
 | 10 | `ErrorBreakdown` summary | pending | — |
 | 11 | `useGrading` hook + `GradingPage` + route | pending | — |
@@ -38,9 +38,9 @@
 
 ---
 
-## Current test baseline (after commit `abf3d23`)
+## Current test baseline (after commit `d2735f6`)
 
-- **Backend** (`cd server && npm test`): 16/16 passing — 1 health + 2 errorTaxonomy + 2 db schema + 4 grading-schema + 4 visionGrader + 3 gradings route
+- **Backend** (`cd server && npm test`): 18/18 passing — 1 health + 2 errorTaxonomy + 2 db schema + 4 grading-schema + 4 visionGrader + 5 gradings route (POST + GET)
 - **Frontend** (`npm test -- --run` from project root): 46/46 passing
 
 Any regression below these numbers blocks the next task.
