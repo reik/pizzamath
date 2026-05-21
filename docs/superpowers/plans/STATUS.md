@@ -1,6 +1,6 @@
 # Mistake-Aware Practice — Implementation Status
 
-**Last updated:** 2026-05-20
+**Last updated:** 2026-05-21
 **Branch:** `feat/mistake-aware-practice` (off `master`)
 **Plan:** [`./2026-05-18-mistake-aware-practice.md`](./2026-05-18-mistake-aware-practice.md) — 17 tasks, full code blocks per task
 
@@ -22,9 +22,9 @@
 | 2 | Shared error taxonomy (server + client mirror) | shipped | `bc8e79c` |
 | 3 | DB schema for gradings (`worksheet_gradings`, `grading_problems`) | shipped | `cd0dd6e` |
 | 4 | Domain Zod schemas (`gradedProblemSchema`, `gradingResponseSchema`) | shipped | `d6397a8` |
-| 5 | Claude vision grader module | **next** | — |
-| 6 | `POST /api/gradings` endpoint | pending | — |
-| 7 | `GET /api/gradings/:id` endpoint | pending | — |
+| 5 | Claude vision grader module | shipped | `3ad6e4d` |
+| 6 | `POST /api/gradings` endpoint | shipped | `882aa4b` (+ idempotency fix `abf3d23`) |
+| 7 | `GET /api/gradings/:id` endpoint | **next** | — |
 | 8 | Frontend gradings API client | pending | — |
 | 9 | `GradingResult` per-problem card | pending | — |
 | 10 | `ErrorBreakdown` summary | pending | — |
@@ -38,9 +38,9 @@
 
 ---
 
-## Current test baseline (after commits `d6397a8` + `43abd26`)
+## Current test baseline (after commit `abf3d23`)
 
-- **Backend** (`cd server && npm test`): 9/9 passing — 1 health + 2 errorTaxonomy + 2 db schema + 4 grading-schema
+- **Backend** (`cd server && npm test`): 16/16 passing — 1 health + 2 errorTaxonomy + 2 db schema + 4 grading-schema + 4 visionGrader + 3 gradings route
 - **Frontend** (`npm test -- --run` from project root): 46/46 passing
 
 Any regression below these numbers blocks the next task.
