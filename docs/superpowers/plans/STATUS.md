@@ -4,7 +4,7 @@
 **Branch:** `feat/mistake-aware-practice` (off `master`)
 **Plan:** [`./2026-05-18-mistake-aware-practice.md`](./2026-05-18-mistake-aware-practice.md) — 17 tasks, full code blocks per task
 
-> **Rebase TODO before PR:** branch was cut before magic-link auth + 5173→5175 port migration landed on master. Reconcile CORS origin and Vite config at PR time.
+> **PR-time watch:** the `magic-link-auth` branch (4 commits ahead of master, unmerged as of 2026-05-21) carries the magic-link feature and the original 5173→5175 port migration. If it merges before this feature, expect conflicts in `server/src/app.ts` (CORS) and possibly auth-adjacent files. Master itself is currently at the same base — no rebase needed today.
 
 ---
 
@@ -64,7 +64,7 @@ Commit `43abd26` added `.env.test` with `VITE_API_BASE_URL=`. Before this, Vites
 
 ## Known deviations from the plan (preserve in future tasks)
 
-- **CORS origins** in `server/src/app.ts`: live code uses `http://localhost:5173`, **not** `5175` as the plan snippet hardcodes. Keep `5173`.
+- **CORS origins** in `server/src/app.ts`: allowlist now includes both `http://localhost:5173` and `http://localhost:5175` (latter added because the local Vite server runs on 5175). Either port works.
 - **`/uploads` static mount** in `server/src/app.ts` was preserved from the original `index.ts`. The plan didn't mention it.
 - **Root `vite.config.ts`** has `test.exclude: ["node_modules", "dist", "cypress", "server/**"]` added during Task 1 so the root vitest doesn't auto-discover server tests (server has its own setup file).
 - **DB location:** the SQLite file is at `/Users/reikurata/dev/pizzamath/data/pizzamath.db` (project root, not `server/data/`).

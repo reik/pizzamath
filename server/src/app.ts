@@ -14,7 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export const app = express()
 
-const ALLOWED_ORIGINS = ['http://localhost:5173', 'https://reik.github.io']
+const ALLOWED_ORIGINS = ['http://localhost:5173', 'http://localhost:5175', 'https://reik.github.io']
 app.use(cors({ origin: ALLOWED_ORIGINS, credentials: true }))
 app.use(express.json({ limit: '20mb' }))
 
