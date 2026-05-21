@@ -64,3 +64,33 @@ gradingsRouter.post('/', requireAuth, async (req: AuthRequest, res) => {
     problems: grading.data.problems, createdAt,
   })
 })
+
+gradingsRouter.get('/:id', requireAuth, (req: AuthRequest, res) => {
+  const grading = db.prepare('SELECT * FROM worksheet_gradings WHERE id = ? AND user_id = ?').get(req.params.id, req.userId) as
+    | { id: string; upload_id: string; score: number; total: number; created_at: string }
+    | undefined
+  if (!grading) { res.status(404).json({ message: 'Not found' }); return }
+
+  const problems = db.prepare(`SELECT problem_index, problem_text, expected_answer, student_answer, is_correct, error_category, error_explanation
+    FROM grading_problems WHERE grading_id = ? ORDER BY problem_index ASC`).all(req.params.id) as Array<{
+      problem_index: number; problem_text: string; expected_answer: string; student_answer: string;
+      is_correct: number; error_category: string | null; error_explanation: string | null;
+    }>
+
+  res.json({
+    id: grading.id,
+    uploadId: grading.upload_id,
+    score: grading.score,
+    total: grading.total,
+    createdAt: grading.created_at,
+    problems: problems.map((p) => ({
+      problemIndex: p.problem_index,
+      problemText: p.problem_text,
+      expectedAnswer: p.expected_answer,
+      studentAnswer: p.student_answer,
+      isCorrect: !!p.is_correct,
+      errorCategory: p.error_category ?? undefined,
+      errorExplanation: p.error_explanation ?? undefined,
+    })),
+  })
+})

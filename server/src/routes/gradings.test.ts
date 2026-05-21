@@ -27,11 +27,13 @@ beforeEach(async () => {
   vi.resetModules()
   ;({ app } = await import('../app.js'))
   ;({ db } = await import('../db.js'))
-  db.prepare(
-    `DELETE FROM grading_problems WHERE grading_id IN (SELECT id FROM worksheet_gradings WHERE upload_id = ?)`,
-  ).run('upload-test-1')
-  db.prepare(`DELETE FROM worksheet_gradings WHERE upload_id = ?`).run('upload-test-1')
-  db.prepare(`DELETE FROM user_uploads WHERE id = ?`).run('upload-test-1')
+  for (const uploadId of ['upload-test-1', 'upload-test-2']) {
+    db.prepare(
+      `DELETE FROM grading_problems WHERE grading_id IN (SELECT id FROM worksheet_gradings WHERE upload_id = ?)`,
+    ).run(uploadId)
+    db.prepare(`DELETE FROM worksheet_gradings WHERE upload_id = ?`).run(uploadId)
+    db.prepare(`DELETE FROM user_uploads WHERE id = ?`).run(uploadId)
+  }
 })
 
 function tokenFor(userId: string): string {
@@ -71,5 +73,25 @@ describe('POST /api/gradings', () => {
 
     const persisted = db.prepare('SELECT COUNT(*) as n FROM grading_problems WHERE grading_id = ?').get(res.body.id) as { n: number }
     expect(persisted.n).toBe(2)
+  })
+})
+
+describe('GET /api/gradings/:id', () => {
+  it('404s when grading is not the user’s', async () => {
+    const res = await request(app)
+      .get('/api/gradings/does-not-exist')
+      .set('Authorization', `Bearer ${tokenFor('admin-1')}`)
+    expect(res.status).toBe(404)
+  })
+
+  it('returns the grading with problems for the owner', async () => {
+    const uploadId = 'upload-test-2'
+    db.prepare(`INSERT INTO user_uploads (id,user_id,title,category_id,subcategory_id,level,school_grade,content,answer_content,image_path,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)`)
+      .run(uploadId, 'admin-1', 't', 'cat-2', 'sub-2-1', 'Beginner', '3', '', '', '/uploads/y.jpg', new Date().toISOString())
+    const create = await request(app).post('/api/gradings').set('Authorization', `Bearer ${tokenFor('admin-1')}`).send({ uploadId })
+    const res = await request(app).get(`/api/gradings/${create.body.id}`).set('Authorization', `Bearer ${tokenFor('admin-1')}`)
+    expect(res.status).toBe(200)
+    expect(res.body.id).toBe(create.body.id)
+    expect(res.body.problems).toHaveLength(2)
   })
 })
