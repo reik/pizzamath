@@ -9,6 +9,7 @@ import { progressRouter } from './routes/progress.js'
 import { usersRouter } from './routes/users.js'
 import { userUploadsRouter } from './routes/userUploads.js'
 import { claudeRouter } from './routes/claude.js'
+import { gradingsRouter } from './routes/gradings.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -31,3 +32,4 @@ app.use('/api/progress', progressRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/user-uploads', userUploadsRouter)
 app.use('/api/claude', claudeRouter)
+app.use('/api/gradings', gradingsRouter)
