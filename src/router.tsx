@@ -14,6 +14,7 @@ import { AdminPage } from './pages/admin/AdminPage'
 import { GeneratePage } from './pages/admin/GeneratePage'
 import { MyUploadsPage } from './pages/MyUploadsPage'
 import { UploadedWorksheetPage } from './pages/UploadedWorksheetPage'
+import { GradingPage } from './pages/GradingPage'
 
 export const router = createBrowserRouter([
   // Public routes
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
               { path: '/history', element: <UsageHistoryPage /> },
               { path: '/my-uploads', element: <MyUploadsPage /> },
               { path: '/my-uploads/:id', element: <UploadedWorksheetPage /> },
+              { path: '/gradings/:id', element: <GradingPage /> },
             ],
           },
 
