@@ -25,12 +25,12 @@
 | 5 | Claude vision grader module | shipped | `3ad6e4d` |
 | 6 | `POST /api/gradings` endpoint | shipped | `882aa4b` (+ idempotency fix `abf3d23`) |
 | 7 | `GET /api/gradings/:id` endpoint | shipped | `d2735f6` |
-| 8 | Frontend gradings API client | **next** | — |
-| 9 | `GradingResult` per-problem card | pending | — |
-| 10 | `ErrorBreakdown` summary | pending | — |
-| 11 | `useGrading` hook + `GradingPage` + route | pending | — |
-| 12 | "Grade this" button on `MyUploadsPage` | pending | — |
-| 13 | Targeted-generation prompt module | pending | — |
+| 8 | Frontend gradings API client | shipped | `688fc65` |
+| 9 | `GradingResult` per-problem card | shipped | `4e93326` |
+| 10 | `ErrorBreakdown` summary | shipped | `272bd63` |
+| 11 | `useGrading` hook + `GradingPage` + route | shipped | `324c329` |
+| 12 | "Grade this" button on `MyUploadsPage` | shipped | `51f4bf2` |
+| 13 | Targeted-generation prompt module | **next** | — |
 | 14 | `POST /api/gradings/:id/generate-practice` endpoint | pending | — |
 | 15 | `GeneratePracticeButton` + flow | pending | — |
 | 16 | `GET /api/gradings/insights/me` endpoint | pending | — |
@@ -38,10 +38,10 @@
 
 ---
 
-## Current test baseline (after commit `d2735f6`)
+## Current test baseline (after commit `51f4bf2`)
 
 - **Backend** (`cd server && npm test`): 18/18 passing — 1 health + 2 errorTaxonomy + 2 db schema + 4 grading-schema + 4 visionGrader + 5 gradings route (POST + GET)
-- **Frontend** (`npm test -- --run` from project root): 46/46 passing
+- **Frontend** (`npm test -- --run` from project root): 54/54 passing — added gradings API client, GradingResult, ErrorBreakdown, GradingPage, useCreateGrading
 
 Any regression below these numbers blocks the next task.
 
