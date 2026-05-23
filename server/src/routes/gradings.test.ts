@@ -20,6 +20,16 @@ vi.mock('fs', async (importOriginal) => {
   return { ...actual, readFileSync: vi.fn(() => Buffer.from('fake-image-bytes')) }
 })
 
+vi.mock('../claude/targetedGen.js', () => ({
+  generateTargetedPractice: vi.fn(async () => ({
+    success: true,
+    data: {
+      title: 'Targeted Practice', categoryId: 'cat-3', subcategoryId: 'sub-3-1',
+      level: 'Beginner' as const, schoolGrade: '2', content: '1. 12 + 9 = ?', answerContent: '1. 21',
+    },
+  })),
+}))
+
 let app: typeof import('../app.js')['app']
 let db: typeof import('../db.js')['db']
 
@@ -27,7 +37,7 @@ beforeEach(async () => {
   vi.resetModules()
   ;({ app } = await import('../app.js'))
   ;({ db } = await import('../db.js'))
-  for (const uploadId of ['upload-test-1', 'upload-test-2']) {
+  for (const uploadId of ['upload-test-1', 'upload-test-2', 'upload-test-3']) {
     db.prepare(
       `DELETE FROM grading_problems WHERE grading_id IN (SELECT id FROM worksheet_gradings WHERE upload_id = ?)`,
     ).run(uploadId)
@@ -93,5 +103,24 @@ describe('GET /api/gradings/:id', () => {
     expect(res.status).toBe(200)
     expect(res.body.id).toBe(create.body.id)
     expect(res.body.problems).toHaveLength(2)
+  })
+})
+
+describe('POST /api/gradings/:id/generate-practice', () => {
+  it('creates a worksheet from the grading’s error categories', async () => {
+    const uploadId = 'upload-test-3'
+    db.prepare(`INSERT INTO user_uploads (id,user_id,title,category_id,subcategory_id,level,school_grade,content,answer_content,image_path,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)`)
+      .run(uploadId, 'admin-1', 't', 'cat-3', 'sub-3-1', 'Beginner', '2', '', '', '/uploads/z.jpg', new Date().toISOString())
+    const create = await request(app).post('/api/gradings').set('Authorization', `Bearer ${tokenFor('admin-1')}`).send({ uploadId })
+
+    const res = await request(app)
+      .post(`/api/gradings/${create.body.id}/generate-practice`)
+      .set('Authorization', `Bearer ${tokenFor('admin-1')}`)
+    expect(res.status).toBe(201)
+    expect(res.body.title).toBe('Targeted Practice')
+    expect(res.body.id).toBeDefined()
+
+    const persisted = db.prepare('SELECT * FROM worksheets WHERE id = ?').get(res.body.id)
+    expect(persisted).toBeTruthy()
   })
 })

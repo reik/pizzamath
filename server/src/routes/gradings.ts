@@ -7,6 +7,8 @@ import { v4 as uuid } from 'uuid'
 import { db } from '../db.js'
 import { requireAuth, type AuthRequest } from '../middleware/auth.js'
 import { gradeWithVision } from '../claude/visionGrader.js'
+import { generateTargetedPractice } from '../claude/targetedGen.js'
+import { isErrorCategoryId, type ErrorCategoryId } from '../errorTaxonomy.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const UPLOADS_DIR = join(__dirname, '../../../uploads')
@@ -96,4 +98,31 @@ gradingsRouter.get('/:id', requireAuth, (req: AuthRequest, res) => {
       errorExplanation: p.error_explanation ?? undefined,
     })),
   })
+})
+
+gradingsRouter.post('/:id/generate-practice', requireAuth, async (req: AuthRequest, res) => {
+  const grading = db.prepare('SELECT * FROM worksheet_gradings WHERE id = ? AND user_id = ?').get(req.params.id, req.userId) as
+    | { id: string; upload_id: string } | undefined
+  if (!grading) { res.status(404).json({ message: 'Not found' }); return }
+
+  const upload = db.prepare('SELECT level, school_grade FROM user_uploads WHERE id = ?').get(grading.upload_id) as
+    { level: 'Beginner' | 'Intermediate' | 'Advanced'; school_grade: string | null }
+
+  const rows = db.prepare('SELECT error_category FROM grading_problems WHERE grading_id = ? AND is_correct = 0 AND error_category IS NOT NULL').all(grading.id) as { error_category: string }[]
+  const categories: ErrorCategoryId[] = [...new Set(rows.map((r) => r.error_category))].filter(isErrorCategoryId)
+  if (categories.length === 0) { res.status(400).json({ message: 'No mistakes to drill — nothing to generate.' }); return }
+
+  const generated = await generateTargetedPractice({
+    categories,
+    level: upload.level,
+    schoolGrade: upload.school_grade,
+  })
+  if (!generated.success) { res.status(422).json({ message: 'Generation failed', reason: generated.reason }); return }
+
+  const id = uuid()
+  const createdAt = new Date().toISOString()
+  db.prepare(`INSERT INTO worksheets (id,title,category_id,subcategory_id,level,school_grade,author,content,answer_content,created_at) VALUES (?,?,?,?,?,?,?,?,?,?)`)
+    .run(id, generated.data.title, generated.data.categoryId, generated.data.subcategoryId, generated.data.level, generated.data.schoolGrade, 'PizzaMath (targeted)', generated.data.content, generated.data.answerContent, createdAt)
+
+  res.status(201).json({ id, ...generated.data, createdAt })
 })
