@@ -70,6 +70,28 @@ gradingsRouter.post('/', requireAuth, async (req: AuthRequest, res) => {
   })
 })
 
+gradingsRouter.get('/insights/me', requireAuth, (req: AuthRequest, res) => {
+  const totals = db.prepare('SELECT COUNT(*) as n FROM worksheet_gradings WHERE user_id = ?').get(req.userId) as { n: number }
+  const byCategory = db.prepare(`
+    SELECT gp.error_category as category, COUNT(*) as count
+    FROM grading_problems gp
+    JOIN worksheet_gradings g ON g.id = gp.grading_id
+    WHERE g.user_id = ? AND gp.is_correct = 0 AND gp.error_category IS NOT NULL
+    GROUP BY gp.error_category
+    ORDER BY count DESC
+  `).all(req.userId) as { category: string; count: number }[]
+
+  const recent = db.prepare(`
+    SELECT id, score, total, created_at as createdAt
+    FROM worksheet_gradings
+    WHERE user_id = ?
+    ORDER BY created_at DESC
+    LIMIT 10
+  `).all(req.userId) as { id: string; score: number; total: number; createdAt: string }[]
+
+  res.json({ totalGradings: totals.n, byCategory, recent })
+})
+
 gradingsRouter.get('/:id', requireAuth, (req: AuthRequest, res) => {
   const grading = db.prepare('SELECT * FROM worksheet_gradings WHERE id = ? AND user_id = ?').get(req.params.id, req.userId) as
     | { id: string; upload_id: string; score: number; total: number; created_at: string }

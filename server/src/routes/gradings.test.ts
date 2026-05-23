@@ -124,3 +124,20 @@ describe('POST /api/gradings/:id/generate-practice', () => {
     expect(persisted).toBeTruthy()
   })
 })
+
+describe('GET /api/gradings/insights/me', () => {
+  it('aggregates error counts across the caller’s gradings', async () => {
+    const uploadId = 'upload-test-1'
+    db.prepare(`INSERT INTO user_uploads (id,user_id,title,category_id,subcategory_id,level,school_grade,content,answer_content,image_path,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)`)
+      .run(uploadId, 'admin-1', 't', 'cat-2', 'sub-2-1', 'Beginner', '3', '', '', '/uploads/x.jpg', new Date().toISOString())
+    await request(app).post('/api/gradings').set('Authorization', `Bearer ${tokenFor('admin-1')}`).send({ uploadId })
+
+    const res = await request(app)
+      .get('/api/gradings/insights/me')
+      .set('Authorization', `Bearer ${tokenFor('admin-1')}`)
+    expect(res.status).toBe(200)
+    expect(res.body.totalGradings).toBeGreaterThan(0)
+    expect(Array.isArray(res.body.byCategory)).toBe(true)
+    expect(Array.isArray(res.body.recent)).toBe(true)
+  })
+})
