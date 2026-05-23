@@ -46,6 +46,13 @@ export function AccountMenu() {
           >
             My Uploads
           </Link>
+          <Link
+            to="/insights"
+            onClick={() => setOpen(false)}
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+          >
+            Insights
+          </Link>
         </div>
       )}
     </div>

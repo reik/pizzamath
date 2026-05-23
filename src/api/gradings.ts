@@ -46,6 +46,10 @@ export type GradedProblem = z.infer<typeof gradedProblemSchema>
 export type GeneratedWorksheet = z.infer<typeof generatedWorksheetSchema>
 export type Insights = z.infer<typeof insightsSchema>
 
+export const gradingsQueryKeys = {
+  insights: ['gradings', 'insights'] as const,
+}
+
 export const gradingsApi = {
   create: async (uploadId: string): Promise<Grading> => {
     const data = await apiFetch('/api/gradings', { method: 'POST', body: JSON.stringify({ uploadId }) })
