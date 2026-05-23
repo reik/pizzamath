@@ -1,11 +1,15 @@
 import { Router } from 'express'
 import { z } from 'zod'
 import { readFileSync } from 'fs'
-import { extname } from 'path'
+import { dirname, extname, join } from 'path'
+import { fileURLToPath } from 'url'
 import { v4 as uuid } from 'uuid'
 import { db } from '../db.js'
 import { requireAuth, type AuthRequest } from '../middleware/auth.js'
 import { gradeWithVision } from '../claude/visionGrader.js'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const UPLOADS_DIR = join(__dirname, '../../../uploads')
 
 export const gradingsRouter = Router()
 
@@ -28,9 +32,8 @@ gradingsRouter.post('/', requireAuth, async (req: AuthRequest, res) => {
   const upload = db.prepare('SELECT * FROM user_uploads WHERE id = ? AND user_id = ?').get(uploadId, req.userId) as { image_path: string } | undefined
   if (!upload) { res.status(404).json({ message: 'Upload not found' }); return }
 
-  const localPath = upload.image_path.startsWith('/uploads/')
-    ? `./uploads/${upload.image_path.slice('/uploads/'.length)}`
-    : upload.image_path
+  const filename = upload.image_path.replace(/^\/?uploads\//, '')
+  const localPath = join(UPLOADS_DIR, filename)
   const mediaType = mediaTypeForPath(localPath)
   if (!mediaType) { res.status(415).json({ message: 'Unsupported image type' }); return }
 
