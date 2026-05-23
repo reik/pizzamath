@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useGrading } from '@/features/gradings/hooks/useGrading'
 import { GradingResult } from '@/features/gradings/components/GradingResult'
 import { ErrorBreakdown } from '@/features/gradings/components/ErrorBreakdown'
+import { GeneratePracticeButton } from '@/features/gradings/components/GeneratePracticeButton'
 
 export function GradingPage() {
   const { id } = useParams<{ id: string }>()
@@ -23,6 +24,10 @@ export function GradingPage() {
           <li key={p.problemIndex}><GradingResult problem={p} /></li>
         ))}
       </ol>
+
+      {data.problems.some((p) => !p.isCorrect && p.errorCategory) && (
+        <GeneratePracticeButton gradingId={data.id} />
+      )}
     </main>
   )
 }
