@@ -7,10 +7,11 @@ import { v4 as uuid } from 'uuid'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = join(__dirname, '../../data')
-mkdirSync(DATA_DIR, { recursive: true })
+const IS_TEST = process.env.NODE_ENV === 'test'
+if (!IS_TEST) mkdirSync(DATA_DIR, { recursive: true })
 
-export const db = new Database(join(DATA_DIR, 'pizzamath.db'))
-db.pragma('journal_mode = WAL')
+export const db = new Database(IS_TEST ? ':memory:' : join(DATA_DIR, 'pizzamath.db'))
+if (!IS_TEST) db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
 // ── Schema ───────────────────────────────────────────────────────────────────
