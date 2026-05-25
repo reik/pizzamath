@@ -103,7 +103,7 @@ export function ProgressEntryForm({
       <button
         type="submit"
         disabled={mutation.isPending}
-        className="rounded-md bg-orange-500 px-4 py-1.5 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-50"
+        className="cursor-pointer rounded-md bg-orange-500 px-4 py-1.5 text-sm font-medium text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {mutation.isPending ? "Saving…" : "Save Log"}
       </button>

@@ -80,7 +80,7 @@ export function UploadedWorksheetPage() {
           <button
             onClick={handleGenerateSimilar}
             disabled={generating}
-            className="shrink-0 flex items-center gap-1.5 rounded-lg bg-orange-500 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+            className="cursor-pointer shrink-0 flex items-center gap-1.5 rounded-lg bg-orange-500 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
           >
             {generating ? (
               <>
