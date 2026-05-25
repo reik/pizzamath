@@ -26,7 +26,7 @@ The top navigation bar drives discovery:
 - **Subcategory dropdown** — appears after you pick a category. Narrows to a specific standard cluster.
 - **Search bar (right)** — keyword search; you can optionally restrict it to the current category.
 
-Each worksheet card shows its **level** (Beginner / Intermediate / Advanced) and **school grade** (K–12 where applicable).
+Each worksheet card shows its **level** (Beginner / Intermediate / Advanced) and **school grade** (K–12 where applicable). Cards for worksheets you uploaded yourself are marked with an orange **My Upload** pill — click the pill to jump straight to your My Uploads list.
 
 ### 3. Work a worksheet
 
