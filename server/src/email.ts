@@ -54,11 +54,11 @@ export async function sendMagicLink(email: string, link: string): Promise<void> 
 export async function sendWelcomeLink(email: string, link: string): Promise<void> {
   await send({
     to: email,
-    subject: 'Welcome to PizzaMath — confirm your email',
+    subject: 'Welcome to PizzaMath — sign in to get started',
     html: buildLinkHtml(
-      "Welcome to PizzaMath! Click the button below to confirm your email and sign in.",
+      'Welcome to PizzaMath! Click the button below to sign in and get started.',
       link,
-      'Confirm and sign in',
+      'Sign in to get started',
     ),
   })
 }
