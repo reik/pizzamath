@@ -26,29 +26,32 @@ export function ChangePasswordForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Current Password</label>
-        <input type="password" autoComplete="current-password" {...register('currentPassword')}
+        <label htmlFor="chpw-current" className="block text-xs font-medium text-gray-700 mb-1">Current Password</label>
+        <input id="chpw-current" type="password" autoComplete="current-password" {...register('currentPassword')}
+          aria-describedby={errors.currentPassword ? 'chpw-current-error' : undefined}
           className={cn(field, errors.currentPassword ? 'border-red-500' : 'border-gray-300')} />
         {errors.currentPassword && (
-          <p className="text-xs text-red-600 mt-0.5">{errors.currentPassword.message}</p>
+          <p id="chpw-current-error" className="text-xs text-red-600 mt-0.5">{errors.currentPassword.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">New Password</label>
-        <input type="password" autoComplete="new-password" {...register('newPassword')}
+        <label htmlFor="chpw-new" className="block text-xs font-medium text-gray-700 mb-1">New Password</label>
+        <input id="chpw-new" type="password" autoComplete="new-password" {...register('newPassword')}
+          aria-describedby={errors.newPassword ? 'chpw-new-error' : undefined}
           className={cn(field, errors.newPassword ? 'border-red-500' : 'border-gray-300')} />
         {errors.newPassword && (
-          <p className="text-xs text-red-600 mt-0.5">{errors.newPassword.message}</p>
+          <p id="chpw-new-error" className="text-xs text-red-600 mt-0.5">{errors.newPassword.message}</p>
         )}
       </div>
 
       <div>
-        <label className="block text-xs font-medium text-gray-700 mb-1">Confirm New Password</label>
-        <input type="password" autoComplete="new-password" {...register('confirmPassword')}
+        <label htmlFor="chpw-confirm" className="block text-xs font-medium text-gray-700 mb-1">Confirm New Password</label>
+        <input id="chpw-confirm" type="password" autoComplete="new-password" {...register('confirmPassword')}
+          aria-describedby={errors.confirmPassword ? 'chpw-confirm-error' : undefined}
           className={cn(field, errors.confirmPassword ? 'border-red-500' : 'border-gray-300')} />
         {errors.confirmPassword && (
-          <p className="text-xs text-red-600 mt-0.5">{errors.confirmPassword.message}</p>
+          <p id="chpw-confirm-error" className="text-xs text-red-600 mt-0.5">{errors.confirmPassword.message}</p>
         )}
       </div>
 

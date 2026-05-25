@@ -72,7 +72,7 @@ export function WorksheetForm({
           id="title"
           {...register("title")}
           className={cn(
-            "w-full rounded-md border px-3 py-2 text-sm",
+            "w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500",
             errors.title ? "border-red-500" : "border-gray-300",
           )}
         />
@@ -93,7 +93,7 @@ export function WorksheetForm({
             id="categoryId"
             {...register("categoryId")}
             className={cn(
-              "w-full rounded-md border px-3 py-2 text-sm",
+              "w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500",
               errors.categoryId ? "border-red-500" : "border-gray-300",
             )}
           >
@@ -121,7 +121,7 @@ export function WorksheetForm({
             id="subcategoryId"
             {...register("subcategoryId")}
             className={cn(
-              "w-full rounded-md border px-3 py-2 text-sm",
+              "w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500",
               errors.subcategoryId ? "border-red-500" : "border-gray-300",
             )}
           >
@@ -152,7 +152,7 @@ export function WorksheetForm({
             id="level"
             {...register("level")}
             className={cn(
-              "w-full rounded-md border px-3 py-2 text-sm",
+              "w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500",
               errors.level ? "border-red-500" : "border-gray-300",
             )}
           >
@@ -179,7 +179,7 @@ export function WorksheetForm({
           <select
             id="schoolGrade"
             {...register("schoolGrade")}
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm"
+            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
           >
             <option value="">—</option>
             {GRADES.map((g) => (
@@ -203,7 +203,7 @@ export function WorksheetForm({
           {...register("author")}
           defaultValue="PizzaMath"
           className={cn(
-            "w-full rounded-md border px-3 py-2 text-sm",
+            "w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500",
             errors.author ? "border-red-500" : "border-gray-300",
           )}
         />

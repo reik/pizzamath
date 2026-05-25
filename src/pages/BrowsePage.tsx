@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { useWorksheets, useCategories, WorksheetCard } from '@/features/worksheets'
 import { useUserUploads, UploadedWorksheetCard } from '@/features/uploads'
@@ -39,6 +40,12 @@ export function BrowsePage() {
 
   const totalCount = (worksheets?.length ?? 0) + filteredUploads.length
 
+  useEffect(() => {
+    const parts: string[] = ['PizzaMath']
+    if (selectedCategory) parts.unshift(selectedSubcategory ? `${selectedCategory.name} — ${selectedSubcategory.name}` : selectedCategory.name)
+    document.title = parts.join(' — ')
+  }, [selectedCategory, selectedSubcategory])
+
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
@@ -58,10 +65,10 @@ export function BrowsePage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-6">
-      <h2 className="mb-4 text-xl font-semibold text-gray-800">
+    <main id="main-content" className="mx-auto max-w-7xl px-4 py-6">
+      <h1 className="mb-4 text-xl font-semibold text-gray-800">
         Worksheets <span className="text-sm font-normal text-gray-500">({totalCount})</span>
-      </h2>
+      </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredUploads.map((upload) => (
           <UploadedWorksheetCard key={upload.id} upload={upload} categoryName={categoryMap[upload.categoryId]} />

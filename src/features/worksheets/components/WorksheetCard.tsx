@@ -26,7 +26,7 @@ export function WorksheetCard({
   return (
     <Link
       to={`/worksheets/${catSlug}/${subSlug}/${worksheet.id}`}
-      className="block rounded-xl border-2 border-gray-300 bg-white p-5 shadow hover:shadow-lg transition-shadow"
+      className="block rounded-xl border-2 border-gray-300 bg-white p-5 shadow hover:shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-orange-500"
     >
       <div className="flex items-start justify-between gap-2">
         <h3 className="text-base font-semibold text-gray-900 leading-snug">

@@ -22,7 +22,6 @@ export function SearchBar() {
   return (
     <input
       type="search"
-      role="searchbox"
       placeholder="Search by keywords…"
       value={value}
       onChange={(e) => setValue(e.target.value)}

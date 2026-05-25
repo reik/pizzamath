@@ -39,15 +39,16 @@ export function UserManagement() {
 
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
+          <caption className="sr-only">User accounts</caption>
           <thead>
             <tr className="border-b border-gray-200 text-left text-gray-600">
-              <th className="pb-2 pr-4 font-medium">Email</th>
-              <th className="pb-2 pr-4 font-medium">Role</th>
-              <th className="pb-2 pr-4 font-medium">Status</th>
-              <th className="pb-2 pr-4 font-medium">Plan</th>
-              <th className="pb-2 pr-4 font-medium">Expiry</th>
-              <th className="pb-2 pr-4 font-medium">Joined</th>
-              <th className="pb-2 font-medium">Actions</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Email</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Role</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Status</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Plan</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Expiry</th>
+              <th scope="col" className="pb-2 pr-4 font-medium">Joined</th>
+              <th scope="col" className="pb-2 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -93,7 +94,7 @@ export function UserManagement() {
                             : suspendMutation.mutate(user.id)
                           }
                           disabled={suspendMutation.isPending || activateMutation.isPending}
-                          className="text-xs text-orange-600 hover:underline disabled:opacity-50"
+                          className="text-xs text-orange-600 hover:underline disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-orange-500 rounded"
                         >
                           {isSuspended ? 'Activate' : 'Suspend'}
                         </button>
@@ -104,7 +105,7 @@ export function UserManagement() {
                             }
                           }}
                           disabled={deleteMutation.isPending}
-                          className="text-xs text-red-600 hover:underline disabled:opacity-50"
+                          className="text-xs text-red-600 hover:underline disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-red-500 rounded"
                         >
                           Delete
                         </button>

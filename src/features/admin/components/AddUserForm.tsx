@@ -26,30 +26,32 @@ export function AddUserForm({ onSubmit, isPending, error }: AddUserFormProps) {
     <form onSubmit={handleSubmit(handleValid)} className="space-y-3">
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">Email</label>
-          <input type="email" {...register('email')}
+          <label htmlFor="add-email" className="block text-xs font-medium text-gray-700 mb-1">Email</label>
+          <input id="add-email" type="email" {...register('email')}
+            aria-describedby={errors.email ? 'add-email-error' : undefined}
             className={cn(field, errors.email ? 'border-red-500' : 'border-gray-300')} />
-          {errors.email && <p className="text-xs text-red-600 mt-0.5">{errors.email.message}</p>}
+          {errors.email && <p id="add-email-error" className="text-xs text-red-600 mt-0.5">{errors.email.message}</p>}
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">Password</label>
-          <input type="password" {...register('password')}
+          <label htmlFor="add-password" className="block text-xs font-medium text-gray-700 mb-1">Password</label>
+          <input id="add-password" type="password" {...register('password')}
+            aria-describedby={errors.password ? 'add-password-error' : undefined}
             className={cn(field, errors.password ? 'border-red-500' : 'border-gray-300')} />
-          {errors.password && <p className="text-xs text-red-600 mt-0.5">{errors.password.message}</p>}
+          {errors.password && <p id="add-password-error" className="text-xs text-red-600 mt-0.5">{errors.password.message}</p>}
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">Role</label>
-          <select {...register('role')} className={cn(field, 'border-gray-300')}>
+          <label htmlFor="add-role" className="block text-xs font-medium text-gray-700 mb-1">Role</label>
+          <select id="add-role" {...register('role')} className={cn(field, 'border-gray-300')}>
             <option value="user">User</option>
             <option value="admin">Admin</option>
           </select>
         </div>
         <div>
-          <label className="block text-xs font-medium text-gray-700 mb-1">Plan</label>
-          <select {...register('plan')} className={cn(field, 'border-gray-300')}>
+          <label htmlFor="add-plan" className="block text-xs font-medium text-gray-700 mb-1">Plan</label>
+          <select id="add-plan" {...register('plan')} className={cn(field, 'border-gray-300')}>
             <option value="monthly">Monthly — $10/mo</option>
             <option value="annual">Annual — $100/yr</option>
           </select>

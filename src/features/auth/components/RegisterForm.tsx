@@ -21,12 +21,13 @@ export function RegisterForm() {
           type="email"
           autoComplete="email"
           {...register('email')}
+          aria-describedby={errors.email ? 'reg-email-error' : undefined}
           className={cn(
             'w-full rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500',
             errors.email ? 'border-red-500' : 'border-gray-300',
           )}
         />
-        {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email.message}</p>}
+        {errors.email && <p id="reg-email-error" className="mt-1 text-xs text-red-600">{errors.email.message}</p>}
       </div>
 
       <div>
@@ -36,12 +37,13 @@ export function RegisterForm() {
           type="password"
           autoComplete="new-password"
           {...register('password')}
+          aria-describedby={errors.password ? 'reg-password-error' : undefined}
           className={cn(
             'w-full rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500',
             errors.password ? 'border-red-500' : 'border-gray-300',
           )}
         />
-        {errors.password && <p className="mt-1 text-xs text-red-600">{errors.password.message}</p>}
+        {errors.password && <p id="reg-password-error" className="mt-1 text-xs text-red-600">{errors.password.message}</p>}
       </div>
 
       <div>
