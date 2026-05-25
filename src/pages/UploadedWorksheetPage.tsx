@@ -60,9 +60,12 @@ export function UploadedWorksheetPage() {
                 d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
             </svg>
             <h1 className="text-2xl font-bold text-gray-900">{upload.title}</h1>
-            <span className="rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800">
+            <Link
+              to="/my-uploads"
+              className="rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-1"
+            >
               My Upload
-            </span>
+            </Link>
           </div>
 
           <button
