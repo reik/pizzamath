@@ -9,6 +9,12 @@ import { sendMagicLink, sendWelcomeLink } from '../email.js'
 
 const MAGIC_LINK_TTL_MS = 15 * 60 * 1000
 const APP_BASE_URL = process.env.APP_BASE_URL ?? 'http://localhost:5175'
+const MAGIC_LINK_REQUEST_WINDOW_MS = 15 * 60 * 1000
+const MAGIC_LINK_REQUESTS_PER_IP = 20
+const MAGIC_LINK_REQUESTS_PER_EMAIL = 5
+
+const magicLinkIpRequests = new Map<string, number[]>()
+const magicLinkEmailRequests = new Map<string, number[]>()
 
 function hashToken(raw: string): string {
   return createHash('sha256').update(raw).digest('hex')
@@ -16,6 +22,23 @@ function hashToken(raw: string): string {
 
 function buildMagicLink(rawToken: string): string {
   return `${APP_BASE_URL.replace(/\/$/, '')}/auth/verify?token=${encodeURIComponent(rawToken)}`
+}
+
+function exceedsRequestLimit(
+  buckets: Map<string, number[]>,
+  key: string,
+  maxRequests: number,
+  windowMs: number,
+  nowMs: number,
+): boolean {
+  const recent = (buckets.get(key) ?? []).filter((timestamp) => nowMs - timestamp < windowMs)
+  if (recent.length >= maxRequests) {
+    buckets.set(key, recent)
+    return true
+  }
+  recent.push(nowMs)
+  buckets.set(key, recent)
+  return false
 }
 
 interface MagicTokenRow {
@@ -113,6 +136,28 @@ authRouter.post('/magic-link/request', async (req, res) => {
   const parsed = magicRequestSchema.safeParse(req.body)
   if (!parsed.success) { res.status(400).json({ message: 'Invalid request', errors: parsed.error.flatten().fieldErrors }); return }
   const { email } = parsed.data
+  const nowMs = Date.now()
+  const ipKey = req.ip || req.socket.remoteAddress || 'unknown'
+  const emailKey = email.toLowerCase()
+
+  const exceededIpLimit = exceedsRequestLimit(
+    magicLinkIpRequests,
+    ipKey,
+    MAGIC_LINK_REQUESTS_PER_IP,
+    MAGIC_LINK_REQUEST_WINDOW_MS,
+    nowMs,
+  )
+  const exceededEmailLimit = exceedsRequestLimit(
+    magicLinkEmailRequests,
+    emailKey,
+    MAGIC_LINK_REQUESTS_PER_EMAIL,
+    MAGIC_LINK_REQUEST_WINDOW_MS,
+    nowMs,
+  )
+  if (exceededIpLimit || exceededEmailLimit) {
+    res.status(429).json({ message: 'Too many requests. Please try again later.' })
+    return
+  }
 
   const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email) as UserRow | undefined
 
