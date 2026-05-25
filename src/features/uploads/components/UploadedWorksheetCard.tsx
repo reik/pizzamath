@@ -53,7 +53,7 @@ export function UploadedWorksheetCard({
           <button
             type="button"
             onClick={handleMyUploadClick}
-            className="rounded bg-orange-100 px-2 py-0.5 text-orange-800 font-medium hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-1"
+            className="cursor-pointer rounded bg-orange-100 px-2 py-0.5 text-orange-800 font-medium hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-1"
           >
             My Upload
           </button>

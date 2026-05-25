@@ -62,7 +62,7 @@ export function UploadedWorksheetPage() {
             <h1 className="text-2xl font-bold text-gray-900">{upload.title}</h1>
             <Link
               to="/my-uploads"
-              className="rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-1"
+              className="cursor-pointer rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-1"
             >
               My Upload
             </Link>
