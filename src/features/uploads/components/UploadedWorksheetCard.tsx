@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import type { MouseEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/utils/cn";
 import type { UserUpload } from "@/types/userUpload";
 
@@ -17,6 +18,14 @@ export function UploadedWorksheetCard({
   upload,
   categoryName,
 }: UploadedWorksheetCardProps) {
+  const navigate = useNavigate();
+
+  const handleMyUploadClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    navigate("/my-uploads");
+  };
+
   return (
     <Link
       to={`/my-uploads/${upload.id}`}
@@ -41,9 +50,13 @@ export function UploadedWorksheetCard({
 
       <div className="mt-2 flex items-start justify-items-start justify-between  gap-2 text-xs text-gray-500">
         <div className="flex items-start gap-1">
-          <span className="rounded bg-orange-100 px-2 py-0.5 text-orange-800 font-medium">
+          <button
+            type="button"
+            onClick={handleMyUploadClick}
+            className="rounded bg-orange-100 px-2 py-0.5 text-orange-800 font-medium hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-1"
+          >
             My Upload
-          </span>
+          </button>
           {categoryName && (
             <span className="rounded bg-orange-50 px-2 py-0.5 text-orange-700">
               {categoryName}
