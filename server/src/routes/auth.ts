@@ -122,8 +122,6 @@ authRouter.post('/magic-link/request', async (req, res) => {
       await sendMagicLink(user.email, buildMagicLink(rawToken))
     } catch (err) {
       console.error('[auth/magic-link/request] email send failed:', err)
-      res.status(502).json({ message: 'Could not send email. Please try again or use password.' })
-      return
     }
   }
 
