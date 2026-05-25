@@ -146,7 +146,10 @@ authRouter.post('/magic-link/verify', (req, res) => {
   if (!user) { res.status(400).json({ message: 'Account not found' }); return }
   if (user.account_status === 'suspended') { res.status(403).json({ message: 'Account suspended. Contact support.' }); return }
 
-  db.prepare('UPDATE magic_link_tokens SET consumed_at = ? WHERE id = ?').run(new Date().toISOString(), row.id)
+  const consumeResult = db
+    .prepare('UPDATE magic_link_tokens SET consumed_at = ? WHERE id = ? AND consumed_at IS NULL')
+    .run(new Date().toISOString(), row.id)
+  if (consumeResult.changes !== 1) { res.status(400).json({ message: 'This link has already been used' }); return }
 
   res.json({ token: signToken(user.id, user.role), user: userToDto(user) })
 })
