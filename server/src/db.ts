@@ -7,10 +7,11 @@ import { v4 as uuid } from 'uuid'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DATA_DIR = join(__dirname, '../../data')
-mkdirSync(DATA_DIR, { recursive: true })
+const IS_TEST = process.env.NODE_ENV === 'test'
+if (!IS_TEST) mkdirSync(DATA_DIR, { recursive: true })
 
-export const db = new Database(join(DATA_DIR, 'pizzamath.db'))
-db.pragma('journal_mode = WAL')
+export const db = new Database(IS_TEST ? ':memory:' : join(DATA_DIR, 'pizzamath.db'))
+if (!IS_TEST) db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
 // ── Schema ───────────────────────────────────────────────────────────────────
@@ -79,6 +80,34 @@ db.exec(`
     created_at TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
   );
+
+  CREATE TABLE IF NOT EXISTS worksheet_gradings (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    upload_id TEXT NOT NULL,
+    score INTEGER NOT NULL,
+    total INTEGER NOT NULL,
+    created_at TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (upload_id) REFERENCES user_uploads(id)
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_gradings_user_id ON worksheet_gradings(user_id);
+
+  CREATE TABLE IF NOT EXISTS grading_problems (
+    id TEXT PRIMARY KEY,
+    grading_id TEXT NOT NULL,
+    problem_index INTEGER NOT NULL,
+    problem_text TEXT NOT NULL,
+    expected_answer TEXT NOT NULL,
+    student_answer TEXT NOT NULL,
+    is_correct INTEGER NOT NULL,
+    error_category TEXT,
+    error_explanation TEXT,
+    FOREIGN KEY (grading_id) REFERENCES worksheet_gradings(id)
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_grading_problems_grading_id ON grading_problems(grading_id);
 `)
 
 // ── Seed (idempotent) ────────────────────────────────────────────────────────

@@ -1,17 +1,29 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '@/features/auth/store'
-import { useAllUploadsForAdmin, useUserUploads, useDeleteUpload, UploadZone, UploadedWorksheetCard } from '@/features/uploads'
+import { useUserUploads, useDeleteUpload, UploadZone, UploadedWorksheetCard } from '@/features/uploads'
 import { useCategories } from '@/features/worksheets'
+import { useCreateGrading } from '@/features/gradings/hooks/useCreateGrading'
+
+function GradeButton({ uploadId }: { uploadId: string }) {
+  const navigate = useNavigate()
+  const { mutate, isPending } = useCreateGrading()
+  return (
+    <button
+      type="button"
+      disabled={isPending}
+      onClick={() => mutate(uploadId, { onSuccess: (g) => navigate(`/gradings/${g.id}`) })}
+      className="rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-orange-600 disabled:opacity-50"
+    >
+      {isPending ? 'Grading…' : 'Grade this'}
+    </button>
+  )
+}
 
 export function MyUploadsPage() {
   const user = useAuthStore((s) => s.user)
   const navigate = useNavigate()
-  const isAdmin = user?.role === 'admin'
-  const { data: adminUploads, isLoading: adminLoading } = useAllUploadsForAdmin()
-  const { data: userUploads, isLoading: userLoading } = useUserUploads(isAdmin ? '' : (user?.id ?? ''))
-  const uploads = isAdmin ? adminUploads : userUploads
-  const isLoading = isAdmin ? adminLoading : userLoading
+  const { data: uploads, isLoading } = useUserUploads(user?.id ?? '')
   const deleteUpload = useDeleteUpload(user?.id ?? '')
   const { data: categories } = useCategories()
   const [showUploader, setShowUploader] = useState(false)
@@ -71,6 +83,9 @@ export function MyUploadsPage() {
           {uploads.map((upload) => (
             <div key={upload.id} className="relative group">
               <UploadedWorksheetCard upload={upload} categoryName={categoryMap[upload.categoryId]} />
+              <div className="mt-2 flex justify-end">
+                <GradeButton uploadId={upload.id} />
+              </div>
               <button
                 onClick={(e) => {
                   e.preventDefault()

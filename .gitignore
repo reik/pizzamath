@@ -16,9 +16,19 @@ coverage
 *.sw?
 # Optional: Ignore build artifacts
 build
-src/mocks/db.ts
 
 # Cypress artifacts
 cypress/downloads
 cypress/screenshots
 cypress/videos
+
+# Playwright MCP scratch snapshots
+.playwright-mcp/
+
+# Stray server-side dev DB (canonical lives at data/pizzamath.db)
+server/data/*.db
+server/data/*.db-shm
+server/data/*.db-wal
+
+# Ad-hoc verification screenshots at project root
+/grading-result-verify.png

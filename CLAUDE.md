@@ -92,3 +92,20 @@ src/
 
 - Worksheet generation conversation state is ephemeral (not persisted) — only the final generated worksheet is saved.
 - File export (PDF, doc) is a user-facing feature; plan for a server-side generation step or a library like `react-pdf`.
+
+## Documentation upkeep
+
+`docs/USER_GUIDE.md` is the end-user / admin product doc. **It must stay in sync with the app.**
+
+Any commit or PR that meaningfully changes user-facing behavior MUST update `docs/USER_GUIDE.md` in the same change. "User-facing" means:
+
+- New or removed route under `src/pages/**`
+- New or removed feature flow under `src/features/**` (anything a user can click, see, or trigger)
+- New or removed admin capability under `src/pages/admin/**`
+- Change to the sign-up / subscription / pricing flow
+- Change to upload, grading, targeted-practice, or insights behavior
+- Any change to navigation, top bar, or account menu
+
+If the change is purely internal (refactor, types, tests, dependency bump, server-only schema with no user-visible effect), no doc update is needed.
+
+When updating the doc, prefer editing the matching section rather than appending. Keep the existing tone: short steps, plain language, no marketing copy. Update the troubleshooting table if the change introduces a new failure mode.

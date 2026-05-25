@@ -20,4 +20,8 @@ export const queryKeys = {
     all: (userId: string) => ['userUploads', userId] as const,
     detail: (id: string) => ['userUploads', id] as const,
   },
+  gradings: {
+    one: (id: string) => ['gradings', id] as const,
+    insights: () => ['gradings', 'insights'] as const,
+  },
 } as const

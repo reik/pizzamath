@@ -23,7 +23,7 @@ describe('ProgressEntryForm', () => {
     expect(screen.getByLabelText(/date/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/score/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/comment/i)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /save attempt/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /save log/i })).toBeInTheDocument()
   })
 
   it('should_default_date_to_today', () => {
@@ -46,7 +46,7 @@ describe('ProgressEntryForm', () => {
     // Act — clear then type an out-of-range value (HTML min/max removed; Zod validates)
     await user.clear(scoreInput)
     await user.type(scoreInput, '150')
-    await user.click(screen.getByRole('button', { name: /save attempt/i }))
+    await user.click(screen.getByRole('button', { name: /save log/i }))
 
     // Assert — RHF applies error border class when Zod validation fails
     await waitFor(() => {
@@ -63,7 +63,7 @@ describe('ProgressEntryForm', () => {
     // Act — fireEvent.change handles negative numbers reliably for number inputs
     await user.clear(scoreInput)
     fireEvent.change(scoreInput, { target: { valueAsNumber: -5 } })
-    await user.click(screen.getByRole('button', { name: /save attempt/i }))
+    await user.click(screen.getByRole('button', { name: /save log/i }))
 
     // Assert
     await waitFor(() => {
@@ -80,7 +80,7 @@ describe('ProgressEntryForm', () => {
     const scoreInput = screen.getByLabelText(/score/i)
     await user.clear(scoreInput)
     await user.type(scoreInput, '85')
-    await user.click(screen.getByRole('button', { name: /save attempt/i }))
+    await user.click(screen.getByRole('button', { name: /save log/i }))
 
     // Assert
     expect(await screen.findByText(/attempt saved/i)).toBeInTheDocument()
@@ -96,7 +96,7 @@ describe('ProgressEntryForm', () => {
     await user.clear(scoreInput)
     await user.type(scoreInput, '90')
     await user.type(screen.getByLabelText(/comment/i), 'Great session!')
-    await user.click(screen.getByRole('button', { name: /save attempt/i }))
+    await user.click(screen.getByRole('button', { name: /save log/i }))
 
     // Assert — comment is cleared after reset
     await waitFor(() => {
