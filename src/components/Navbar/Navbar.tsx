@@ -29,7 +29,7 @@ export function Navbar() {
         )}
         <button
           onClick={() => logoutMutation.mutate()}
-          className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-50"
+          className="cursor-pointer rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-100"
         >
           Logout
         </button>

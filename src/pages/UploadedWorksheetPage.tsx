@@ -60,14 +60,17 @@ export function UploadedWorksheetPage() {
                 d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
             </svg>
             <h1 className="text-2xl font-bold text-gray-900">{upload.title}</h1>
-            <span className="rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800">
+            <Link
+              to="/my-uploads"
+              className="cursor-pointer rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 hover:bg-orange-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-offset-1"
+            >
               My Upload
-            </span>
+            </Link>
           </div>
 
           <button
             onClick={handleDownloadPdf}
-            className="shrink-0 flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
+            className="cursor-pointer shrink-0 flex items-center gap-1.5 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2"
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -77,7 +80,7 @@ export function UploadedWorksheetPage() {
           <button
             onClick={handleGenerateSimilar}
             disabled={generating}
-            className="shrink-0 flex items-center gap-1.5 rounded-lg bg-orange-500 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+            className="cursor-pointer shrink-0 flex items-center gap-1.5 rounded-lg bg-orange-500 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
           >
             {generating ? (
               <>
@@ -128,8 +131,8 @@ export function UploadedWorksheetPage() {
           <button
             onClick={() => setShowAnswers(false)}
             className={cn(
-              'rounded-md px-4 py-2 text-sm font-medium transition-colors',
-              !showAnswers ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
+              'cursor-pointer rounded-md px-4 py-2 text-sm font-medium transition-colors',
+              !showAnswers ? 'bg-orange-500 text-white hover:bg-orange-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
             )}
           >
             Worksheet
@@ -137,8 +140,8 @@ export function UploadedWorksheetPage() {
           <button
             onClick={() => setShowAnswers(true)}
             className={cn(
-              'rounded-md px-4 py-2 text-sm font-medium transition-colors',
-              showAnswers ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
+              'cursor-pointer rounded-md px-4 py-2 text-sm font-medium transition-colors',
+              showAnswers ? 'bg-orange-500 text-white hover:bg-orange-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200',
             )}
           >
             Answer Sheet

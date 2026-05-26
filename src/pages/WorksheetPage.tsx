@@ -35,7 +35,7 @@ export function WorksheetPage() {
           {categoryName && (
             <Link
               to={`/browse/${slugify(categoryName)}`}
-              className="rounded bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-700 hover:bg-orange-100"
+              className="cursor-pointer rounded bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-700 hover:bg-orange-100"
             >
               {categoryName}
             </Link>
@@ -43,7 +43,7 @@ export function WorksheetPage() {
           {subcategoryName && categoryName && (
             <Link
               to={`/browse/${slugify(categoryName)}/${slugify(subcategoryName)}`}
-              className="rounded bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 hover:bg-blue-100"
+              className="cursor-pointer rounded bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700 hover:bg-blue-100"
             >
               {subcategoryName}
             </Link>
