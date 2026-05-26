@@ -1,6 +1,6 @@
 # Mistake-Aware Practice — Implementation Status
 
-**Last updated:** 2026-05-21
+**Last updated:** 2026-05-22
 **Branch:** `feat/mistake-aware-practice` (off `master`)
 **Plan:** [`./2026-05-18-mistake-aware-practice.md`](./2026-05-18-mistake-aware-practice.md) — 17 tasks, full code blocks per task
 
@@ -30,17 +30,18 @@
 | 10 | `ErrorBreakdown` summary | shipped | `272bd63` |
 | 11 | `useGrading` hook + `GradingPage` + route | shipped | `324c329` |
 | 12 | "Grade this" button on `MyUploadsPage` | shipped | `51f4bf2` |
-| 13 | Targeted-generation prompt module | **next** | — |
-| 14 | `POST /api/gradings/:id/generate-practice` endpoint | pending | — |
-| 15 | `GeneratePracticeButton` + flow | pending | — |
-| 16 | `GET /api/gradings/insights/me` endpoint | pending | — |
-| 17 | `InsightsChart` + `InsightsPage` + Navbar link | pending | — |
+| 13 | Targeted-generation prompt module | shipped | `b59c6ef` |
+| 14 | `POST /api/gradings/:id/generate-practice` endpoint | shipped | `c5c66a7` |
+| 15 | `GeneratePracticeButton` + flow | shipped | `8495085` |
+| 16 | `GET /api/gradings/insights/me` endpoint | shipped | `175ef72` |
+| 17 | `InsightsChart` + `InsightsPage` + Navbar link | shipped | `88c9210` |
 
 ---
 
-## Current test baseline (after commit `51f4bf2`)
+## Current test baseline (after commit `88c9210`) — FEATURE COMPLETE
 
-- **Backend** (`cd server && npm test`): 18/18 passing — 1 health + 2 errorTaxonomy + 2 db schema + 4 grading-schema + 4 visionGrader + 5 gradings route (POST + GET)
+- **Backend** (`cd server && npm test`): 23/23 passing — 1 health + 2 errorTaxonomy + 2 db schema + 4 grading-schema + 4 visionGrader + 7 gradings route (POST + GET + generate-practice + insights) + 3 targetedGen
+- **Frontend** (`npm test -- --run`): 56/56 passing (added 2 InsightsChart tests)
 - **Frontend** (`npm test -- --run` from project root): 54/54 passing — added gradings API client, GradingResult, ErrorBreakdown, GradingPage, useCreateGrading
 
 Any regression below these numbers blocks the next task.
