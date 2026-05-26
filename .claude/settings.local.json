@@ -31,7 +31,16 @@
       "Bash(sqlite3 *)",
       "mcp__plugin_playwright_playwright__browser_console_messages",
       "Bash(git -C /Users/reikurata/dev/pizzamath check-ignore -v uploads)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(sqlite3 /Users/reikurata/dev/pizzamath/server/data/pizzamath.db \"SELECT count\\(*\\) FROM user_uploads WHERE id='upload-test-1';\")",
+      "Read(//tmp/**)",
+      "Bash(echo \"exit=$?\")",
+      "mcp__plugin_everything-claude-code_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "mcp__plugin_playwright_playwright__browser_wait_for",
+      "Bash(python3 -m json.tool)",
+      "mcp__plugin_playwright_playwright__browser_close",
+      "Bash(gh pr *)"
     ]
   }
 }
