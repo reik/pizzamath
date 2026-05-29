@@ -108,6 +108,20 @@ db.exec(`
   );
 
   CREATE INDEX IF NOT EXISTS idx_grading_problems_grading_id ON grading_problems(grading_id);
+
+  CREATE TABLE IF NOT EXISTS targeted_practice (
+    id TEXT PRIMARY KEY,
+    worksheet_id TEXT NOT NULL,
+    source_grading_id TEXT NOT NULL,
+    user_id TEXT NOT NULL,
+    target_categories TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    FOREIGN KEY (worksheet_id) REFERENCES worksheets(id),
+    FOREIGN KEY (source_grading_id) REFERENCES worksheet_gradings(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_targeted_practice_user_id ON targeted_practice(user_id);
 `)
 
 // ── Seed (idempotent) ────────────────────────────────────────────────────────

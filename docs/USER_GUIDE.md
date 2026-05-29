@@ -84,9 +84,13 @@ This page aggregates *every* grading you've ever run:
 
 - Total worksheets graded.
 - **Most common mistakes** — a horizontal bar chart ranking error categories by how often they show up across all your gradings. The longest bar is the skill that most needs work.
+- **Practice progress** — for every error category you've generated targeted practice on, a row shows the pre-drill vs post-drill error count plus a status badge:
+  - **✓ Fixed** — that category appeared at less than half the rate in gradings completed *after* the first drill compared to before.
+  - **Still struggling** — that category is still showing up at roughly the same rate, or more.
+  - **Needs more data** — you haven't graded any new worksheets since drilling this category yet. Grade one to get a verdict.
 - **Recent gradings** — the last 10 grading sessions, each linkable.
 
-The chart updates after every new grading. If you've never graded anything, it shows an empty-state message instead.
+The chart and the practice-progress section update after every new grading. If you've never graded anything, the chart shows an empty-state message; the practice-progress section only appears once you've generated at least one targeted-practice worksheet.
 
 ### 8. Account management
 
@@ -154,6 +158,8 @@ No bulk-edit yet — these are per-user actions.
 | Grading says "couldn't read the image" | Re-shoot in better light; make sure the whole page is in frame and handwriting is legible. JPEG is fine; very large files (>10 MB) may fail. |
 | "Generate targeted practice" button doesn't appear | The grading needs at least one **incorrect** problem with a categorized error. A perfect score, or mistakes the AI couldn't categorize, will hide the button. |
 | Insights chart is empty | You haven't completed any gradings yet, or none of your wrong answers were categorizable. Grade a real worksheet to populate it. |
+| "Practice progress" section is missing | You haven't generated any targeted-practice worksheets yet. Run "Generate targeted practice" on a grading first; the section appears once a drill has been recorded. |
+| A practice category shows "Needs more data" forever | Upload and grade a new worksheet *after* the drill date — the comparison needs at least one post-drill grading to assess whether the category improved. |
 | Subscription expired mid-session | You'll be redirected to `/subscribe` on the next protected page load. Existing gradings and history aren't deleted — they reappear when you renew. |
 | Forgot password | Use the "Forgot password" link on the login page (magic-link sign-in if enabled in your deployment). |
 

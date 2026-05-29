@@ -16,7 +16,7 @@ describe('Authentication', () => {
       cy.findByRole('button', { name: /sign in/i }).click()
 
       // Assert
-      cy.url().should('eq', 'http://localhost:5173/')
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
       cy.findByText(/worksheets/i).should('be.visible')
     })
 
@@ -81,7 +81,7 @@ describe('Authentication', () => {
       cy.findByRole('button', { name: /sign up|create account/i }).click()
 
       // Assert
-      cy.url().should('eq', 'http://localhost:5173/')
+      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
       cy.findByText(/worksheets/i).should('be.visible')
     })
 

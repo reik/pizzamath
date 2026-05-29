@@ -89,8 +89,81 @@ gradingsRouter.get('/insights/me', requireAuth, (req: AuthRequest, res) => {
     LIMIT 10
   `).all(req.userId) as { id: string; score: number; total: number; createdAt: string }[]
 
-  res.json({ totalGradings: totals.n, byCategory, recent })
+  const practiceOutcomes = computePracticeOutcomes(req.userId!)
+
+  res.json({ totalGradings: totals.n, byCategory, recent, practiceOutcomes })
 })
+
+type PracticeOutcomeStatus = 'fixed' | 'still_struggling' | 'insufficient_data'
+interface PracticeOutcome {
+  category: ErrorCategoryId
+  firstDrilledAt: string
+  preDrillErrors: number
+  preDrillGradings: number
+  postDrillErrors: number
+  postDrillGradings: number
+  status: PracticeOutcomeStatus
+}
+
+function computePracticeOutcomes(userId: string): PracticeOutcome[] {
+  const drills = db.prepare(
+    'SELECT target_categories, created_at FROM targeted_practice WHERE user_id = ? ORDER BY created_at ASC',
+  ).all(userId) as { target_categories: string; created_at: string }[]
+
+  const firstDrillByCategory = new Map<ErrorCategoryId, string>()
+  for (const d of drills) {
+    let parsed: unknown
+    try { parsed = JSON.parse(d.target_categories) } catch { continue }
+    if (!Array.isArray(parsed)) continue
+    for (const c of parsed) {
+      if (!isErrorCategoryId(c)) continue
+      if (!firstDrillByCategory.has(c)) firstDrillByCategory.set(c, d.created_at)
+    }
+  }
+
+  const errorCountStmt = db.prepare(`
+    SELECT COUNT(*) as n
+    FROM grading_problems gp
+    JOIN worksheet_gradings g ON g.id = gp.grading_id
+    WHERE g.user_id = ? AND gp.error_category = ? AND gp.is_correct = 0 AND g.created_at < ?
+  `)
+  const errorCountAfterStmt = db.prepare(`
+    SELECT COUNT(*) as n
+    FROM grading_problems gp
+    JOIN worksheet_gradings g ON g.id = gp.grading_id
+    WHERE g.user_id = ? AND gp.error_category = ? AND gp.is_correct = 0 AND g.created_at >= ?
+  `)
+  const gradingCountBeforeStmt = db.prepare(
+    'SELECT COUNT(*) as n FROM worksheet_gradings WHERE user_id = ? AND created_at < ?',
+  )
+  const gradingCountAfterStmt = db.prepare(
+    'SELECT COUNT(*) as n FROM worksheet_gradings WHERE user_id = ? AND created_at >= ?',
+  )
+
+  const outcomes: PracticeOutcome[] = []
+  for (const [category, firstDrilledAt] of firstDrillByCategory) {
+    const preErrors = (errorCountStmt.get(userId, category, firstDrilledAt) as { n: number }).n
+    const postErrors = (errorCountAfterStmt.get(userId, category, firstDrilledAt) as { n: number }).n
+    const preGradings = (gradingCountBeforeStmt.get(userId, firstDrilledAt) as { n: number }).n
+    const postGradings = (gradingCountAfterStmt.get(userId, firstDrilledAt) as { n: number }).n
+
+    let status: PracticeOutcomeStatus
+    if (postGradings === 0) status = 'insufficient_data'
+    else {
+      const preRate = preGradings > 0 ? preErrors / preGradings : Infinity
+      const postRate = postErrors / postGradings
+      status = postRate <= 0.5 * preRate ? 'fixed' : 'still_struggling'
+    }
+
+    outcomes.push({
+      category, firstDrilledAt,
+      preDrillErrors: preErrors, preDrillGradings: preGradings,
+      postDrillErrors: postErrors, postDrillGradings: postGradings,
+      status,
+    })
+  }
+  return outcomes
+}
 
 gradingsRouter.get('/:id', requireAuth, (req: AuthRequest, res) => {
   const grading = db.prepare('SELECT * FROM worksheet_gradings WHERE id = ? AND user_id = ?').get(req.params.id, req.userId) as
@@ -143,8 +216,13 @@ gradingsRouter.post('/:id/generate-practice', requireAuth, async (req: AuthReque
 
   const id = uuid()
   const createdAt = new Date().toISOString()
-  db.prepare(`INSERT INTO worksheets (id,title,category_id,subcategory_id,level,school_grade,author,content,answer_content,created_at) VALUES (?,?,?,?,?,?,?,?,?,?)`)
-    .run(id, generated.data.title, generated.data.categoryId, generated.data.subcategoryId, generated.data.level, generated.data.schoolGrade, 'PizzaMath (targeted)', generated.data.content, generated.data.answerContent, createdAt)
+  const tx = db.transaction(() => {
+    db.prepare(`INSERT INTO worksheets (id,title,category_id,subcategory_id,level,school_grade,author,content,answer_content,created_at) VALUES (?,?,?,?,?,?,?,?,?,?)`)
+      .run(id, generated.data.title, generated.data.categoryId, generated.data.subcategoryId, generated.data.level, generated.data.schoolGrade, 'PizzaMath (targeted)', generated.data.content, generated.data.answerContent, createdAt)
+    db.prepare(`INSERT INTO targeted_practice (id,worksheet_id,source_grading_id,user_id,target_categories,created_at) VALUES (?,?,?,?,?,?)`)
+      .run(uuid(), id, grading.id, req.userId, JSON.stringify(categories), createdAt)
+  })
+  tx()
 
   res.status(201).json({ id, ...generated.data, createdAt })
 })

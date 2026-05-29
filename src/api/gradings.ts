@@ -35,15 +35,27 @@ export const generatedWorksheetSchema = z.object({
   createdAt: z.string(),
 })
 
+export const practiceOutcomeSchema = z.object({
+  category: z.enum(errorCategoryIds),
+  firstDrilledAt: z.string(),
+  preDrillErrors: z.number().int().nonnegative(),
+  preDrillGradings: z.number().int().nonnegative(),
+  postDrillErrors: z.number().int().nonnegative(),
+  postDrillGradings: z.number().int().nonnegative(),
+  status: z.enum(['fixed', 'still_struggling', 'insufficient_data']),
+})
+
 export const insightsSchema = z.object({
   totalGradings: z.number().int().nonnegative(),
   byCategory: z.array(z.object({ category: z.string(), count: z.number().int().nonnegative() })),
   recent: z.array(z.object({ id: z.string(), score: z.number(), total: z.number(), createdAt: z.string() })),
+  practiceOutcomes: z.array(practiceOutcomeSchema).default([]),
 })
 
 export type Grading = z.infer<typeof gradingSchema>
 export type GradedProblem = z.infer<typeof gradedProblemSchema>
 export type GeneratedWorksheet = z.infer<typeof generatedWorksheetSchema>
+export type PracticeOutcome = z.infer<typeof practiceOutcomeSchema>
 export type Insights = z.infer<typeof insightsSchema>
 
 export const gradingsQueryKeys = {
