@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useInsights } from '@/features/gradings/hooks/useInsights'
 import { InsightsChart } from '@/features/gradings/components/InsightsChart'
+import { PracticeOutcomes } from '@/features/gradings/components/PracticeOutcomes'
 
 export function InsightsPage() {
   const { data, isLoading } = useInsights()
@@ -17,6 +18,13 @@ export function InsightsPage() {
         <h2 className="mb-3 text-sm font-semibold text-gray-700">Most common mistakes</h2>
         <InsightsChart data={data.byCategory} />
       </section>
+
+      {data.practiceOutcomes.length > 0 && (
+        <section className="mt-6 rounded-lg border border-gray-200 bg-white p-4">
+          <h2 className="mb-3 text-sm font-semibold text-gray-700">Practice progress</h2>
+          <PracticeOutcomes outcomes={data.practiceOutcomes} />
+        </section>
+      )}
 
       <section className="mt-6">
         <h2 className="text-sm font-semibold text-gray-700">Recent gradings</h2>
