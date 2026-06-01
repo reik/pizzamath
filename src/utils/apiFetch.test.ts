@@ -27,11 +27,16 @@ describe('apiFetch', () => {
   })
 
   it('does NOT clear the auth store on 401 when no token was sent', async () => {
+    useAuthStore.setState({ user: fakeUser, token: null })
+    const clearSpy = vi.spyOn(useAuthStore.getState(), 'clearUser')
     fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 401 }))
 
     await expect(apiFetch('/api/worksheets')).rejects.toThrow('Unauthorized')
+    expect(clearSpy).not.toHaveBeenCalled()
     expect(useAuthStore.getState().token).toBeNull()
-    expect(useAuthStore.getState().user).toBeNull()
+    expect(useAuthStore.getState().user).toEqual(fakeUser)
+
+    clearSpy.mockRestore()
   })
 
   it('leaves the auth store alone on non-401 errors', async () => {
