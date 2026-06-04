@@ -9,7 +9,7 @@ describe('Browse Worksheets', () => {
     it('should load and display worksheet grid', () => {
       cy.findByRole('heading', { name: /worksheets/i }).should('be.visible')
       cy.get('[class*="grid"]').within(() => {
-        cy.findByText(/operations|counting|geometry|algebra/i).should('exist')
+        cy.findAllByText(/operations|counting|geometry|algebra/i).should('have.length.greaterThan', 0)
       })
     })
 
@@ -63,15 +63,16 @@ describe('Browse Worksheets', () => {
 
   describe('Worksheet Cards', () => {
     it('should navigate to worksheet detail on card click', () => {
-      cy.get('[class*="grid"]').within(() => {
-        cy.get('a').first().click()
-      })
-      cy.url().should('match', /\/worksheets\/[a-z0-9-]+$/)
+      // Worksheet cards link to /worksheets/<category>/<subcategory>/<id>.
+      // Target a worksheet link explicitly so uploaded-worksheet cards (which
+      // also render in the grid and link to /my-uploads/...) don't shadow it.
+      cy.get('a[href*="/worksheets/"]').first().click()
+      cy.url().should('match', /\/worksheets\/[a-z0-9-]+\/[a-z0-9-]+\/[a-z0-9-]+$/)
     })
 
     it('should display worksheet metadata on cards', () => {
       cy.get('[class*="grid"]').within(() => {
-        cy.findByText(/beginner|intermediate|advanced/i).should('exist')
+        cy.findAllByText(/beginner|intermediate|advanced/i).should('have.length.greaterThan', 0)
       })
     })
   })
