@@ -16,7 +16,7 @@ describe('Authentication', () => {
       cy.findByRole('button', { name: /sign in/i }).click()
 
       // Assert
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
+      cy.url().should('match', /\/pizzamath\/?$/)
       cy.findByText(/worksheets/i).should('be.visible')
     })
 
@@ -77,11 +77,12 @@ describe('Authentication', () => {
       // Act
       cy.get('input[type="email"]').type(email)
       cy.get('input[type="password"]').type(password)
-      cy.findByRole('radio', { name: /monthly/i }).click()
+      // The radio input is visually hidden (sr-only) behind its styled label
+      cy.findByRole('radio', { name: /monthly/i }).click({ force: true })
       cy.findByRole('button', { name: /sign up|create account/i }).click()
 
       // Assert
-      cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
+      cy.url().should('match', /\/pizzamath\/?$/)
       cy.findByText(/worksheets/i).should('be.visible')
     })
 
@@ -143,10 +144,12 @@ describe('Authentication', () => {
       // Act
       cy.findByRole('button', { name: /logout/i }).click()
 
-      // Assert
+      // Assert - zustand-persist keeps the storage key but clears its state
       cy.window().then((win) => {
         const auth = win.localStorage.getItem('pizzamath-auth')
-        expect(auth).to.be.null
+        const state = auth ? (JSON.parse(auth).state as { user: unknown; token: unknown }) : null
+        expect(state?.token ?? null, 'token cleared').to.be.null
+        expect(state?.user ?? null, 'user cleared').to.be.null
       })
     })
 

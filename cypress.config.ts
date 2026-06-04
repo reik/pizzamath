@@ -5,7 +5,9 @@ dotenv.config()
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:5175',
+    // Vite serves the app under base path "/pizzamath/" (see vite.config.ts),
+    // so the e2e baseUrl must include it for cy.visit('/login') etc. to resolve.
+    baseUrl: 'http://localhost:5175/pizzamath',
     viewportWidth: 1280,
     viewportHeight: 720,
     defaultCommandTimeout: 8000,
