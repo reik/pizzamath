@@ -122,6 +122,13 @@ db.exec(`
   );
 
   CREATE INDEX IF NOT EXISTS idx_targeted_practice_user_id ON targeted_practice(user_id);
+
+  CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    token_hash TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL,
+    expires_at TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
 `)
 
 // ── Seed (idempotent) ────────────────────────────────────────────────────────
