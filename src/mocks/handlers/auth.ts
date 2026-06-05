@@ -58,6 +58,14 @@ export const authHandlers = [
     return HttpResponse.json({ ok: true })
   }),
 
+  http.post('/api/auth/forgot-password', async () => {
+    return HttpResponse.json({ ok: true })
+  }),
+
+  http.post('/api/auth/reset-password', async () => {
+    return HttpResponse.json({ ok: true })
+  }),
+
   http.get('/api/auth/me', ({ request }) => {
     const userId = getBearerUserId(request)
     if (!userId) return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 })
