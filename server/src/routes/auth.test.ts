@@ -11,7 +11,6 @@ let db: typeof import('../db.js')['db']
 
 beforeEach(async () => {
   vi.resetModules()
-  vi.mock('../email.js', () => ({ sendPasswordResetEmail: vi.fn(async () => {}) }))
   ;({ app } = await import('../app.js'))
   ;({ db } = await import('../db.js'))
 })
