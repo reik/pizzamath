@@ -3,7 +3,8 @@ import nodemailer from 'nodemailer'
 export async function sendPasswordResetEmail(to: string, resetUrl: string): Promise<void> {
   const host = process.env.SMTP_HOST
   if (!host) {
-    console.log(`[email] Password reset link for ${to}: ${resetUrl}`)
+    const token = new URL(resetUrl).searchParams.get('token') ?? ''
+    console.log(`[email:dev] Password reset requested for ${to} (token prefix: ${token.slice(0, 8)}…) — set SMTP_HOST to send real email`)
     return
   }
   const transport = nodemailer.createTransport({
