@@ -29,6 +29,11 @@ const forgotPasswordSchema = z.object({
   email: z.string().email(),
 })
 
+const resetPasswordSchema = z.object({
+  token: z.string().min(1),
+  newPassword: z.string().min(8),
+})
+
 authRouter.post('/login', (req, res) => {
   const parsed = loginSchema.safeParse(req.body)
   if (!parsed.success) { res.status(400).json({ message: 'Invalid request', errors: parsed.error.flatten().fieldErrors }); return }
@@ -115,5 +120,26 @@ authRouter.post('/forgot-password', async (req, res) => {
   const resetUrl = `${baseUrl}/reset-password?token=${rawToken}`
 
   await sendPasswordResetEmail(user.email, resetUrl)
+  res.json({ ok: true })
+})
+
+authRouter.post('/reset-password', (req, res) => {
+  const parsed = resetPasswordSchema.safeParse(req.body)
+  if (!parsed.success) { res.status(400).json({ message: 'token and newPassword (min 8 chars) required' }); return }
+
+  const { token, newPassword } = parsed.data
+  const tokenHash = crypto.createHash('sha256').update(token).digest('hex')
+
+  const row = db.prepare('SELECT user_id, expires_at FROM password_reset_tokens WHERE token_hash = ?')
+    .get(tokenHash) as { user_id: string; expires_at: string } | undefined
+
+  if (!row || new Date(row.expires_at) < new Date()) {
+    res.status(400).json({ message: 'Invalid or expired reset link' }); return
+  }
+
+  db.prepare('UPDATE users SET password_hash = ? WHERE id = ?')
+    .run(bcrypt.hashSync(newPassword, 10), row.user_id)
+  db.prepare('DELETE FROM password_reset_tokens WHERE token_hash = ?').run(tokenHash)
+
   res.json({ ok: true })
 })
