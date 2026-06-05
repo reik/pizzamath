@@ -64,4 +64,9 @@ describe('LoginForm', () => {
     // Assert
     expect(screen.getByRole('link', { name: /sign up/i })).toHaveAttribute('href', '/register')
   })
+
+  it('should_link_to_forgot_password_page', () => {
+    renderWithProviders(<LoginForm />)
+    expect(screen.getByRole('link', { name: /forgot password/i })).toHaveAttribute('href', '/forgot-password')
+  })
 })
