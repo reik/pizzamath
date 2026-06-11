@@ -119,7 +119,11 @@ authRouter.post('/forgot-password', async (req, res) => {
   const baseUrl = process.env.APP_BASE_URL ?? 'http://localhost:5175/pizzamath'
   const resetUrl = `${baseUrl}/reset-password?token=${rawToken}`
 
-  await sendPasswordResetEmail(user.email, resetUrl)
+  try {
+    await sendPasswordResetEmail(user.email, resetUrl)
+  } catch {
+    // email delivery failure is non-fatal; user can request another link
+  }
   res.json({ ok: true })
 })
 

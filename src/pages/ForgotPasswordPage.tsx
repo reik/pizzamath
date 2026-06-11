@@ -8,14 +8,20 @@ import { cn } from '@/utils/cn'
 export function ForgotPasswordPage() {
   useEffect(() => { document.title = 'Reset Password — PizzaMath' }, [])
   const [submitted, setSubmitted] = useState(false)
+  const [apiError, setApiError] = useState('')
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ForgotPasswordInput>({
     resolver: zodResolver(forgotPasswordSchema),
   })
 
   async function onSubmit(data: ForgotPasswordInput) {
-    await authApi.forgotPassword(data)
-    setSubmitted(true)
+    setApiError('')
+    try {
+      await authApi.forgotPassword(data)
+      setSubmitted(true)
+    } catch (err) {
+      setApiError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    }
   }
 
   return (
@@ -56,6 +62,8 @@ export function ForgotPasswordPage() {
                 <p id="fp-email-error" className="mt-1 text-xs text-red-600">{errors.email.message}</p>
               )}
             </div>
+
+            {apiError && <p className="text-sm text-red-600">{apiError}</p>}
 
             <button
               type="submit"
