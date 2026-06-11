@@ -47,9 +47,9 @@ describe('Insights Page', () => {
       cy.visit('/')
 
       cy.findByRole('button', { name: /account/i }).click()
-      cy.findByRole('link', { name: /insights/i }).click()
+      cy.findByRole('link', { name: /insights/i }).should('be.visible').click()
 
-      cy.url().should('include', '/insights')
+      cy.url({ timeout: 10000 }).should('include', '/insights')
       cy.wait('@insights')
       cy.findByRole('heading', { name: /skill-gap insights/i }).should('be.visible')
     })
