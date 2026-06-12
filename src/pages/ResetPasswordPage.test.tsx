@@ -6,6 +6,10 @@ import { authApi } from '@/api/auth'
 import { renderWithProviders } from '@/test/renderWithProviders'
 
 describe('ResetPasswordPage', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
   it('should_render_new_password_and_confirm_inputs', () => {
     renderWithProviders(<ResetPasswordPage />, {
       routerProps: { initialEntries: ['/reset-password?token=abc123'] },
