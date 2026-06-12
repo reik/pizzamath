@@ -35,3 +35,6 @@ server/data/*.db-wal
 
 # Runtime-stored user upload images (created by the app/e2e at runtime)
 uploads/
+
+# Git worktrees for parallel feature development
+.worktrees/
