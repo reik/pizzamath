@@ -121,8 +121,11 @@ authRouter.post('/forgot-password', async (req, res) => {
 
   try {
     await sendPasswordResetEmail(user.email, resetUrl)
-  } catch {
-    // email delivery failure is non-fatal; user can request another link
+  } catch (err) {
+    console.warn('[email] Password reset email failed', {
+      userId: user.id,
+      error: err instanceof Error ? err.message : err,
+    })
   }
   res.json({ ok: true })
 })
