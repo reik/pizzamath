@@ -1,9 +1,16 @@
 import { defineConfig } from "vitest/config";
+import { loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  const frontendPort = parseInt(env.VITE_PORT ?? '5175');
+  const backendPort = parseInt(env.BACKEND_PORT ?? '3001');
+  const backendOrigin = `http://localhost:${backendPort}`;
+
+  return {
   base: "/pizzamath/",
   plugins: [
     react(),
@@ -26,11 +33,11 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5175,
+    port: frontendPort,
     strictPort: true,
     proxy: {
-      "/api": "http://localhost:3001",
-      "/uploads": "http://localhost:3001",
+      "/api": backendOrigin,
+      "/uploads": backendOrigin,
     },
   },
   test: {
@@ -40,4 +47,5 @@ export default defineConfig({
     css: true,
     exclude: ["node_modules", "dist", "cypress", "server/**"],
   },
+  };
 });
