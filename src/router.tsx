@@ -16,12 +16,16 @@ import { MyUploadsPage } from './pages/MyUploadsPage'
 import { UploadedWorksheetPage } from './pages/UploadedWorksheetPage'
 import { GradingPage } from './pages/GradingPage'
 import { InsightsPage } from './pages/InsightsPage'
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage'
+import { ResetPasswordPage } from './pages/ResetPasswordPage'
 
 export const router = createBrowserRouter([
   // Public routes
   { path: '/login', element: <LoginPage /> },
   { path: '/register', element: <RegisterPage /> },
   { path: '/subscribe', element: <SubscribePage /> },
+  { path: '/forgot-password', element: <ForgotPasswordPage /> },
+  { path: '/reset-password', element: <ResetPasswordPage /> },
 
   // Authenticated routes
   {

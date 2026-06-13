@@ -13,8 +13,13 @@ export const registerSchema = z.object({
   plan: z.enum(['monthly', 'annual']),
 })
 
+export const forgotPasswordSchema = z.object({
+  email: z.string().email('Valid email required'),
+})
+
 export type LoginInput = z.infer<typeof loginSchema>
 export type RegisterInput = z.infer<typeof registerSchema>
+export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>
 
 export interface AuthResponse {
   token: string
@@ -33,4 +38,10 @@ export const authApi = {
 
   me: () =>
     apiFetch<User>('/api/auth/me'),
+
+  forgotPassword: (data: ForgotPasswordInput) =>
+    apiFetch<{ ok: boolean }>('/api/auth/forgot-password', { method: 'POST', body: JSON.stringify(data) }),
+
+  resetPassword: (data: { token: string; newPassword: string }) =>
+    apiFetch<{ ok: boolean }>('/api/auth/reset-password', { method: 'POST', body: JSON.stringify(data) }),
 }
