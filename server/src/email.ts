@@ -6,12 +6,18 @@ export async function sendPasswordResetEmail(to: string, resetUrl: string): Prom
   if (!host) {
     const token = new URL(resetUrl).searchParams.get('token') ?? ''
     const fingerprint = crypto.createHash('sha256').update(token).digest('hex').slice(0, 12)
-    console.log(`[email:dev] Password reset requested for ${to} (token fingerprint: ${fingerprint}…) — set SMTP_HOST to send real email`)
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`[email:dev] Reset link for ${to}: ${resetUrl}`)
+    } else {
+      console.log(`[email] Password reset requested for ${to} (fingerprint: ${fingerprint}…) — SMTP_HOST not configured`)
+    }
     return
   }
+  const port = Number(process.env.SMTP_PORT ?? 587)
   const transport = nodemailer.createTransport({
     host,
-    port: Number(process.env.SMTP_PORT ?? 587),
+    port,
+    secure: port === 465,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
