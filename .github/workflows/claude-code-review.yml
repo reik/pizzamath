@@ -2,23 +2,27 @@ name: Claude Code Review
 
 on:
   pull_request:
-    types: [opened, synchronize, ready_for_review, reopened]
-    # Optional: Only run on specific file changes
-    # paths:
-    #   - "src/**/*.ts"
-    #   - "src/**/*.tsx"
-    #   - "src/**/*.js"
-    #   - "src/**/*.jsx"
+    # Dropped 'synchronize' and 'reopened': every push to a PR branch used to
+    # trigger a full-diff review, so rapid pushes burned tokens N times over.
+    # Re-review on demand by commenting '@claude review' (handled by claude.yml).
+    types: [opened, ready_for_review]
+    # Only review actual source changes — config/docs/workflow-only PRs skip review.
+    paths:
+      - "src/**"
+      - "server/src/**"
+
+# Cancel an in-flight review when a newer push/event arrives for the same PR,
+# so a burst of commits costs one review (the latest) instead of one per push.
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
   claude-review:
-    # Optional: Filter by PR author
-    # if: |
-    #   github.event.pull_request.user.login == 'external-contributor' ||
-    #   github.event.pull_request.user.login == 'new-developer' ||
-    #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
-
-    if: github.event.pull_request.head.repo.fork == false
+    # Skip forks (no secrets) and drafts (still iterating — review when ready).
+    if: >
+      github.event.pull_request.head.repo.fork == false &&
+      github.event.pull_request.draft == false
 
     runs-on: ubuntu-latest
     permissions:
@@ -40,6 +44,11 @@ jobs:
           plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
           plugins: 'code-review@claude-code-plugins'
           prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
+          # Per-run cost caps: bound the agent loop and pin a cost-efficient model
+          # for routine review (Haiku 4.5 ~= 75% cheaper than Sonnet). Bump --model
+          # to claude-sonnet-4-6 if you want more thorough reviews.
+          # NOTE: confirm flag names against the action's docs/usage.md before relying on them.
+          claude_args: '--max-turns 15 --model claude-haiku-4-5-20251001'
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 

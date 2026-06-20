@@ -12,7 +12,11 @@ on:
 
 jobs:
   claude:
+    # Never let a bot's own comment/review re-trigger this workflow (loop guard):
+    # require a human actor, then evaluate the original @claude-mention conditions.
     if: |
+      !endsWith(github.actor, '[bot]') &&
+      (
       (
         github.event_name == 'issue_comment' &&
         contains(github.event.comment.body, '@claude') &&
@@ -32,6 +36,7 @@ jobs:
         github.event_name == 'issues' &&
         (contains(github.event.issue.body || '', '@claude') || contains(github.event.issue.title || '', '@claude')) &&
         contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
+      )
       )
     runs-on: ubuntu-latest
     permissions:
