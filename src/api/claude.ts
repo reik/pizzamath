@@ -31,6 +31,8 @@ function authHeaders(): Record<string, string> {
 
 function toFriendlyApiError(err: unknown): Error {
   const msg = err instanceof Error ? err.message : String(err)
+  if (msg === 'Failed to fetch' || msg.includes('NetworkError') || msg.includes('network request failed'))
+    return new Error('Could not reach the server. It may be starting up — please wait a moment and try again.')
   if (msg.includes('credit balance is too low') || msg.includes('insufficient_quota'))
     return new Error('Anthropic API credits are exhausted. Please top up at console.anthropic.com → Plans & Billing.')
   if (msg.includes('401') || msg.includes('authentication'))
