@@ -34,7 +34,7 @@ server/data/*.db-wal
 /grading-result-verify.png
 
 # Runtime-stored user upload images (created by the app/e2e at runtime)
-uploads/
+/uploads/
 
 # Git worktrees for parallel feature development
 .worktrees/
