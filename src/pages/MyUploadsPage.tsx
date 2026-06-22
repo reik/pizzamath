@@ -53,7 +53,7 @@ export function MyUploadsPage() {
       </div>
 
       {showUploader && (
-        <div className="mb-8 rounded-xl border border-orange-200 bg-orange-50 p-4">
+        <div className="mb-8 mx-auto max-w-lg rounded-xl border border-orange-200 bg-orange-50 p-4">
           <h3 className="mb-3 text-sm font-semibold text-orange-900">Upload a Math Problem</h3>
           <UploadZone onUploaded={handleUploaded} />
         </div>
