@@ -1,6 +1,15 @@
 import { http, HttpResponse } from 'msw'
 import { db } from '../db'
 
+const DEMO_USERS: Record<string, { id: string; email: string; password: string; role: string }> = {
+  'admin@pizzamath.com': { id: 'admin-1', email: 'admin@pizzamath.com', password: 'password123', role: 'admin' },
+  'user@pizzamath.com':  { id: 'user-1',  email: 'user@pizzamath.com',  password: 'password123', role: 'user'  },
+}
+
+function getDemoUser(email: string) {
+  return DEMO_USERS[email] ?? null
+}
+
 function getBearerUserId(request: Request): string | null {
   const auth = request.headers.get('Authorization')
   if (!auth?.startsWith('Bearer ')) return null
@@ -10,14 +19,18 @@ function getBearerUserId(request: Request): string | null {
 export const authHandlers = [
   http.post('/api/auth/login', async ({ request }) => {
     const { email, password } = await request.json() as { email: string; password: string }
-    const user = db.user.findFirst({ where: { email: { equals: email } } })
-    if (!user || user.password !== password) {
-      return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 })
+    const dbUser = db.user.findFirst({ where: { email: { equals: email } } })
+    if (dbUser) {
+      if (dbUser.password !== password) return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 })
+      if (dbUser.accountStatus === 'suspended') return HttpResponse.json({ message: 'Account suspended. Contact support.' }, { status: 403 })
+      return HttpResponse.json({ token: dbUser.id, user: toUserDto(dbUser) })
     }
-    if (user.accountStatus === 'suspended') {
-      return HttpResponse.json({ message: 'Account suspended. Contact support.' }, { status: 403 })
-    }
-    return HttpResponse.json({ token: user.id, user: toUserDto(user) })
+    const demo = getDemoUser(email)
+    if (!demo || demo.password !== password) return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 })
+    return HttpResponse.json({
+      token: demo.id,
+      user: { id: demo.id, email: demo.email, role: demo.role, accountStatus: 'active', subscription: { status: 'active', plan: 'annual', expiresAt: '2027-12-31T00:00:00.000Z' }, createdAt: '2026-01-01T00:00:00.000Z' },
+    })
   }),
 
   http.post('/api/auth/register', async ({ request }) => {
@@ -70,8 +83,10 @@ export const authHandlers = [
     const userId = getBearerUserId(request)
     if (!userId) return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 })
     const user = db.user.findFirst({ where: { id: { equals: userId } } })
-    if (!user) return HttpResponse.json({ message: 'Not found' }, { status: 404 })
-    return HttpResponse.json(toUserDto(user))
+    if (user) return HttpResponse.json(toUserDto(user))
+    const demo = Object.values(DEMO_USERS).find(u => u.id === userId)
+    if (!demo) return HttpResponse.json({ message: 'Not found' }, { status: 404 })
+    return HttpResponse.json({ id: demo.id, email: demo.email, role: demo.role, accountStatus: 'active', subscription: { status: 'active', plan: 'annual', expiresAt: '2027-12-31T00:00:00.000Z' }, createdAt: '2026-01-01T00:00:00.000Z' })
   }),
 ]
 

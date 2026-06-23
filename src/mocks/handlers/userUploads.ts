@@ -26,6 +26,7 @@ export const userUploadHandlers = [
     const upload = db.userUpload.create({
       id: `upload-${Date.now()}`,
       ...body,
+      schoolGrade: body.schoolGrade ?? '',
       createdAt: new Date().toISOString(),
     })
     return HttpResponse.json(toDto(upload), { status: 201 })

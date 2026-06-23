@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { apiFetch } from '@/utils/apiFetch'
 import { getToken } from '@/features/auth/store'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ''
+import { API_BASE } from './config'
 import type { UserUpload } from '@/types/userUpload'
 
 export const createUploadSchema = z.object({

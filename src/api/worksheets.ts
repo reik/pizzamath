@@ -3,7 +3,7 @@ import type { Category, Worksheet, WorksheetFilters } from '@/types/worksheet'
 import { apiFetch } from '@/utils/apiFetch'
 import { getToken } from '@/features/auth/store'
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ''
+import { API_BASE } from './config'
 
 export const worksheetFormSchema = z.object({
   title: z.string().min(1, 'Title required'),

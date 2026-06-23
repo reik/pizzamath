@@ -21,8 +21,8 @@ export const worksheetHandlers = [
       worksheets = worksheets.filter((w) =>
         tokens.every(
           (token) =>
-            w.title.toLowerCase().includes(token) ||
-            w.content.toLowerCase().includes(token),
+            (w.title as string).toLowerCase().includes(token) ||
+            (w.content as string).toLowerCase().includes(token),
         ),
       )
     }
@@ -45,6 +45,7 @@ export const worksheetHandlers = [
     const worksheet = db.worksheet.create({
       id: `ws-${Date.now()}`,
       ...body,
+      schoolGrade: body.schoolGrade ?? '',
       createdAt: new Date().toISOString(),
     })
     return HttpResponse.json(toDto(worksheet), { status: 201 })

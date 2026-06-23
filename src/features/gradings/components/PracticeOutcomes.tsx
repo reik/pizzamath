@@ -1,4 +1,4 @@
-import { ERROR_CATEGORIES } from '@/types/errorTaxonomy'
+import { ERROR_CATEGORIES, type ErrorCategoryId } from '@/types/errorTaxonomy'
 import type { PracticeOutcome } from '@/api/gradings'
 
 const LABEL_BY_ID = new Map(ERROR_CATEGORIES.map((c) => [c.id, c.label]))
@@ -21,7 +21,7 @@ export function PracticeOutcomes({ outcomes }: PracticeOutcomesProps) {
         const style = STATUS_STYLE[o.status]
         return (
           <li key={o.category} className="flex items-center justify-between gap-3 text-sm">
-            <span className="text-gray-800">{LABEL_BY_ID.get(o.category) ?? o.category}</span>
+            <span className="text-gray-800">{LABEL_BY_ID.get(o.category as ErrorCategoryId) ?? o.category}</span>
             <div className="flex items-center gap-3">
               <span className="text-xs text-gray-500">
                 pre {o.preDrillErrors} · post {o.postDrillErrors}
