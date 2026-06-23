@@ -24,7 +24,7 @@ describe('ResetPasswordPage', () => {
     renderWithProviders(<ResetPasswordPage />, {
       routerProps: { initialEntries: ['/reset-password?token=abc123'] },
     })
-    await user.type(screen.getByLabelText(/new password/i), 'password123')
+    await user.type(screen.getByLabelText(/new password/i), import.meta.env.VITE_TEST_PASSWORD)
     await user.type(screen.getByLabelText(/confirm/i), 'different456')
     await user.click(screen.getByRole('button', { name: /set new password/i }))
     expect(await screen.findByText(/passwords do not match/i)).toBeInTheDocument()
@@ -36,8 +36,8 @@ describe('ResetPasswordPage', () => {
     renderWithProviders(<ResetPasswordPage />, {
       routerProps: { initialEntries: ['/reset-password?token=bad-token'] },
     })
-    await user.type(screen.getByLabelText(/new password/i), 'password123')
-    await user.type(screen.getByLabelText(/confirm/i), 'password123')
+    await user.type(screen.getByLabelText(/new password/i), import.meta.env.VITE_TEST_PASSWORD)
+    await user.type(screen.getByLabelText(/confirm/i), import.meta.env.VITE_TEST_PASSWORD)
     await user.click(screen.getByRole('button', { name: /set new password/i }))
     expect(await screen.findByText(/invalid or expired/i, { timeout: 5000 })).toBeInTheDocument()
   })

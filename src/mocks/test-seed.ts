@@ -42,7 +42,7 @@ const WORKSHEETS = [
 
 const USERS = [
   {
-    id: 'admin-1', email: 'abc@abc.co', password: 'password123', role: 'admin',
+    id: 'admin-1', email: 'abc@abc.co', password: import.meta.env.VITE_TEST_PASSWORD, role: 'admin',
     accountStatus: 'active', subscriptionStatus: 'active', subscriptionPlan: 'annual',
     subscriptionExpiresAt: '2027-01-01T00:00:00.000Z', createdAt: '2026-01-01T00:00:00.000Z',
   },

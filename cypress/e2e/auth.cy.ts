@@ -23,7 +23,7 @@ describe('Authentication', () => {
     it('should show error message with invalid email', () => {
       // Arrange & Act
       cy.get('input[type="email"]').type('invalid-email')
-      cy.get('input[type="password"]').type('password123')
+      cy.get('input[type="password"]').type(Cypress.env('TEST_PASSWORD'))
       cy.findByRole('button', { name: /sign in/i }).click()
 
       // Assert
