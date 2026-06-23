@@ -27,13 +27,12 @@ jobs:
 
       - run: npm run build
         env:
-          VITE_TEST_PASSWORD: ${{ secrets.VITE_TEST_PASSWORD }}
+          VITE_TEST_PASSWORD: ${{ secrets.VITE_TEST_PASSWORD || vars.VITE_TEST_PASSWORD }}
 
       - name: Configure git for gh-pages push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
       - run: npm run deploy
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
