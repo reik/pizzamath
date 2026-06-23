@@ -136,7 +136,16 @@ export function UploadZone({ onUploaded }: UploadZoneProps) {
       </div>
 
       {status === 'error' && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{errorMsg}</p>
+        <div className="flex items-start gap-3 rounded-lg bg-red-50 px-3 py-2">
+          <p className="flex-1 text-sm text-red-700">{errorMsg}</p>
+          <button
+            type="button"
+            onClick={() => { setStatus('idle'); setErrorMsg('') }}
+            className="shrink-0 text-xs font-medium text-red-600 underline hover:text-red-800"
+          >
+            Try again
+          </button>
+        </div>
       )}
     </div>
   )
