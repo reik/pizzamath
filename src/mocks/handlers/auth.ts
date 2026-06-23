@@ -1,9 +1,11 @@
 import { http, HttpResponse } from 'msw'
 import { db } from '../db'
 
+const DEMO_PASSWORD = import.meta.env.VITE_TEST_PASSWORD as string
+
 const DEMO_USERS: Record<string, { id: string; email: string; password: string; role: string }> = {
-  'admin@pizzamath.com': { id: 'admin-1', email: 'admin@pizzamath.com', password: 'password123', role: 'admin' },
-  'user@pizzamath.com':  { id: 'user-1',  email: 'user@pizzamath.com',  password: 'password123', role: 'user'  },
+  'admin@pizzamath.com': { id: 'admin-1', email: 'admin@pizzamath.com', password: DEMO_PASSWORD, role: 'admin' },
+  'user@pizzamath.com':  { id: 'user-1',  email: 'user@pizzamath.com',  password: DEMO_PASSWORD, role: 'user'  },
 }
 
 function getDemoUser(email: string) {

@@ -3,7 +3,7 @@ import { db } from './db'
 db.user.create({
   id: 'admin-1',
   email: 'admin@pizzamath.com',
-  password: 'password123',
+  password: import.meta.env.VITE_TEST_PASSWORD as string,
   role: 'admin',
   accountStatus: 'active',
   subscriptionStatus: 'active',
@@ -15,7 +15,7 @@ db.user.create({
 db.user.create({
   id: 'user-1',
   email: 'user@pizzamath.com',
-  password: 'password123',
+  password: import.meta.env.VITE_TEST_PASSWORD as string,
   role: 'user',
   accountStatus: 'active',
   subscriptionStatus: 'active',
