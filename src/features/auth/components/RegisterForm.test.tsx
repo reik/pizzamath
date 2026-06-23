@@ -43,7 +43,7 @@ describe('RegisterForm', () => {
 
     // Act — use the seeded admin email
     await user.type(screen.getByLabelText(/email/i), 'abc@abc.co')
-    await user.type(screen.getByLabelText(/password/i), 'password123')
+    await user.type(screen.getByLabelText(/password/i), 'TestPass1!')
     await user.click(screen.getByRole('button', { name: /create account/i }))
 
     // Assert
@@ -66,7 +66,7 @@ describe('RegisterForm', () => {
 
     // Act
     await user.type(screen.getByLabelText(/email/i), 'fresh@test.pizzamath')
-    await user.type(screen.getByLabelText(/password/i), 'password123')
+    await user.type(screen.getByLabelText(/password/i), 'TestPass1!')
     await user.click(screen.getByRole('button', { name: /create account/i }))
 
     // Assert — no error message appears
