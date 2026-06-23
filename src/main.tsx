@@ -5,10 +5,12 @@ import './index.css'
 import App from './App'
 
 async function enableMocking() {
-  if (!import.meta.env.DEV) return
   if (import.meta.env.VITE_USE_MOCK === 'false') return
   const { worker } = await import('./mocks/browser')
-  return worker.start({ onUnhandledRequest: 'bypass' })
+  return worker.start({
+    onUnhandledRequest: 'bypass',
+    serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` },
+  }).catch(() => undefined)
 }
 
 const queryClient = new QueryClient({
