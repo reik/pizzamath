@@ -15,7 +15,7 @@ export default defineConfig({
     responseTimeout: 8000,
     env: {
       TEST_EMAIL: process.env.CYPRESS_TEST_EMAIL ?? 'cypress@pizzamath.test',
-      TEST_PASSWORD: process.env.CYPRESS_TEST_PASSWORD ?? 'cypress123',
+      TEST_PASSWORD: process.env.CYPRESS_TEST_PASSWORD,
     },
     setupNodeEvents(on) {
       on('before:browser:launch', (browser, launchOptions) => {
