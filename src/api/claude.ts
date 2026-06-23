@@ -19,7 +19,7 @@ const metadataSchema = z.object({
 
 export type GeneratedMetadata = z.infer<typeof metadataSchema>
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? ''
+import { API_BASE } from './config'
 
 function authHeaders(): Record<string, string> {
   const token = getToken()
