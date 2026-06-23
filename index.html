@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/pizzamath/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pizzamath-app</title>
+    <script>
+      // GitHub Pages SPA: restore path encoded by 404.html
+      (function() {
+        var p = window.location.search.slice(1).split('&').find(function(s) { return s.startsWith('p=') })
+        if (p) {
+          var path = decodeURIComponent(p.slice(2)).replace(/&/, '?')
+          window.history.replaceState(null, '', '/' + path + window.location.hash)
+        }
+      })()
+    </script>
+    <script type="module" crossorigin src="/pizzamath/assets/index-D8YCSsiZ.js"></script>
+    <link rel="modulepreload" crossorigin href="/pizzamath/assets/chunk-zsgVPwQN.js">
+    <link rel="modulepreload" crossorigin href="/pizzamath/assets/preload-helper-BkwbPKfJ.js">
+    <link rel="stylesheet" crossorigin href="/pizzamath/assets/index-BFlm0DEd.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
