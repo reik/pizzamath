@@ -6,7 +6,7 @@ interface WorksheetSeed {
   categoryId: string
   subcategoryId: string
   level: string
-  schoolGrade: string | null
+  schoolGrade: string
   author: string
   content: string
   answerContent: string
