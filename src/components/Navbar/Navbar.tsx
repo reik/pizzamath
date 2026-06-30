@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/features/auth'
-import { CategoryDropdown } from './CategoryDropdown'
-import { SubcategoryDropdown } from './SubcategoryDropdown'
 import { SearchBar } from './SearchBar'
 import { AccountMenu } from './AccountMenu'
 
@@ -35,10 +33,8 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Row 2: Category, Subcategory, Search */}
+      {/* Row 2: Search */}
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 pb-3">
-        <CategoryDropdown />
-        <SubcategoryDropdown />
         <div className="flex-1" />
         <SearchBar />
       </div>
