@@ -4,6 +4,7 @@ import { useWorksheets, useCategories, WorksheetCard } from '@/features/workshee
 import { useUserUploads, UploadedWorksheetCard } from '@/features/uploads'
 import { useAuthStore } from '@/features/auth/store'
 import { slugify } from '@/utils/slugify'
+import { FilterControls } from '@/features/worksheets/FilterControls'
 import type { UserUpload } from '@/types/userUpload'
 
 export function BrowsePage() {
@@ -69,6 +70,7 @@ export function BrowsePage() {
       <h1 className="mb-4 text-xl font-semibold text-gray-800">
         Worksheets <span className="text-sm font-normal text-gray-500">({totalCount})</span>
       </h1>
+      <FilterControls />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredUploads.map((upload) => (
           <UploadedWorksheetCard key={upload.id} upload={upload} categoryName={categoryMap[upload.categoryId]} />
