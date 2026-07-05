@@ -11,7 +11,7 @@ import { generateTargetedPractice } from '../claude/targetedGen.js'
 import { isErrorCategoryId, type ErrorCategoryId } from '../errorTaxonomy.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const UPLOADS_DIR = join(__dirname, '../../../uploads')
+const UPLOADS_DIR = join(__dirname, '../../uploads')
 
 export const gradingsRouter = Router()
 

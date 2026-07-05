@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { v4 as uuid } from 'uuid'
-import { writeFileSync, unlinkSync, existsSync } from 'fs'
+import { writeFileSync, unlinkSync, existsSync, mkdirSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { z } from 'zod'
@@ -26,7 +26,8 @@ const updateUploadSchema = z.object({
 })
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const UPLOADS_DIR = join(__dirname, '../../../uploads')
+const UPLOADS_DIR = join(__dirname, '../../uploads')
+mkdirSync(UPLOADS_DIR, { recursive: true })
 const IMAGE_BASE = (process.env.PUBLIC_URL ?? '').replace(/\/$/, '') + '/uploads'
 
 export const userUploadsRouter = Router()
